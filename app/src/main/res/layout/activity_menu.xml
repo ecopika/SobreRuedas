@@ -9,8 +9,54 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.ub.pis2016.dperezgu12alumnes.sobreruedas.MenuActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="98dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="jugar"
+            android:onClick="seleccioPersonatge"
+            android:id="@+id/btnJugar"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="opcions"
+            android:onClick="seleccioOpcions"
+            android:id="@+id/btnOpcions"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="perfil"
+            android:onClick="seleccioPerfil"
+            android:id="@+id/btnPerfil"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="puntuacio"
+            android:onClick="taulaPuntuacio"
+            android:id="@+id/btnPuntuacio"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="credits"
+            android:id="@+id/btnCredits"
+            android:onClick="Credits"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 </RelativeLayout>
