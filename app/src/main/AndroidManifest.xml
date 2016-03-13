@@ -9,17 +9,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MenuActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".seleccioPersonatgeActivity" />
         <activity android:name=".OpcionsActivity" />
         <activity android:name=".PerfilActivity" />
         <activity android:name=".TaulaPuntuacioActivity" />
-        <activity android:name=".CreditsActivity"></activity>
+        <activity android:name=".CreditsActivity" />
+        <activity
+            android:name=".IntroActivity"
+            android:label="@string/title_activity_intro"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
