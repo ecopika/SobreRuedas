@@ -25,6 +25,6 @@ dependencies {
     compile files('libs/gdx-backend-android.jar')
     compile files('libs/gdx.jar')
     compile files('libs/slick-ae.jar')
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:design:23.2.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
 }
