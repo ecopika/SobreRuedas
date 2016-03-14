@@ -1,0 +1,21 @@
+Pantalla Jugar -> (Jesús)
+
+Imatge del personatge, a dalt a l'esquerra, la resta descripció del personatge. Dos ImageViews a baix de la pantalla per canviar personatges, accepti slide.Boto de jugar.
+
+Puntuació -> (Andreu)
+
+Un contenidor trasparent al centre de la pantalla amb una taula, de puntuacions.
+Gif del personatge | Nom personatge | puntuació(nº obstacles superats) | nivell dificultat
+
+Personatge
+
+Igual que l'anterior però carregegant en comptse de la taula de puntuacions la llista de personatges del perfil.
+
+Opcions -> (Xavi)
+
+Acabar de maquetar la pantalla, afegir botó guardar, i guardar i carregar les dades emprant les SharedPreferences.
+
+Crèdits -> (Dani)
+
+Crear les animacions dels crèdits, emprant canvas.
+
