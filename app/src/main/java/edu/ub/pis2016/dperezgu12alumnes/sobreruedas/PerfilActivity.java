@@ -1,9 +1,10 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class PerfilActivity extends AppCompatActivity {
+public class PerfilActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

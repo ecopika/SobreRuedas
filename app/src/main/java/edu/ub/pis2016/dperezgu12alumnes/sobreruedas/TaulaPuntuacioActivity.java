@@ -1,9 +1,10 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class TaulaPuntuacioActivity extends AppCompatActivity {
+public class TaulaPuntuacioActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

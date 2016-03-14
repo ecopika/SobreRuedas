@@ -17,12 +17,12 @@ import android.view.SurfaceView;
 public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private PanelThread _thread;
-    private DisplayMetrics  tamanyPantalla;
+    private CanvasUtils utils;
 
     public DrawingPanel(Context context, DisplayMetrics metric){
         super(context);
         getHolder().addCallback(this);
-        tamanyPantalla = metric;
+        utils = new CanvasUtils(metric);
     }
 
     public void onDraw(Canvas canvas){
@@ -32,41 +32,15 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
         Bitmap titol = BitmapFactory.decodeResource(getResources(),R.mipmap.sobreruedas);
         Bitmap cadira = BitmapFactory.decodeResource(getResources(),R.mipmap.nuriafotograma);
         Bitmap fons = BitmapFactory.decodeResource(getResources(),R.mipmap.intro);
-        canvas.drawBitmap(escalaImatge(fons,getHeightScreen(),getWidthScreen()),0,0,paint);
-        canvas.drawBitmap(escalaImatge(titol,200,700), 40, 50, null);
-        canvas.drawBitmap(escalaImatge(cadira,500,250), 300, 700, null);
+        canvas.drawBitmap(utils.escalaImatge(fons,utils.getHeightScreen(),utils.getWidthScreen()),0,0,paint);
+        canvas.drawBitmap(utils.escalaImatge(titol, 200, 700), 40, 50, null);
+        canvas.drawBitmap(utils.escalaImatge(cadira,500,250), 300, 700, null);
 
 
 
     }
 
-    //funcio que retorna l'amplada de la pantalla
-    public int getWidthScreen(){
-        return tamanyPantalla.widthPixels;
-    }
 
-    //funcio que retorna l'alçada de la pantalla
-    public int getHeightScreen(){
-        return tamanyPantalla.heightPixels;
-    }
-
-
-
-    //funció per escalar una imatge
-    public Bitmap escalaImatge(Bitmap bm,int newHeight,int newWidth){
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float escalaWidth = ((float) newWidth) / width;
-        float escalaHeight = ((float) newHeight) / height;
-        //es creea una matriu per manipular el tamany d'una imatge
-        Matrix matrix = new Matrix();
-        //escalem la imatge bitmap
-        matrix.postScale(escalaWidth,escalaHeight);
-        //generem el nou bitmap
-        return Bitmap.createBitmap(bm,0,0,width,height,matrix,false);
-
-
-    }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
