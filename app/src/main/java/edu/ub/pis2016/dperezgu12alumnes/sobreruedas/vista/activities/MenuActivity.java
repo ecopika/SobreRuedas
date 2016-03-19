@@ -1,14 +1,14 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
+
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 
 public class MenuActivity extends Activity {
 

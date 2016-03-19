@@ -1,4 +1,4 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.utilitats;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -16,7 +16,7 @@ import android.util.DisplayMetrics;
 public class CanvasUtils {
 
 
-    private DisplayMetrics tamanyPantalla;
+    private static DisplayMetrics tamanyPantalla = new DisplayMetrics();
 
     //constructor que necessita la metrica de la pantalla
     public CanvasUtils(DisplayMetrics met){
@@ -26,19 +26,19 @@ public class CanvasUtils {
 
 
     //funcio que retorna l'amplada de la pantalla
-    public int getWidthScreen(){
+    public static int getWidthScreen(){
         return tamanyPantalla.widthPixels;
     }
 
     //funcio que retorna l'alçada de la pantalla
-    public int getHeightScreen(){
+    public static int getHeightScreen(){
         return tamanyPantalla.heightPixels;
     }
 
 
 
     //funció per escalar una imatge
-    public Bitmap escalaImatge(Bitmap bm,int newHeight,int newWidth){
+    public static Bitmap escalaImatge(Bitmap bm,int newHeight,int newWidth){
         int width = bm.getWidth();
         int height = bm.getHeight();
         float escalaWidth = ((float) newWidth) / width;

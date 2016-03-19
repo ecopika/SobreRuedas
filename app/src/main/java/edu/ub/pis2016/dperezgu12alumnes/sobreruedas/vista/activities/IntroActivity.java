@@ -1,19 +1,16 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.entornsVista.DrawingPanel;
 
 public class IntroActivity extends Activity {
 

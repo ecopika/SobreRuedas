@@ -1,10 +1,12 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.activities;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
+
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 
 public class OpcionsActivity extends Activity {
 

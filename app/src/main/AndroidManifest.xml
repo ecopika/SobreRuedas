@@ -8,16 +8,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MenuActivity">
+        <activity android:name=".vista.activities.MenuActivity">
 
         </activity>
-        <activity android:name=".seleccioPersonatgeActivity" />
-        <activity android:name=".OpcionsActivity" />
-        <activity android:name=".PerfilActivity" />
-        <activity android:name=".TaulaPuntuacioActivity" />
-        <activity android:name=".CreditsActivity" />
+        <activity android:name=".vista.activities.seleccioPersonatgeActivity" />
+        <activity android:name=".vista.activities.OpcionsActivity" />
+        <activity android:name=".vista.activities.PerfilActivity" />
+        <activity android:name=".vista.activities.TaulaPuntuacioActivity" />
+        <activity android:name=".vista.activities.CreditsActivity" />
         <activity
-            android:name=".IntroActivity"
+            android:name=".vista.activities.IntroActivity"
             android:label="@string/title_activity_intro"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

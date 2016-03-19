@@ -1,4 +1,4 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.entornsVista;
 
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;

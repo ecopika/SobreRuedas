@@ -1,15 +1,17 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.entornsVista;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.utilitats.CanvasUtils;
 
 /**
  * Created by ecopika on 11/03/16.
@@ -29,7 +31,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
 
         Paint paint = new Paint();
         canvas.drawColor(Color.BLACK);
-        Bitmap titol = BitmapFactory.decodeResource(getResources(),R.mipmap.sobreruedas);
+        Bitmap titol = BitmapFactory.decodeResource(getResources(), R.mipmap.sobreruedas);
         Bitmap cadira = BitmapFactory.decodeResource(getResources(),R.mipmap.nuriafotograma);
         Bitmap fons = BitmapFactory.decodeResource(getResources(),R.mipmap.intro);
         canvas.drawBitmap(utils.escalaImatge(fons,utils.getHeightScreen(),utils.getWidthScreen()),0,0,paint);
