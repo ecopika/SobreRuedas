@@ -1,10 +1,8 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.activities;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 
 public class TaulaPuntuacioActivity extends Activity {
 
