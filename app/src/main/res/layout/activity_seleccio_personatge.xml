@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+< android.support.v4.view.ViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,12 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-<<<<<<< HEAD
-    tools:context=".vista.activities.seleccioPersonatgeActivity">
-=======
     android:background="@drawable/fonsmenu"
-    tools:context="edu.ub.pis2016.dperezgu12alumnes.sobreruedas.seleccioPersonatgeActivity">
->>>>>>> 211388026a247f81d82b4e89f3eff7919100d616
+    tools:context=".vista.activities.seleccioPersonatgeActivity">
 
     <ImageView
         android:layout_width="115dp"
@@ -57,8 +54,6 @@
             android:layout_height="86dp"
             android:layout_gravity="right"/>
 
-
     </LinearLayout>
 
-
-</RelativeLayout>
+</>
