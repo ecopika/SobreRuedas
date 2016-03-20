@@ -27,51 +27,63 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true">
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fácil"
-        android:onClick="Facil"
-        android:id="@+id/radioButtonFacil"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fácil"
+            android:onClick="Facil"
+            android:id="@+id/radioButtonFacil"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:checked="false" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Moderado"
-        android:onClick="Moderat"
-        android:id="@+id/radioButtonModerat"
-        android:layout_below="@+id/radioButtonFacil"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Moderado"
+            android:onClick="Moderat"
+            android:id="@+id/radioButtonModerat"
+            android:layout_below="@+id/radioButtonFacil"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:checked="false" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Difícil"
-        android:onClick="Dificil"
-        android:id="@+id/radioButtonDificil"
-        android:layout_below="@+id/radioButtonModerat"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Difícil"
+            android:onClick="Dificil"
+            android:id="@+id/radioButtonDificil"
+            android:layout_below="@+id/radioButtonModerat"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:checked="false" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Muy difícil"
-        android:onClick="mDificil"
-        android:id="@+id/radioButtonMoltDificil"
-        android:layout_below="@+id/radioButtonDificil"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Muy difícil"
+            android:onClick="mDificil"
+            android:id="@+id/radioButtonMoltDificil"
+            android:layout_below="@+id/radioButtonDificil"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:checked="false" />
 
-</RadioGroup>
+    </RadioGroup>
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="90dp"
+        android:id="@+id/btnOpcionsGuardar"
+        android:onClick="guardarPreferencies"
+        android:src="@drawable/botonnubemorada"
+        android:layout_below="@id/radioGroup"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="110dp"
+        android:gravity="center"    />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -80,19 +92,8 @@
         android:id="@+id/cbDesactivarSo"
         android:checked="false"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnOpcionsGuardar"
-        android:layout_toEndOf="@+id/btnOpcionsGuardar" />
+        android:layout_alignParentRight="true"
+        />
 
-
-    <ImageView
-        android:layout_width="115dp"
-        android:layout_height="86dp"
-        android:id="@+id/btnOpcionsGuardar"
-        android:background="@drawable/botoncreditos"
-        android:src="@drawable/botonnubemorada"
-        android:layout_marginTop="42dp"
-        android:layout_below="@+id/radioGroup"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
 
 </RelativeLayout>
