@@ -79,7 +79,6 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
                 ((TextView) rootView.findViewById(R.id.textView2)).setText("Descripcio Personatge.");
                 return rootView;
             }
-
         }
     }
 }
