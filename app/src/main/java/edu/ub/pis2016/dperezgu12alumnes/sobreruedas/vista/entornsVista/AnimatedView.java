@@ -53,9 +53,15 @@ public class AnimatedView extends ImageView {
         show = false;
         show2 = false;
         puja = false;
+<<<<<<< HEAD
         nBlanc = new NuvolView("blanca",meuContext,false);
         nMorat1 = new NuvolView("",meuContext,false);
         nMorat2 = new NuvolView("",meuContext,false);
+=======
+        ctrl = new Handler();
+        //nBlanc = new NuvolView("blanca",meuContext);
+        //nMorat1 = new NuvolView("",meuContext);
+>>>>>>> beee9b38350c7c4e79162dbc8b334f98a4e62e72
 
 
         nMorat1.setAmplada(300);
@@ -154,6 +160,7 @@ public class AnimatedView extends ImageView {
             }
 
         }
+<<<<<<< HEAD
         if(!puja && nMorat1.isShowText() && nMorat2.isShowText()){
             //Nuvol morat 1
             //***************************************************************************************
@@ -189,6 +196,21 @@ public class AnimatedView extends ImageView {
             c.drawBitmap(CanvasUtils.escalaImatge(nMorat2.getImatge().getBitmap(),nMorat2.getAlcada(),nMorat2.getAmplada()),nMorat2.getX(),nMorat2.getY() ,null);
 
 
+=======
+        //c.drawBitmap(CanvasUtils.escalaImatge(nBlanc.getImatge().getBitmap(), nBlanc.getAlcada(), nBlanc.getAmplada()), x - (widthNuvol / 2), y - (heightNuvol / 2), null);
+        if (show){
+            paint.setColor(Color.MAGENTA);
+            paint.setStrokeWidth(12);
+            paint.setTextSize(32f);
+            c.drawText("DESENVOLUPADORS", (nBlanc.getX() - (nBlanc.getAmplada() / 2)) + 10, nBlanc.getY() + 75, paint);
+        }
+
+        if (show2){
+            paint.setColor(Color.WHITE);
+            paint.setStrokeWidth(12);
+            paint.setTextSize(32f);
+           // c.drawText("DESENVOLUPADORS", ( - (widthNuvol / 2)) + 10, y + 75, paint);
+>>>>>>> beee9b38350c7c4e79162dbc8b334f98a4e62e72
         }
 
         c.drawBitmap(CanvasUtils.escalaImatge(nBlanc.getImatge().getBitmap(), nBlanc.getAlcada(), nBlanc.getAmplada()), nBlanc.getX() - (nBlanc.getAmplada() / 2), nBlanc.getY() - (nBlanc.getAlcada() / 2), null);
