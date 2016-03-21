@@ -38,8 +38,8 @@ public class AnimatedView extends ImageView {
         show2 = false;
         puja = false;
         ctrl = new Handler();
-        nBlanc = new NuvolView("blanca",meuContext);
-        nMorat1 = new NuvolView("",meuContext);
+        //nBlanc = new NuvolView("blanca",meuContext);
+        //nMorat1 = new NuvolView("",meuContext);
 
     }
 
@@ -59,7 +59,7 @@ public class AnimatedView extends ImageView {
         //per defecte inicialitzats a -1 tant la X com la Y de qualsevol numero
         if (nBlanc.getX() < 0 && nBlanc.getY() < 0){
             nBlanc.setX(this.getWidth() / 2 - (nBlanc.getAmplada() / 2));
-            nBlanc.setY(this.getHeight()/2-(nBlanc.getAlcada()/2);
+            nBlanc.setY(this.getHeight()/2-(nBlanc.getAlcada()/2));
 
         }else{
 
@@ -81,7 +81,7 @@ public class AnimatedView extends ImageView {
                 puja = false;
             }
         }
-        c.drawBitmap(CanvasUtils.escalaImatge(nBlanc.getImatge().getBitmap(), nBlanc.getAlcada(), nBlanc.getAmplada()), x - (widthNuvol / 2), y - (heightNuvol / 2), null);
+        //c.drawBitmap(CanvasUtils.escalaImatge(nBlanc.getImatge().getBitmap(), nBlanc.getAlcada(), nBlanc.getAmplada()), x - (widthNuvol / 2), y - (heightNuvol / 2), null);
         if (show){
             paint.setColor(Color.MAGENTA);
             paint.setStrokeWidth(12);
@@ -93,7 +93,7 @@ public class AnimatedView extends ImageView {
             paint.setColor(Color.WHITE);
             paint.setStrokeWidth(12);
             paint.setTextSize(32f);
-            c.drawText("DESENVOLUPADORS", ( - (widthNuvol / 2)) + 10, y + 75, paint);
+           // c.drawText("DESENVOLUPADORS", ( - (widthNuvol / 2)) + 10, y + 75, paint);
         }
 
         ctrl.postDelayed(r, FRAM_RATE);
