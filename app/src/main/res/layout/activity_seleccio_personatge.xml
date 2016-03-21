@@ -11,6 +11,7 @@
     android:background="@drawable/fonsmenu"
     tools:context=".vista.activities.seleccioPersonatgeActivity">
 
+
     <ImageView
         android:layout_width="115dp"
         android:layout_height="86dp"
@@ -29,7 +30,7 @@
         android:layout_above="@+id/linearLayout"
         android:layout_alignRight="@+id/linearLayout"
         android:layout_alignEnd="@+id/linearLayout" />
-    
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

@@ -58,6 +58,7 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
         return "OBJECT" + (position + 1);
     }*/
 
+
         public static class SeleccioFragment extends Fragment {
 
             public static final String ARG_SECTION_IMAGE = "section_image";
