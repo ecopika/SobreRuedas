@@ -1,7 +1,12 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.objectesVista;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
+
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 
 /**
  * Created by ecopika on 15/03/16.
@@ -15,10 +20,15 @@ public class TextNuvol {
     private int x;
     private int y;
     private String textValue;
+    private Typeface font;
+    private Context mContext;
 
-    public TextNuvol(){
+    public TextNuvol(Context cnt){
         pnt = new Paint();
         textValue="";
+        mContext = cnt;
+        initDefaultFont();
+
     }
 
 
@@ -26,6 +36,12 @@ public class TextNuvol {
     public String getTextValue() {
         return textValue;
     }
+
+    public void initDefaultFont(){this.font=Typeface.createFromAsset(mContext.getAssets(),"fonts/BrannbollFS_PERSONAL.ttf");setTextFont(this.font);}
+
+    public void setTextFont(Typeface font){this.font=font; this.pnt.setTypeface(font);}
+
+    public Typeface getTextFont(){return this.font;}
 
     public void setTextValue(String textValue) {
         this.textValue = textValue;

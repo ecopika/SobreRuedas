@@ -7,12 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-<<<<<<< HEAD
     tools:context=".vista.activities.seleccioPersonatgeActivity">
-=======
-    android:background="@drawable/fonsmenu"
-    tools:context="edu.ub.pis2016.dperezgu12alumnes.sobreruedas.seleccioPersonatgeActivity">
->>>>>>> 211388026a247f81d82b4e89f3eff7919100d616
 
     <ImageView
         android:layout_width="115dp"

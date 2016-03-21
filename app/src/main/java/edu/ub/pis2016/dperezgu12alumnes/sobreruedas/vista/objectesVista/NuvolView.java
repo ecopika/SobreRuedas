@@ -2,6 +2,7 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.objectesVista;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
@@ -23,20 +24,29 @@ public class NuvolView {
     public NuvolView(String color, Context con, boolean showText){
         this.showText=showText;
         mContext=con;
+        text = new TextNuvol(mContext);
+        x = -1;
+        y = -1;
+        amplada=10;
+        alcada = 10;
         if(color.equals("blanca")){
             imatge = (BitmapDrawable)mContext.getResources().getDrawable(R.drawable.blanca);
+            text.setColor(Color.MAGENTA);
+            setTextStrokeWidth(55);
+            setTextSize(60f);
 
         }
         else{
             imatge = (BitmapDrawable)mContext.getResources().getDrawable(R.drawable.morada);
-
+            text.setColor(Color.WHITE);
+            setTextStrokeWidth(50);
+            setTextSize(40f);
         }
-        x = -1;
-        y = -1;
-        text = new TextNuvol();
-        amplada=10;
-        alcada = 10;
+
     }
+
+
+
 
     public void showText(boolean sh){
         this.showText = sh;
@@ -48,6 +58,18 @@ public class NuvolView {
 
     public void setTextColor(int clr){
         this.text.setColor(clr);
+    }
+
+    public TextNuvol getTextNuvol(){
+        return this.text;
+    }
+
+    public void regeneratePaint(){
+        this.text = new TextNuvol(mContext);
+    }
+
+    public void setPaint(Paint pnt){
+        this.text.setPaint(pnt);
     }
 
     public int getTextColor(){

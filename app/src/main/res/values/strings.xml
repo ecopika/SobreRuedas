@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">SobreRuedas</string>
     <string name="title_activity_intro">IntroActivity</string>
+    <string name="des">Desarrollo</string>
+    <string name="dis">Diseño</string>
+    <string name="e1">Laura Palacios</string>
+    <string name="e2">Esther Prim</string>
+    <string name="d1">Dani Pérez</string>
+    <string name="d2">Andreu Serra</string>
+    <string name="d3">Jesús Acosta</string>
+    <string name="d4">Xavi Farres</string>
 </resources>
