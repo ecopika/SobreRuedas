@@ -1,7 +1,6 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.activities;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;

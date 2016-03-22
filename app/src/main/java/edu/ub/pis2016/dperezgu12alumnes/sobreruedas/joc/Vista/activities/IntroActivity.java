@@ -1,4 +1,4 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.activities;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.entornsVista.DrawingPanel;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.DrawingPanel;
 
 public class IntroActivity extends Activity {
 

@@ -8,13 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-<<<<<<< HEAD
-    tools:context=".vista.activities.seleccioPersonatgeActivity">
-=======
-    android:background="@drawable/fonsmenu"
-    tools:context=".vista.activities.seleccioPersonatgeActivity">
-
->>>>>>> beee9b38350c7c4e79162dbc8b334f98a4e62e72
+    tools:context=".joc.Vista.activities.seleccioPersonatgeActivity"
+    android:background="@drawable/fonsmenu">
 
     <ImageView
         android:layout_width="115dp"

@@ -1,4 +1,4 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.entornsVista;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,7 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.utilitats.CanvasUtils;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 
 /**
  * Created by ecopika on 11/03/16.

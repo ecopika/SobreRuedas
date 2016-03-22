@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/fonsmenu"
-    tools:context=".vista.activities.OpcionsActivity">
+    tools:context=".joc.Vista.activities.OpcionsActivity">
 
     <TextView
         android:layout_width="wrap_content"

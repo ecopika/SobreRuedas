@@ -1,4 +1,4 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.activities;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.app.Activity;
 import android.content.Intent;

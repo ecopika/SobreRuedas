@@ -1,4 +1,4 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.utilitats;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;

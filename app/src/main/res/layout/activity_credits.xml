@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vista.activities.CreditsActivity">
-<edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.entornsVista.AnimatedView
+    tools:context=".joc.Vista.activities.CreditsActivity">
+<edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.AnimatedView
     android:id="@+id/animCredits"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

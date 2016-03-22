@@ -1,8 +1,7 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.activities;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;

@@ -1,4 +1,4 @@
-package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.vista.objectesVista;
+package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesVista;
 
 import android.content.Context;
 import android.graphics.Color;
