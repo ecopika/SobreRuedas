@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".joc.Vista.activities.seleccioPersonatgeActivity"
+    tools:context=".joc.Vista.activities.SeleccioPersonatgeActivity"
     android:background="@drawable/fonsmenu">
 
     <ImageView
@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="115dp"
         android:layout_height="86dp"
-        android:id="@+id/textView2"
+        android:id="@+id/textView"
         android:layout_alignTop="@+id/imageView"
         android:layout_toRightOf="@+id/imageView"
         android:layout_above="@+id/linearLayout"
@@ -38,25 +38,27 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout">
 
-        <ImageView
+        <Button
             android:layout_width="115dp"
             android:layout_height="86dp"
-            android:layout_below="@+id/textView2"
-            android:id="@+id/imageView2"
-            android:layout_gravity="left"/>
+            android:layout_below="@+id/textView"
+            android:id="@+id/buttonL"
+            android:layout_gravity="left"
+            android:onClick="changePageLeft"/>
 
-        <ImageView
+        <ImageButton
             android:layout_width="115dp"
             android:layout_height="86dp"
-            android:id="@+id/imageView3"
+            android:id="@+id/imageButton"
+            android:background="@drawable/botonlugar"
             android:layout_gravity="center_horizontal"/>
 
-        <ImageView
+        <Button
             android:layout_width="115dp"
             android:layout_height="86dp"
-            android:id="@+id/imageView4"
-            android:layout_gravity="right"/>
+            android:id="@+id/buttonR"
+            android:layout_gravity="right"
+            android:onClick="changePageRight"/>
 
     </LinearLayout>
-
 </RelativeLayout>

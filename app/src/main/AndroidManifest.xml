@@ -11,7 +11,7 @@
         <activity android:name=".joc.Vista.activities.MenuActivity">
 
         </activity>
-        <activity android:name=".joc.Vista.activities.seleccioPersonatgeActivity" />
+        <activity android:name=".joc.Vista.activities.SeleccioPersonatgeActivity" />
         <activity android:name=".joc.Vista.activities.OpcionsActivity" />
         <activity android:name=".joc.Vista.activities.PerfilActivity" />
         <activity android:name=".joc.Vista.activities.TaulaPuntuacioActivity" />
