@@ -55,7 +55,8 @@
             android:layout_width="115dp"
             android:layout_height="86dp"
             android:id="@+id/imageView4"
-            android:layout_gravity="right"/>
+            android:layout_gravity="right"
+            />
 
     </LinearLayout>
 

@@ -2,6 +2,8 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc;
 
 import android.graphics.Bitmap;
 
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
+
 /**
  * Created by ecopika on 22/03/16.
  */
@@ -20,6 +22,14 @@ public abstract class Personatge {
     protected String frase;
     protected String somni;
     protected String imatge;
+    protected int x;
+    protected int y;
+    protected int amplada;
+    protected int alcada;
+    protected int velX;
+    protected int velY;
+    protected boolean movX;
+    protected boolean movY;
 
     protected String nom;
 
@@ -38,10 +48,90 @@ public abstract class Personatge {
         this.frase = frase;
         this.somni = somni;
         this.imatge = img;
+        this.alcada = 150;
+        this.amplada = 150;
+        this.y= (CanvasUtils.getHeightScreen()/2)+this.alcada;
+        this.x = 10;
+        this.velX = 0;
+        this.velY = 0;
+        this.movX = false;
+        this.movY = false;
+    }
+
+    public void mouX(){
+        this.x = this.x+this.velX;
+    }
+
+    public void mouY(){
+        this.y = this.y+this.velY;
+    }
+
+    public boolean isMovX() {
+        return movX;
+    }
+
+    public void setMovX(boolean movX) {
+        this.movX = movX;
+    }
+
+    public boolean isMovY() {
+        return movY;
+    }
+
+    public void setMovY(boolean movY) {
+        this.movY = movY;
+    }
+
+    public int getVelX() {
+        return velX;
+    }
+
+    public void setVelX(int velX) {
+        this.velX = velX;
+    }
+
+    public int getVelY() {
+        return velY;
+    }
+
+    public void setVelY(int velY) {
+        this.velY = velY;
     }
 
     public String getImatge() {
         return imatge;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getAmplada() {
+        return amplada;
+    }
+
+    public void setAmplada(int amplada) {
+        this.amplada = amplada;
+    }
+
+    public int getAlcada() {
+        return alcada;
+    }
+
+    public void setAlcada(int alcada) {
+        this.alcada = alcada;
     }
 
     public void setImatge(String imatge) {

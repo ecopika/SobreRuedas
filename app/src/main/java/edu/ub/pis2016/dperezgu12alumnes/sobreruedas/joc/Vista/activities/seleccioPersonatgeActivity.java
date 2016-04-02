@@ -1,5 +1,6 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,15 +31,18 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_pager);
-       // requestWindowFeature(Window.FEATURE_NO_TITLE);
+       requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_view_pager);
+
         adapter = new SeleccioPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
 
+
     }
+
 
     public static class SeleccioPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -92,8 +96,22 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
                 TextView titol = (TextView) rootView.findViewById(R.id.textView2);
                 titol.setText(nuria.getNom());
                 titol.setTextColor(Color.WHITE);
-                titol.setTypeface(Typeface.createFromAsset(getResources().getAssets(),"fonts/BrannbollFS_PERSONAL.ttf"));
+                titol.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
+
+                final ImageView jugar = (ImageView) rootView.findViewById(R.id.imageView4);
+                jugar.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        carregaMapa();
+
+                    }
+                });
+
                 return rootView;
+            }
+
+
+            public void carregaMapa(){
+                startActivity(new Intent(getActivity().getApplicationContext(),MapActivity.class));
             }
         }
     }

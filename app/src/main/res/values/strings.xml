@@ -9,4 +9,5 @@
     <string name="d2">Andreu Serra</string>
     <string name="d3">Jesús Acosta</string>
     <string name="d4">Xavi Farres</string>
+    <string name="title_activity_map">MapActivity</string>
 </resources>

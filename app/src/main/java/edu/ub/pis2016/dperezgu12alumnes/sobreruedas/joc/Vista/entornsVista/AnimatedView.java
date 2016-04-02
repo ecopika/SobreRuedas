@@ -48,6 +48,7 @@ public class AnimatedView extends ImageView {
 
     protected void onDraw(Canvas c){
         Bitmap fons = BitmapFactory.decodeResource(getResources(), R.mipmap.intro);
+        
         c.drawBitmap(CanvasUtils.escalaImatge(fons, CanvasUtils.getHeightScreen(), CanvasUtils.getWidthScreen()), 0, 0, null);
 
 
