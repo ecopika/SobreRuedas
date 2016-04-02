@@ -32,7 +32,11 @@ public class MenuActivity extends Activity {
     }
 
     public void seleccioPersonatge(View view) {
+<<<<<<< HEAD
         startActivity(new Intent(getApplicationContext(), MapActivity.class));
+=======
+        startActivity(new Intent(getApplicationContext(), SeleccioPersonatgeActivity.class));
+>>>>>>> 53b46c5c8db5417a2912e4623d546fd90033aa48
     }
 
     public void seleccioOpcions(View view) {
