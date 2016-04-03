@@ -27,6 +27,8 @@ public class SeleccioFragment extends Fragment{
 
     private ViewHandlerMenu ctrl;//controlador del menu
     private Personatge nuria;
+    public static final String IMAGE = "image";
+    static int[] img = {R.mipmap.nuriafotograma, R.drawable.coche10, R.drawable.coche13};
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -34,12 +36,13 @@ public class SeleccioFragment extends Fragment{
 
         ctrl= new ViewHandlerMenu(this.getContext());
         nuria = ctrl.generatePersonatge();
+        Bundle args = getArguments();
 
         View rootView = inflater.inflate(R.layout.activity_seleccio_personatge, container, false);
         ImageView image1 = (ImageView) rootView.findViewById(R.id.imageView);
-        image1.setImageResource(R.mipmap.nuriafotograma);
+        image1.setImageResource(img[args.getInt(IMAGE)]);
         TextView text = (TextView) rootView.findViewById(R.id.textView);
-        text.setText(readFile());
+        text.setText(readFile(args.getInt(IMAGE)));
         Button buttonL = (Button) rootView.findViewById(R.id.buttonL);
         buttonL.setText("LEFT");
         buttonL.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/calibriz.ttf"));
@@ -50,32 +53,58 @@ public class SeleccioFragment extends Fragment{
         return rootView;
     }
 
-    private String readFile(){
-        /*File file = new File(Environment.getExternalStorageDirectory() + "/texto1.txt");
-        if(!file.exists()){
-            String line = "Don't exist.";
-            return line;
-        }
-        String line = null;
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            line = br.readLine();
-        }catch (IOException e){
-        }
-        return line;*/
-        InputStream inputStream = getResources().openRawResource(R.raw.texto2);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        int i;
-        try{
-            i = inputStream.read();
-            while(i != -1){
-                byteArrayOutputStream.write(i);
-                i = inputStream.read();
-            }
-            inputStream.close();
-        }catch (IOException e) {
+    private String readFile(int i){
+        String text ="";
+        switch (i){
+            case 0:
+                InputStream inputStream = getResources().openRawResource(R.raw.texto2);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                int j;
+                try{
+                    j = inputStream.read();
+                    while(j != -1){
+                        byteArrayOutputStream.write(j);
+                        j = inputStream.read();
+                    }
+                    inputStream.close();
+                }catch (IOException e) {
 
+                }
+                text = byteArrayOutputStream.toString();
+                break;
+            case 1:
+                InputStream inputStream2 = getResources().openRawResource(R.raw.texto1);
+                ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
+                //int i;
+                try{
+                    j = inputStream2.read();
+                    while(j != -1){
+                        byteArrayOutputStream2.write(j);
+                        j = inputStream2.read();
+                    }
+                    inputStream2.close();
+                }catch (IOException e) {
+
+                }
+                text = byteArrayOutputStream2.toString();
+                break;
+            case 2:
+                InputStream inputStream3 = getResources().openRawResource(R.raw.texto3);
+                ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
+                //int i;
+                try{
+                    j = inputStream3.read();
+                    while(j != -1){
+                        byteArrayOutputStream3.write(j);
+                        j = inputStream3.read();
+                    }
+                    inputStream3.close();
+                }catch (IOException e) {
+
+                }
+                text =byteArrayOutputStream3.toString();
+                break;
         }
-        return byteArrayOutputStream.toString();
+        return text;
     }
 }
