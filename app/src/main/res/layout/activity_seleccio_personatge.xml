@@ -35,31 +35,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <Button
-            android:layout_width="115dp"
+            android:layout_width="110dp"
             android:layout_height="86dp"
             android:layout_below="@+id/textView"
             android:id="@+id/buttonL"
-            android:layout_gravity="left"
-            android:onClick="changePageLeft"/>
+            android:background="@drawable/botonnubemorada"
+            android:onClick="changePageLeft"
+            android:paddingTop="28dp"
+            android:paddingRight="10dp" />
 
         <ImageButton
-            android:layout_width="115dp"
+            android:layout_width="110dp"
             android:layout_height="86dp"
             android:id="@+id/imageButton"
             android:background="@drawable/botonlugar"
-            android:onClick="bottonPlay"
-            android:layout_gravity="center_horizontal"/>
+            android:onClick="bottonPlay" />
 
         <Button
-            android:layout_width="115dp"
+            android:layout_width="110dp"
             android:layout_height="86dp"
             android:id="@+id/buttonR"
-            android:layout_gravity="right"
-            android:onClick="changePageRight"/>
+            android:background="@drawable/botonnubemorada"
+            android:onClick="changePageRight"
+            android:paddingTop="28dp"
+            android:paddingRight="10dp" />
 
     </LinearLayout>
 </RelativeLayout>

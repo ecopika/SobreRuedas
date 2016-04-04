@@ -46,14 +46,13 @@ public class SeleccioFragment extends Fragment{
         TextView text = (TextView) rootView.findViewById(R.id.textView);
         text.setText(readFile(args.getInt(IMAGE)));
         Button buttonL = (Button) rootView.findViewById(R.id.buttonL);
-        buttonL.setText("LEFT");
-        buttonL.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/calibriz.ttf"));
+        buttonL.setText("Izquierda");
+        buttonL.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         Button buttonR = (Button) rootView.findViewById(R.id.buttonR);
-        buttonR.setText("RIGHT");
-        buttonR.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/calibriz.ttf"));
+        buttonR.setText("Derecha");
+        buttonR.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         ImageButton btnJugar = (ImageButton) rootView.findViewById(R.id.imageButton);
-
-
+        
         if(args.getInt("noJugar")==0) btnJugar.setVisibility(View.INVISIBLE);
         
 
