@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.view.SurfaceHolder;
 
 import java.io.InputStream;
@@ -28,6 +29,7 @@ public class MapThread extends Thread {
     private Bitmap personatge;
     private Personatge prs;
     private ViewMapaHandler ctrl;
+    private boolean moviment;
 
 
 
@@ -43,6 +45,7 @@ public class MapThread extends Thread {
         mapSize = 3700;
         //initHandler();
         personatge = BitmapFactory.decodeResource(cnt.getResources(), R.mipmap.nuriafotograma);
+        moviment = false;
 
 
     }
@@ -76,8 +79,11 @@ public class MapThread extends Thread {
     }
 
     private void update(){
+        moviment = false;
         if(x>-2500+CanvasUtils.getWidthScreen()) {
+            moviment = true;
             x -= 5;
+
         }
 
 
@@ -88,7 +94,15 @@ public class MapThread extends Thread {
 
         c.drawBitmap(CanvasUtils.escalaImatge(mapa,CanvasUtils.getHeightScreen()+3,mapSize),x,0,null);
 
-       c.drawBitmap(CanvasUtils.escalaImatge(personatge, 400, 400),50,CanvasUtils.getHeightScreen()-500,null);
+        if(moviment){
+            final long now = SystemClock.uptimeMillis();
+            
+
+        }
+        else{
+           c.drawBitmap(CanvasUtils.escalaImatge(personatge, 400, 400),50,CanvasUtils.getHeightScreen()-500,null);
+
+        }
 
     }
 
