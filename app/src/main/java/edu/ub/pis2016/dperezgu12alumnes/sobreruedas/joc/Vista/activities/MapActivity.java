@@ -32,4 +32,9 @@ public class MapActivity extends Activity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        // your code.
+    }
+
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class SeleccioFragment extends Fragment{
     private ViewHandlerMenu ctrl;//controlador del menu
     private Personatge nuria;
     public static final String IMAGE = "image";
+
     static int[] img = {R.mipmap.nuriafotograma, R.drawable.coche10, R.drawable.coche13};
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -49,6 +51,11 @@ public class SeleccioFragment extends Fragment{
         Button buttonR = (Button) rootView.findViewById(R.id.buttonR);
         buttonR.setText("RIGHT");
         buttonR.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/calibriz.ttf"));
+        ImageButton btnJugar = (ImageButton) rootView.findViewById(R.id.imageButton);
+
+
+        if(args.getInt("noJugar")==0) btnJugar.setVisibility(View.INVISIBLE);
+        
 
         return rootView;
     }

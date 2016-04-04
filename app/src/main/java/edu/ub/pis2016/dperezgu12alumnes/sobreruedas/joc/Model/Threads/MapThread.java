@@ -10,7 +10,10 @@ import android.view.SurfaceHolder;
 import java.io.InputStream;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MapActivity;
 
 /**
  * Created by ecopika on 22/03/16.
@@ -22,17 +25,24 @@ public class MapThread extends Thread {
     private Context cnt= null;
     private boolean mRun = false;
     private Bitmap mapa;
+    private Bitmap personatge;
+    private Personatge prs;
+    private ViewMapaHandler ctrl;
+
+
+
     private int x;
     private int mapSize;
-    private PersonatgeThread prsT;
 
     public MapThread(SurfaceHolder sHold,Context cnt, Handler handler){
         mSurfHolder = sHold;
         hndl = handler;
         this.cnt=cnt;
         x = 0;
-       mapa = BitmapFactory.decodeResource(cnt.getResources(),R.drawable.map1pre);
+       mapa = BitmapFactory.decodeResource(cnt.getResources(),R.drawable.mapabuit);
         mapSize = 3700;
+        //initHandler();
+        personatge = BitmapFactory.decodeResource(cnt.getResources(), R.mipmap.nuriafotograma);
 
 
     }
@@ -55,13 +65,19 @@ public class MapThread extends Thread {
         }
     }
 
-    public void afegeixPersonatge(PersonatgeThread prs){
-        this.prsT=prs;
+
+
+    public void initHandler(){
+       // ctrl = new ViewMapaHandler(cnt,(MapActivity)cnt);
+        //prs = ctrl.generatePersonatge();
+        //prs.setVelX(10);
+
+
     }
 
     private void update(){
         if(x>-2500+CanvasUtils.getWidthScreen()) {
-            x -= 10;
+            x -= 5;
         }
 
 
@@ -72,6 +88,7 @@ public class MapThread extends Thread {
 
         c.drawBitmap(CanvasUtils.escalaImatge(mapa,CanvasUtils.getHeightScreen()+3,mapSize),x,0,null);
 
+       c.drawBitmap(CanvasUtils.escalaImatge(personatge, 400, 400),50,CanvasUtils.getHeightScreen()-500,null);
 
     }
 
@@ -82,4 +99,6 @@ public class MapThread extends Thread {
     public int getMapSize(){
         return mapSize;
     }
+
+
 }

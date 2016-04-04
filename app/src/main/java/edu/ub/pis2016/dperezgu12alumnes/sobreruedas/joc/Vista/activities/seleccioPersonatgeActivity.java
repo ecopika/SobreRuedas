@@ -2,14 +2,20 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
+import android.text.Layout;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 
@@ -18,6 +24,8 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
     private static final int NUM_PAGES = 3;
     private SeleccioPagerAdapter adapter;
     private ViewPager viewPager;
+    private ImageButton btnJugar;
+    private LinearLayout layout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,13 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         adapter = new SeleccioPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
+
+
+
+
+
+
+
     }
 
     public void changePageLeft(View view) {
@@ -54,6 +69,14 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
             SeleccioFragment fragment = new SeleccioFragment();
             Bundle args = new Bundle();
             args.putInt(SeleccioFragment.IMAGE, i);
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                args.putInt("noJugar",0);
+            }
+            else{
+                args.putInt("noJugar",1);
+            }
+
             fragment.setArguments(args);
             return fragment;
         }
