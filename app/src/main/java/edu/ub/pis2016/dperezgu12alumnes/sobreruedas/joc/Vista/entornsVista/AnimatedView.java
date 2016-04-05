@@ -55,18 +55,18 @@ public class AnimatedView extends ImageView {
 
 
 
-        if(ctrlAnimacio.getVoltes()>=50){
+        if(ctrlAnimacio.creditsGetVoltes()>=50){
 
-            ctrlAnimacio.animacioSortida();
-            ctrlAnimacio.mostraTotsElements(c);
+            ctrlAnimacio.creditsAnimacioSortida();
+            ctrlAnimacio.creditsShowAll(c);
 
         }
-        else if(ctrlAnimacio.getSortida()==0 || ctrlAnimacio.getSortida()==1 || ctrlAnimacio.getSortida()==2){
-            ctrlAnimacio.animacioEntrada(c);
+        else if(ctrlAnimacio.creditsGetSortida()==0 || ctrlAnimacio.creditsGetSortida()==1 || ctrlAnimacio.creditsGetSortida()==2){
+            ctrlAnimacio.creditsAnimacioEntrada(c);
         }
 
-        if(ctrlAnimacio.getSortida()==3){
-            ctrlAnimacio.finalitzaPantallaCredits();
+        if(ctrlAnimacio.creditsGetSortida()==3){
+            ctrlAnimacio.creditsFinalitzaPantallaCredits();
 
         }
 

@@ -36,7 +36,14 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
         Bitmap fons = BitmapFactory.decodeResource(getResources(),R.mipmap.intro);
         canvas.drawBitmap(utils.escalaImatge(fons,utils.getHeightScreen(),utils.getWidthScreen()),0,0,paint);
         canvas.drawBitmap(utils.escalaImatge(titol, 200, 700), 40, 50, null);
-        canvas.drawBitmap(utils.escalaImatge(cadira,500,250), 300, 700, null);
+
+       //aquests càlculs han d'estar al objecte personatge
+        int height = utils.getHeightScreen()/3;
+        int width = height/2;
+        float y=utils.getHeightScreen()*0.55f;
+        float x =  (utils.getWidthScreen()/2)-(width/2);
+
+        canvas.drawBitmap(utils.escalaImatge(cadira,height,width),x, y, null);
 
 
 

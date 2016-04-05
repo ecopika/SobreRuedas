@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SobreRuedas</string>
     <string name="title_activity_intro">IntroActivity</string>
+    <!-- Strings dels crèdits  -->
     <string name="des">Desarrollo</string>
     <string name="dis">Diseño</string>
     <string name="e1">Laura Palacios</string>
@@ -9,5 +10,11 @@
     <string name="d2">Andreu Serra</string>
     <string name="d3">Jesús Acosta</string>
     <string name="d4">Xavi Farres</string>
+    <!-- Strings de la taula de puntuacions -->
+    <string name="facil">FÁCIL</string>
+    <string name="mitja">MEDIO</string>
+    <string name="dificil">DIFÍCIL</string>
+    <string name="molt_dificil">MUY DIFÍCIL</string>
+
     <string name="title_activity_map">MapActivity</string>
 </resources>

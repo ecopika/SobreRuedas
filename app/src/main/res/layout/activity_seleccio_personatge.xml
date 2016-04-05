@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".joc.Vista.activities.seleccioPersonatgeActivity"
-    android:background="@drawable/fonsmenu">
+    android:background="@drawable/fonsbo">
 
     <ImageView
         android:layout_width="115dp"
@@ -54,7 +54,8 @@
             android:layout_height="86dp"
             android:id="@+id/imageButton"
             android:background="@drawable/botonlugar"
-            android:onClick="bottonPlay" />
+            android:onClick="bottonPlay"
+            android:layout_marginLeft="20dp" />
 
         <Button
             android:layout_width="110dp"
@@ -63,7 +64,8 @@
             android:background="@drawable/botonnubemorada"
             android:onClick="changePageRight"
             android:paddingTop="28dp"
-            android:paddingRight="10dp" />
+            android:paddingRight="20dp"
+            android:layout_marginLeft="20dp" />
 
     </LinearLayout>
 </RelativeLayout>

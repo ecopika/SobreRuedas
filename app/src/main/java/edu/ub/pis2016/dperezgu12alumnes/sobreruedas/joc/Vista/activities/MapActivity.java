@@ -1,13 +1,12 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+
+import android.support.v7.app.AlertDialog;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -34,7 +33,33 @@ public class MapActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        // your code.
+        ctrlMapa.pauseThread();
+        new AlertDialog.Builder(this)
+            .setTitle("Tornar al menú")
+                .setMessage("Quieres volver al menú principal?")
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ctrlMapa.finishThread();
+                        MapActivity.this.finish();
+                        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+
+                    }
+
+                } )
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ctrlMapa.resumeThread();
+                    }
+                })
+        .show();
+
+
+        //Intent returnMain = new Intent("android.intent.action.MAIN");
+        //startActivity(returnMain);
     }
 
 }

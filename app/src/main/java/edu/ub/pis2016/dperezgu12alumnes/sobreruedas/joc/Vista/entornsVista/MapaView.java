@@ -7,21 +7,19 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.Threads.MapThread;
-
 /**
  * Created by ecopika on 22/03/16.
  */
 public class MapaView extends SurfaceView implements SurfaceHolder.Callback{
 
-    private MapThread map;
+    private JocThread map;
     private Context cnt;
 
     public MapaView(Context cnt, AttributeSet attr){
         super(cnt, attr);
         SurfaceHolder holder = getHolder();
         holder.addCallback( this);
-        map = new MapThread(holder,cnt,new Handler(){
+        map = new JocThread(holder,cnt,new Handler(){
             @Override
             public void handleMessage(Message m){
                 //aquí podem interactuar amb altres views
@@ -50,23 +48,33 @@ public class MapaView extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
+        map.setRunning(false);
+        map.clearCanvasObjects();//netejem el buffer del canvas
         while(retry){
-            try{
-                map.join();//esperem a que el fil acabi per poder destruirlo
+            //try{
 
+            map.interrupt();//matem el thread
+            map=null;//acabem de matar el thread
                 retry = false;
 
-            }catch (InterruptedException ie){
+            //}catch (InterruptedException ie){
 
-            }
+           // }
         }
 
     }
 
-    public MapThread getMapThread(){
+    public JocThread getMapThread(){
         return map;
     }
 
 
+
+    public void pauseThread(){
+        map.pause();
+    }
+    public void resumeThread(){
+        map.torna();
+    }
 
 }

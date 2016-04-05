@@ -21,4 +21,10 @@ public class GifMovieView extends View {
         movie = Movie.decodeStream(mStream);
 
     }
+
+    public Movie getMovie(){
+        return movie;
+    }
+
+
 }
