@@ -44,15 +44,7 @@ public class ViewHandlerMenu {
         nBlanc = new NuvolView("blanca",meuContext,false);
         nMorat1 = new NuvolView("",meuContext,false);
         nMorat2 = new NuvolView("",meuContext,false);
-<<<<<<< HEAD
-=======
-/*<<<<<<< HEAD:app/src/main/java/edu/ub/pis2016/dperezgu12alumnes/sobreruedas/joc/Controlador/ViewHandlerMenu.java
-=======
-        ctrl = new Handler();
->>>>>>> cde79f6bad4a6abde025f1534298ca32f55667c0:app/src/main/java/edu/ub/pis2016/dperezgu12alumnes/sobreruedas/vista/entornsVista/AnimatedView.java
->>>>>>> 53b46c5c8db5417a2912e4623d546fd90033aa48
-        //nBlanc = new NuvolView("blanca",meuContext);
-        //nMorat1 = new NuvolView("",meuContext);*/
+
 
 
         nMorat1.setAmplada(300);

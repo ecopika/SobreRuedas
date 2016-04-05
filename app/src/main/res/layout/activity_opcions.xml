@@ -74,16 +74,18 @@
     </RadioGroup>
 
 
-    <ImageView
+    <Button
         android:layout_width="150dp"
         android:layout_height="90dp"
         android:id="@+id/btnOpcionsGuardar"
         android:onClick="guardarPreferencies"
-        android:src="@drawable/botonnubemorada"
+        android:background="@drawable/botonnubemorada"
         android:layout_below="@id/radioGroup"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="110dp"
-        android:gravity="center"    />
+        android:gravity="center"
+        android:paddingTop="28dp"
+        android:paddingRight="10dp" />
 
     <CheckBox
         android:layout_width="wrap_content"

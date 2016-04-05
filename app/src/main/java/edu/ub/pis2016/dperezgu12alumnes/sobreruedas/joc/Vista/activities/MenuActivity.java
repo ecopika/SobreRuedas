@@ -32,11 +32,8 @@ public class MenuActivity extends Activity {
     }
 
     public void seleccioPersonatge(View view) {
-<<<<<<< HEAD
-        startActivity(new Intent(getApplicationContext(), MapActivity.class));
-=======
-        startActivity(new Intent(getApplicationContext(), SeleccioPersonatgeActivity.class));
->>>>>>> 53b46c5c8db5417a2912e4623d546fd90033aa48
+
+        startActivity(new Intent(getApplicationContext(), seleccioPersonatgeActivity.class));
     }
 
     public void seleccioOpcions(View view) {
@@ -45,7 +42,10 @@ public class MenuActivity extends Activity {
 
 
     public void seleccioPerfil(View view) {
-        startActivity(new Intent(getApplicationContext(), PerfilActivity.class));
+
+        Intent intent =  new Intent(getApplicationContext(), seleccioPersonatgeActivity.class);
+        intent.putExtra("Perfil","noJugar");
+        startActivity(intent);
 
     }
 
