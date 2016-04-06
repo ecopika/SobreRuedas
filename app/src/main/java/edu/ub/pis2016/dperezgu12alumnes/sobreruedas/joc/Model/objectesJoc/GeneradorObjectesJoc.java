@@ -23,9 +23,9 @@ public class GeneradorObjectesJoc {
 
     public GeneradorObjectesJoc(int ampladaMapa, int alcadaMap, Context cnt){
         map = generateMap(ampladaMapa,alcadaMap);
-        map.setFons(BitmapFactory.decodeResource(cnt.getResources(), R.drawable.mapabuit));
 
-        p = generatePersonatge();
+
+        p = generatePersonatge(cnt);
 
 
     }
@@ -34,8 +34,8 @@ public class GeneradorObjectesJoc {
      *    Perfil personatge
      ***********************************************************************/
 
-    public Personatge generatePersonatge(){
-        return new PCadiraRodes("Nuria","nuriafotograma.png", 10 ,"azul", "Pantera","Lasaña","Basquet","Mujer maravilla","pintar","leer comics de mortadelo y filemon","pyasos","no hay nada imposible para mi","llegar a ser una gran politica y cambiar las cosas","movnuria.gif");
+    public Personatge generatePersonatge(Context  cnt){
+        return new PCadiraRodes("Nuria","nuriafotograma.png", 10 ,"azul", "Pantera","Lasaña","Basquet","Mujer maravilla","pintar","leer comics de mortadelo y filemon","pyasos","no hay nada imposible para mi","llegar a ser una gran politica y cambiar las cosas","nuriafotograma.png",cnt,"movnuria.gif" );
 
     }
 

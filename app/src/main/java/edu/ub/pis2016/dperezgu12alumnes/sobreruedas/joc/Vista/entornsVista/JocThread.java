@@ -1,5 +1,6 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +15,7 @@ import java.io.InputStream;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.GeneradorObjectesJoc;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Mapa;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
@@ -39,15 +41,16 @@ public class JocThread extends Thread {
 
     //objecte GIF
 
-    private long tempsInici;
-    private GifMovieView gifPrs;
-    private InputStream stream;
+
 
 
     public JocThread(SurfaceHolder sHold, Context cnt, Handler handler) {
         mSurfHolder = sHold;
         hndl = handler;
         this.cnt = cnt;
+        ctrl = new ViewMapaHandler(cnt,(Activity)cnt);
+        //ctrl.generaJoc();
+
         x = 0;
 
         mapSize = 3700;
@@ -56,15 +59,8 @@ public class JocThread extends Thread {
         moviment = false;
         pause = false;
         //GIF cadira
-        stream = null;
-        try {
-            stream = cnt.getAssets().open("movnuria.gif");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        gifPrs = new GifMovieView(cnt, stream);
         map = ctrl.getMap();
+        map.setFons(BitmapFactory.decodeResource(cnt.getResources(), R.drawable.mapabuit));
 
 
     }
@@ -78,7 +74,7 @@ public class JocThread extends Thread {
             }
             Canvas c = null;
             try {
-                stream.close();
+                prs.getStream().close();
                 c = mSurfHolder.lockCanvas(null);
                 synchronized (mSurfHolder) {
                     update();
@@ -127,18 +123,18 @@ public class JocThread extends Thread {
         if (moviment) {//si el personatge esta en moviment
             //cuadrar el temps del GIF amb el temps del joc
             final long now = SystemClock.uptimeMillis();//s'obté el temps actual
-            if (tempsInici == 0) {
-                tempsInici = now;
+            if (prs.getTempsInici() == 0) {
+                prs.setTempsInici( now);
             }
 
-            int dur = gifPrs.getMovie().duration();
+            int dur = prs.getGifPrs().getMovie().duration();
             if(dur==0)dur=1000;
-            int relTime = (int) ((now - tempsInici) % dur);
-            gifPrs.getMovie().setTime(relTime);
+            int relTime = (int) ((now - prs.getTempsInici()) % dur);
+            prs.getGifPrs().getMovie().setTime(relTime);
             //fi de la sincronització temporal
 
             //dibuixem el GIF
-            gifPrs.getMovie().draw(c,50,CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
+            prs.getGifPrs().getMovie().draw(c,50,CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
 
         } else {//si el personatge no és mou
             c.drawBitmap(CanvasUtils.escalaImatge(prs.getImg(), CanvasUtils.getWidthScreen() / 3, CanvasUtils.getHeightScreen() / 4), 50, CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3, null);

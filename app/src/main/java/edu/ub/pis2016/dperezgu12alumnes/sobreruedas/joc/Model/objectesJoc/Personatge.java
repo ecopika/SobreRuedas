@@ -6,7 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Movie;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.GifMovieView;
 
 /**
  * Created by ecopika on 22/03/16.
@@ -43,19 +47,13 @@ public abstract class Personatge {
     protected Movie gif;
     protected String nomGif;
     protected Context cnt;
+//config gif
+    private long tempsInici;
+    private GifMovieView gifPrs;
+    private InputStream stream;
 
 
-    public String getNomImatge() {
-        return nomImatge;
-    }
 
-    public void setNomImatge(String nomImatge) {
-        this.nomImatge = nomImatge;
-    }
-
-    public Bitmap getImg() {
-        return img;
-    }
 
     public void setImg(Bitmap img) {
         this.img = img;
@@ -101,7 +99,54 @@ public abstract class Personatge {
     }
 
     public void loadGif(){
-        
+        setStream(null);
+        try {
+            setStream(cnt.getAssets().open(nomGif));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        gifPrs = new GifMovieView(cnt,stream);
+
+    }
+
+    public String getNomGif() {
+        return nomGif;
+    }
+
+    public void setNomGif(String nomGif) {
+        this.nomGif = nomGif;
+    }
+
+    public Movie getGif() {
+        return gif;
+    }
+
+    public void setGif(Movie gif) {
+        this.gif = gif;
+    }
+
+    public long getTempsInici() {
+        return tempsInici;
+    }
+
+    public void setTempsInici(long tempsInici) {
+        this.tempsInici = tempsInici;
+    }
+
+    public GifMovieView getGifPrs() {
+        return gifPrs;
+    }
+
+    public void setGifPrs(GifMovieView gifPrs) {
+        this.gifPrs = gifPrs;
+    }
+
+    public InputStream getStream(){
+        return this.stream;
+    }
+
+    public void setStream(InputStream s){
+        this.stream = s;
     }
 
     public int getProfunditat() {
@@ -288,5 +333,15 @@ public abstract class Personatge {
         this.somni = somni;
     }
 
+    public String getNomImatge() {
+        return nomImatge;
+    }
 
+    public void setNomImatge(String nomImatge) {
+        this.nomImatge = nomImatge;
+    }
+
+    public Bitmap getImg() {
+        return img;
+    }
 }

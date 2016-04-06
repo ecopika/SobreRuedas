@@ -19,6 +19,7 @@ import java.io.InputStream;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewHandlerMenu;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
 
 /**
@@ -26,7 +27,7 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Person
  */
 public class SeleccioFragment extends Fragment{
 
-    private ViewHandlerMenu ctrl;//controlador del menu
+    private ViewMapaHandler ctrl;//controlador del menu
     private Personatge nuria;
     public static final String IMAGE = "image";
 
@@ -36,7 +37,7 @@ public class SeleccioFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ctrl= new ViewHandlerMenu(this.getContext());
+        ctrl= new ViewMapaHandler(this.getContext(),this.getActivity());
         nuria = ctrl.generatePersonatge();
         Bundle args = getArguments();
 
