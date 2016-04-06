@@ -14,6 +14,7 @@ import java.io.InputStream;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Mapa;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MapActivity;
@@ -27,9 +28,9 @@ public class JocThread extends Thread {
     private Handler hndl = null;
     private Context cnt = null;
     private boolean mRun = false;
-    private Bitmap mapa;
-    private Bitmap personatge;
+
     private Personatge prs;
+    private Mapa map;
     private ViewMapaHandler ctrl;
     private boolean moviment;
     private boolean pause;
@@ -47,11 +48,11 @@ public class JocThread extends Thread {
         mSurfHolder = sHold;
         hndl = handler;
         this.cnt = cnt;
-        x = -1;
-        mapa = BitmapFactory.decodeResource(cnt.getResources(), R.drawable.mapabuit);
+        x = 0;
+
         mapSize = 3700;
         //initHandler();
-        personatge = BitmapFactory.decodeResource(cnt.getResources(), R.mipmap.nuriafotograma);
+        prs = ctrl.getPersonatge();
         moviment = false;
         pause = false;
         //GIF cadira
@@ -63,6 +64,7 @@ public class JocThread extends Thread {
         }
 
         gifPrs = new GifMovieView(cnt, stream);
+        map = ctrl.getMap();
 
 
     }
@@ -120,10 +122,11 @@ public class JocThread extends Thread {
     private void doDraw(Canvas c) {
         //Bitmap fons = Bitmap.createBitmap(mapa,0,0,CanvasUtils.getWidthScreen(),956);
 
-        c.drawBitmap(CanvasUtils.escalaImatge(mapa, CanvasUtils.getHeightScreen() + 3, 5000), x, -1, null);
+        c.drawBitmap(CanvasUtils.escalaImatge(map.getFons(), CanvasUtils.getHeightScreen() + 3, 5000), x, -1, null);
 
-        if (moviment) {
-            final long now = SystemClock.uptimeMillis();
+        if (moviment) {//si el personatge esta en moviment
+            //cuadrar el temps del GIF amb el temps del joc
+            final long now = SystemClock.uptimeMillis();//s'obté el temps actual
             if (tempsInici == 0) {
                 tempsInici = now;
             }
@@ -132,10 +135,13 @@ public class JocThread extends Thread {
             if(dur==0)dur=1000;
             int relTime = (int) ((now - tempsInici) % dur);
             gifPrs.getMovie().setTime(relTime);
+            //fi de la sincronització temporal
+
+            //dibuixem el GIF
             gifPrs.getMovie().draw(c,50,CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
 
-        } else {
-            c.drawBitmap(CanvasUtils.escalaImatge(personatge, CanvasUtils.getWidthScreen() / 3, CanvasUtils.getHeightScreen() / 4), 50, CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3, null);
+        } else {//si el personatge no és mou
+            c.drawBitmap(CanvasUtils.escalaImatge(prs.getImg(), CanvasUtils.getWidthScreen() / 3, CanvasUtils.getHeightScreen() / 4), 50, CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3, null);
 
         }
 
@@ -146,8 +152,10 @@ public class JocThread extends Thread {
     }
 
     public void clearCanvasObjects() {
-        mapa = null;
-        personatge = null;
+        map.setFons(null);
+        prs.setImg( null);
+        map = null;
+        prs = null;
 
     }
 

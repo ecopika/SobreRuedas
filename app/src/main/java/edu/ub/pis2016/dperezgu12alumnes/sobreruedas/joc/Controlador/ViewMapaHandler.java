@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.GeneradorObjectesJoc;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Mapa;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MapActivity;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.GifMovieView;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.MapaView;
@@ -20,6 +23,7 @@ public class ViewMapaHandler {
     private Context cnt;
     private MapActivity act;
     private ViewHandlerMenu ctrl;
+    private GeneradorObjectesJoc genJoc;
 
 
 
@@ -28,11 +32,12 @@ public class ViewMapaHandler {
         this.act = act;
         mapView = (MapaView) act.findViewById(R.id.MapView);
         ctrl = new ViewHandlerMenu(cnt);
+        genJoc = new GeneradorObjectesJoc(3700, CanvasUtils.getHeightScreen(),cnt);
 
     }
 
     public Personatge generatePersonatge(){
-        return ctrl.generatePersonatge();
+        return generatePersonatge();
     }
 
     public void finishThread(){
@@ -45,6 +50,14 @@ public class ViewMapaHandler {
 
     public void resumeThread(){
         mapView.resumeThread();
+    }
+
+    public Mapa getMap(){
+        return genJoc.getMap();
+    }
+
+    public Personatge getPersonatge(){
+        return genJoc.getP();
     }
 
 

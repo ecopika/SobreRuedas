@@ -85,14 +85,7 @@ public class ViewHandlerMenu {
         }
 
 
-    /************************************************************************
-     *    Perfil personatge
-     ***********************************************************************/
 
-    public Personatge generatePersonatge(){
-        PCadiraRodes nuria = new PCadiraRodes("Nuria","nuriafotograma.png", 10 ,"azul", "Pantera","Lasaña","Basquet","Mujer maravilla","pintar","leer comics de mortadelo y filemon","pyasos","no hay nada imposible para mi","llegar a ser una gran politica y cambiar las cosas");
-        return nuria;
-    }
 
 
 }

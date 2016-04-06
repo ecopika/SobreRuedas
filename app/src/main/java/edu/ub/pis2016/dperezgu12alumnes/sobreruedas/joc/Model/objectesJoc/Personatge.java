@@ -1,6 +1,10 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Movie;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 
@@ -9,7 +13,7 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUt
  */
 public abstract class Personatge {
 
-
+    //atributs informatius
     protected int edat;
     protected String colorPref;
     protected String animalPref;
@@ -22,19 +26,42 @@ public abstract class Personatge {
     protected String frase;
     protected String somni;
     protected String imatge;
-    protected int x;
-    protected int y;
+    protected String nom;
+
+    //atributs del personatge al mapa
+    protected float x;
+    protected float y;
     protected int amplada;
     protected int alcada;
     protected int velX;
     protected int velY;
     protected boolean movX;
     protected boolean movY;
+    protected int profunditat;
+    protected Bitmap img;
+    protected String nomImatge;
+    protected Movie gif;
+    protected String nomGif;
+    protected Context cnt;
 
-    protected String nom;
 
+    public String getNomImatge() {
+        return nomImatge;
+    }
 
-    public Personatge(String nom,String img, int edat, String colorPref, String animalPref, String menjarPref, String hobby, String idol, String pasions, String habits, String noSoporta, String frase, String somni) {
+    public void setNomImatge(String nomImatge) {
+        this.nomImatge = nomImatge;
+    }
+
+    public Bitmap getImg() {
+        return img;
+    }
+
+    public void setImg(Bitmap img) {
+        this.img = img;
+    }
+
+    public Personatge(String nom,String img, int edat, String colorPref, String animalPref, String menjarPref, String hobby, String idol, String pasions, String habits, String noSoporta, String frase, String somni, String nomImatge, Context cnt, String nomGif) {
         this.nom = nom;
         this.edat = edat;
         this.colorPref = colorPref;
@@ -48,14 +75,41 @@ public abstract class Personatge {
         this.frase = frase;
         this.somni = somni;
         this.imatge = img;
-        this.alcada = 150;
-        this.amplada = 150;
-        this.y= (CanvasUtils.getHeightScreen()/2)+this.alcada;
-        this.x = 10;
+        this.alcada = CanvasUtils.getHeightScreen()/3;
+        this.amplada = this.alcada/2;
+        this.y= 0;
+        this.x = 0;
         this.velX = 0;
         this.velY = 0;
         this.movX = false;
         this.movY = false;
+        this.profunditat = 10;
+        this.nomImatge = nomImatge;
+        this.nomGif = nomGif;
+
+
+        this.cnt = cnt;
+        loadImage();
+
+
+    }
+
+    public void loadImage(){
+        int resourceId = cnt.getResources().getIdentifier(nomImatge, "drawable", cnt.getPackageName());
+
+        this.img = BitmapFactory.decodeResource(cnt.getResources(),resourceId);
+    }
+
+    public void loadGif(){
+        
+    }
+
+    public int getProfunditat() {
+        return profunditat;
+    }
+
+    public void setProfunditat(int profunditat) {
+        this.profunditat = profunditat;
     }
 
     public void mouX(){
@@ -102,19 +156,19 @@ public abstract class Personatge {
         return imatge;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
