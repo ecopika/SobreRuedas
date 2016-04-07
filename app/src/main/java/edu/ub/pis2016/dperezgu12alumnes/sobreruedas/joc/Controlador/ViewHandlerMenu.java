@@ -29,8 +29,12 @@ public class ViewHandlerMenu {
     //constructor del controlador de la vista
     public ViewHandlerMenu(Context cnt){
         meuContext = cnt;
-        crd = new Credits(meuContext);
 
+
+    }
+
+    public void initCredits(){
+        crd = new Credits(meuContext);
 
     }
 

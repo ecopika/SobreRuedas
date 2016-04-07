@@ -5,6 +5,7 @@ import android.content.Context;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.GeneradorObjectesJoc;
@@ -18,32 +19,40 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.MapaV
 /**
  * Created by ecopika on 22/03/16.
  */
-public class ViewMapaHandler {
+public class ViewMapaHandler implements Serializable {
 
-    private MapaView mapView;
-    private Context cnt;
-    private Activity act;
-    private ViewHandlerMenu ctrl;
-    private GeneradorObjectesJoc genJoc;
+    private transient MapaView mapView;
+    private transient Context cnt;
+    private transient Activity act;
+    private transient ViewHandlerMenu ctrl;
+    private transient GeneradorObjectesJoc genJoc;
 
 
 
     public ViewMapaHandler(Context cnt, Activity act){
         this.cnt = cnt;
         this.act = act;
-        mapView = (MapaView) act.findViewById(R.id.MapView);
-        ctrl = new ViewHandlerMenu(cnt);
         generaJoc();
+
 
 
     }
 
+    public void init(){
+        mapView = (MapaView) act.findViewById(R.id.MapView);
+       // ctrl = new ViewHandlerMenu(cnt);
+    }
+
     public void generaJoc(){
-        genJoc = new GeneradorObjectesJoc(3700, CanvasUtils.getHeightScreen(),cnt);
+        genJoc = new GeneradorObjectesJoc();
     }
 
     public Personatge generatePersonatge(){
         return genJoc.generatePersonatge(cnt);
+    }
+
+    public Mapa generateMap(){
+        return genJoc.generateMap(3700,CanvasUtils.getHeightScreen());
     }
 
     public void finishThread(){
@@ -64,6 +73,10 @@ public class ViewMapaHandler {
 
     public Personatge getPersonatge(){
         return genJoc.getP();
+    }
+
+    public void setActivity(Activity act){
+        this.act = act;
     }
 
 

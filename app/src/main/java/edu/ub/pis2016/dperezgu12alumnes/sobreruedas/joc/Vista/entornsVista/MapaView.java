@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
+
 /**
  * Created by ecopika on 22/03/16.
  */
@@ -14,21 +16,33 @@ public class MapaView extends SurfaceView implements SurfaceHolder.Callback{
 
     private JocThread map;
     private Context cnt;
+    private ViewMapaHandler ctrl;
+    private SurfaceHolder holder;
 
-    public MapaView(Context cnt, AttributeSet attr){
+    public MapaView(Context cnt, AttributeSet attr,ViewMapaHandler ctrl){
         super(cnt, attr);
-        SurfaceHolder holder = getHolder();
+         holder = getHolder();
         holder.addCallback( this);
+        setControlador(ctrl);
+        initGameThread();
+
+
+        this.cnt=cnt;
+        setFocusable(true);
+
+    }
+
+    public void setControlador(ViewMapaHandler ctrl){
+        this.ctrl = ctrl;
+    }
+
+    public void initGameThread(){
         map = new JocThread(holder,cnt,new Handler(){
             @Override
             public void handleMessage(Message m){
                 //aquí podem interactuar amb altres views
             }
-        });
-
-        this.cnt=cnt;
-        setFocusable(true);
-
+        },ctrl);
     }
 
     @Override

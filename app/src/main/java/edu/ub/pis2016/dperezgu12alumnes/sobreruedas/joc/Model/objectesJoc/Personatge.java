@@ -88,6 +88,7 @@ public abstract class Personatge {
 
         this.cnt = cnt;
         loadImage();
+        loadGif();
 
 
     }

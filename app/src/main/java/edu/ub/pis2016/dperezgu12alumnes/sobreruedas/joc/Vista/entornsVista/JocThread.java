@@ -44,22 +44,24 @@ public class JocThread extends Thread {
 
 
 
-    public JocThread(SurfaceHolder sHold, Context cnt, Handler handler) {
+    public JocThread(SurfaceHolder sHold, Context cnt, Handler handler, ViewMapaHandler ctrl) {
         mSurfHolder = sHold;
         hndl = handler;
         this.cnt = cnt;
-        ctrl = new ViewMapaHandler(cnt,(Activity)cnt);
+        this.ctrl = ctrl;
+        this.ctrl.init();
+
         //ctrl.generaJoc();
 
         x = 0;
 
         mapSize = 3700;
         //initHandler();
-        prs = ctrl.getPersonatge();
+        prs = this.ctrl.getPersonatge();
         moviment = false;
         pause = false;
         //GIF cadira
-        map = ctrl.getMap();
+        map = ctrl.generateMap();
         map.setFons(BitmapFactory.decodeResource(cnt.getResources(), R.drawable.mapabuit));
 
 
@@ -118,7 +120,7 @@ public class JocThread extends Thread {
     private void doDraw(Canvas c) {
         //Bitmap fons = Bitmap.createBitmap(mapa,0,0,CanvasUtils.getWidthScreen(),956);
 
-        c.drawBitmap(CanvasUtils.escalaImatge(map.getFons(), CanvasUtils.getHeightScreen() + 3, 5000), x, -1, null);
+        c.drawBitmap(CanvasUtils.escalaImatge(map.getFons(), CanvasUtils.getHeightScreen() + 3, 3700), x, -1, null);
 
         if (moviment) {//si el personatge esta en moviment
             //cuadrar el temps del GIF amb el temps del joc

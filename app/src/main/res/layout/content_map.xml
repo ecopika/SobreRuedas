@@ -13,7 +13,7 @@
     tools:showIn="@layout/activity_map">
 
     <edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.MapaView
-        android:id="@+id/MapView"
+        android:id="@+id/MapViewsdf"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"

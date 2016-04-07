@@ -36,10 +36,12 @@ public class SeleccioFragment extends Fragment{
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        ctrl= new ViewMapaHandler(this.getContext(),this.getActivity());
-        nuria = ctrl.generatePersonatge();
         Bundle args = getArguments();
+
+        ctrl = (ViewMapaHandler) getArguments().getSerializable("controlador");
+
+
+        nuria = ctrl.generatePersonatge();
 
         View rootView = inflater.inflate(R.layout.activity_seleccio_personatge, container, false);
         ImageView image1 = (ImageView) rootView.findViewById(R.id.imageView);

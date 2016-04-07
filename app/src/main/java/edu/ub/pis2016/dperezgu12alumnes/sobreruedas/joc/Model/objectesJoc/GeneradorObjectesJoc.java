@@ -21,26 +21,30 @@ public class GeneradorObjectesJoc {
 
     private Personatge p;
 
-    public GeneradorObjectesJoc(int ampladaMapa, int alcadaMap, Context cnt){
-        map = generateMap(ampladaMapa,alcadaMap);
+    public GeneradorObjectesJoc(){
 
 
-        p = generatePersonatge(cnt);
+
+
 
 
     }
+
+
 
     /************************************************************************
      *    Perfil personatge
      ***********************************************************************/
 
     public Personatge generatePersonatge(Context  cnt){
-        return new PCadiraRodes("Nuria","nuriafotograma.png", 10 ,"azul", "Pantera","Lasaña","Basquet","Mujer maravilla","pintar","leer comics de mortadelo y filemon","pyasos","no hay nada imposible para mi","llegar a ser una gran politica y cambiar las cosas","nuriafotograma.png",cnt,"movnuria.gif" );
+        p =  new PCadiraRodes("Nuria","nuriafotograma.png", 10 ,"azul", "Pantera","Lasaña","Basquet","Mujer maravilla","pintar","leer comics de mortadelo y filemon","pyasos","no hay nada imposible para mi","llegar a ser una gran politica y cambiar las cosas","nuriafotograma.png",cnt,"movnuria.gif" );
+        return p;
 
     }
 
     public Mapa generateMap(int ampladaMapa, int alcadaMapa){
-        return new Mapa(ampladaMapa, alcadaMapa);
+        map = new Mapa(ampladaMapa, alcadaMapa);
+        return map;
     }
 
     public Mapa getMap() {

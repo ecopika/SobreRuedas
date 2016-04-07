@@ -30,7 +30,7 @@ public class AnimatedView extends ImageView {
     public AnimatedView(Context context, AttributeSet attrs) {
         super(context, attrs);
         ctrlAnimacio = new ViewHandlerMenu(context);
-
+        ctrlAnimacio.initCredits();
         ctrl = new Handler();
 
 
