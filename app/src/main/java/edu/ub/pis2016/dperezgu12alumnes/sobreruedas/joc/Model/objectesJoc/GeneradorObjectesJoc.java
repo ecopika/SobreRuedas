@@ -3,16 +3,18 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.DataHandler;
 
 /**
  * Created by dperezgu12.alumnes on 06/04/16.
  */
 public class GeneradorObjectesJoc {
 
-    private ArrayList<Mapa> maps;
+   // private ArrayList<Mapa> maps;
     private Mapa map;
 
     /*********************************************+
@@ -21,14 +23,7 @@ public class GeneradorObjectesJoc {
 
     private Personatge p;
 
-    public GeneradorObjectesJoc(){
-
-
-
-
-
-
-    }
+    public GeneradorObjectesJoc(){ }
 
 
 
@@ -36,8 +31,9 @@ public class GeneradorObjectesJoc {
      *    Perfil personatge
      ***********************************************************************/
 
-    public Personatge generatePersonatge(Context  cnt){
-        p =  new PCadiraRodes("Nuria","nuriafotograma.png", 10 ,"azul", "Pantera","Lasaña","Basquet","Mujer maravilla","pintar","leer comics de mortadelo y filemon","pyasos","no hay nada imposible para mi","llegar a ser una gran politica y cambiar las cosas","nuriafotograma.png",cnt,"movnuria.gif" );
+    public Personatge generatePersonatge(Context  cnt, DataHandler bd){
+        ArrayList<Personatge> prs = bd.getPersonatges();
+        p =  prs.get(0);
         return p;
 
     }

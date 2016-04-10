@@ -2,12 +2,13 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by dperezgu12.alumnes on 06/04/16.
  */
-public class Mapa {
+public class Mapa  {
 
     private int alcada;
     private int amplada;

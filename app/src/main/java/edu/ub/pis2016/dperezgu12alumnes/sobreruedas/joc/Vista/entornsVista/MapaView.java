@@ -16,15 +16,12 @@ public class MapaView extends SurfaceView implements SurfaceHolder.Callback{
 
     private JocThread map;
     private Context cnt;
-    private ViewMapaHandler ctrl;
     private SurfaceHolder holder;
 
-    public MapaView(Context cnt, AttributeSet attr,ViewMapaHandler ctrl){
+    public MapaView(Context cnt, AttributeSet attr){
         super(cnt, attr);
          holder = getHolder();
         holder.addCallback( this);
-        setControlador(ctrl);
-        initGameThread();
 
 
         this.cnt=cnt;
@@ -32,17 +29,14 @@ public class MapaView extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
-    public void setControlador(ViewMapaHandler ctrl){
-        this.ctrl = ctrl;
-    }
 
-    public void initGameThread(){
+    public void initGameThread(Context cnt){
         map = new JocThread(holder,cnt,new Handler(){
             @Override
             public void handleMessage(Message m){
                 //aquí podem interactuar amb altres views
             }
-        },ctrl);
+        });
     }
 
     @Override

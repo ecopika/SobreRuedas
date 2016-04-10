@@ -27,7 +27,6 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Person
  */
 public class SeleccioFragment extends Fragment{
 
-    private ViewMapaHandler ctrl;//controlador del menu
     private Personatge nuria;
     public static final String IMAGE = "image";
 
@@ -38,10 +37,9 @@ public class SeleccioFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle args = getArguments();
 
-        ctrl = (ViewMapaHandler) getArguments().getSerializable("controlador");
 
 
-        nuria = ctrl.generatePersonatge();
+        nuria = ViewMapaHandler.generatePersonatge();
 
         View rootView = inflater.inflate(R.layout.activity_seleccio_personatge, container, false);
         ImageView image1 = (ImageView) rootView.findViewById(R.id.imageView);

@@ -27,7 +27,6 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
     private ViewPager viewPager;
     private ImageButton btnJugar;
     private LinearLayout layout;
-    private ViewMapaHandler ctrl;//controlador del menu
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,10 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         adapter = new SeleccioPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
-        ctrl= new ViewMapaHandler(this,this);
+        ViewMapaHandler.setActivity(this);
+        ViewMapaHandler.setContext(this);
+        ViewMapaHandler.generateBD();
+        ViewMapaHandler.generaJoc();
 
 
 
@@ -59,7 +61,6 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
 
     public void bottonPlay(View view){
         Intent in = new Intent(this,MapActivity.class);
-        in.putExtra("controlador",ctrl);
         startActivity(in);
     }
 
@@ -81,7 +82,6 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
             else{
                 args.putInt("noJugar",1);
             }
-            args.putSerializable("controlador",ctrl);
 
             fragment.setArguments(args);
             return fragment;

@@ -18,7 +18,6 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.MapaV
 
 public class MapActivity extends Activity {
 
-    private ViewMapaHandler ctrlMapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,29 +27,28 @@ public class MapActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        RelativeLayout root = (RelativeLayout)findViewById(R.id.root);
-        ctrlMapa =(ViewMapaHandler) getIntent().getSerializableExtra("controlador");
-        ctrlMapa.setActivity(this);
-        MapaView mpView = new MapaView(this,null,ctrlMapa);
+
         setContentView(R.layout.activity_map);
-
-        root.addView(mpView);
-
+        MapaView mpVi = (MapaView)findViewById(R.id.MapView);
+        ViewMapaHandler.init(this);
+        mpVi.initGameThread(this);
 
     }
 
     @Override
     public void onBackPressed() {
-        ctrlMapa.pauseThread();
+        ViewMapaHandler.pauseThread();
         new AlertDialog.Builder(this)
             .setTitle("Tornar al menú")
                 .setMessage("Quieres volver al menú principal?")
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ctrlMapa.finishThread();
-                        MapActivity.this.finish();
-                        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                        ViewMapaHandler.finishThread();
+                        //MapActivity.this.finish();
+                        Intent inMain=new Intent(MapActivity.this, MenuActivity.class);
+                        inMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(inMain);
 
                     }
 
@@ -60,7 +58,7 @@ public class MapActivity extends Activity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ctrlMapa.resumeThread();
+                        ViewMapaHandler.resumeThread();
                     }
                 })
         .show();

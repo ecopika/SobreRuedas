@@ -33,7 +33,6 @@ public class JocThread extends Thread {
 
     private Personatge prs;
     private Mapa map;
-    private ViewMapaHandler ctrl;
     private boolean moviment;
     private boolean pause;
     private int x;
@@ -44,12 +43,13 @@ public class JocThread extends Thread {
 
 
 
-    public JocThread(SurfaceHolder sHold, Context cnt, Handler handler, ViewMapaHandler ctrl) {
+    public JocThread(SurfaceHolder sHold, Context cnt, Handler handler) {
         mSurfHolder = sHold;
         hndl = handler;
         this.cnt = cnt;
-        this.ctrl = ctrl;
-        this.ctrl.init();
+        ViewMapaHandler.setActivity((MapActivity)this.cnt);
+        ViewMapaHandler.setContext(cnt);
+//        ViewMapaHandler.init();
 
         //ctrl.generaJoc();
 
@@ -57,12 +57,12 @@ public class JocThread extends Thread {
 
         mapSize = 3700;
         //initHandler();
-        prs = this.ctrl.getPersonatge();
+        prs = ViewMapaHandler.generatePersonatge();
         moviment = false;
         pause = false;
         //GIF cadira
-        map = ctrl.generateMap();
-        map.setFons(BitmapFactory.decodeResource(cnt.getResources(), R.drawable.mapabuit));
+        map = ViewMapaHandler.generateMap();
+        map.setFons(BitmapFactory.decodeResource(this.cnt.getResources(), R.drawable.mapabuit));
 
 
     }

@@ -23,7 +23,7 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MenuAct
 public class ViewHandlerMenu {
 
 
-    private Context meuContext;
+    private  Context meuContext;
     private Credits crd;
 
     //constructor del controlador de la vista

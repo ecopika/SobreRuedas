@@ -8,6 +8,7 @@ import android.graphics.Movie;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.GifMovieView;
@@ -29,7 +30,6 @@ public abstract class Personatge {
     protected String noSoporta;
     protected String frase;
     protected String somni;
-    protected String imatge;
     protected String nom;
 
     //atributs del personatge al mapa
@@ -59,7 +59,7 @@ public abstract class Personatge {
         this.img = img;
     }
 
-    public Personatge(String nom,String img, int edat, String colorPref, String animalPref, String menjarPref, String hobby, String idol, String pasions, String habits, String noSoporta, String frase, String somni, String nomImatge, Context cnt, String nomGif) {
+    public Personatge(String nom, int edat, String colorPref, String animalPref, String menjarPref, String hobby, String idol, String pasions, String habits, String noSoporta, String frase, String somni, String nomImatge, Context cnt, String nomGif) {
         this.nom = nom;
         this.edat = edat;
         this.colorPref = colorPref;
@@ -72,7 +72,6 @@ public abstract class Personatge {
         this.noSoporta = noSoporta;
         this.frase = frase;
         this.somni = somni;
-        this.imatge = img;
         this.alcada = CanvasUtils.getHeightScreen()/3;
         this.amplada = this.alcada/2;
         this.y= 0;
@@ -198,9 +197,6 @@ public abstract class Personatge {
         this.velY = velY;
     }
 
-    public String getImatge() {
-        return imatge;
-    }
 
     public float getX() {
         return x;
@@ -234,9 +230,6 @@ public abstract class Personatge {
         this.alcada = alcada;
     }
 
-    public void setImatge(String imatge) {
-        this.imatge = imatge;
-    }
 
     public String getNom() {
         return nom;
