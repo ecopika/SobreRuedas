@@ -1,8 +1,10 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +37,7 @@ public class OpcionsActivity extends Activity {
 
         Button button = (Button) findViewById(R.id.btnOpcionsGuardar);
         button.setText("Guardar\n Opcions");
+        button.setTextColor(Color.WHITE);
         button.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
 
         CheckBox so_chk = (CheckBox) findViewById(R.id.cbDesactivarSo);
@@ -60,6 +63,8 @@ public class OpcionsActivity extends Activity {
 
         // Commit the edits!
         editor.commit();
+        Intent in = new Intent(this,MenuActivity.class);
+        startActivity(in);
     }
 
     public void Facil (View view){

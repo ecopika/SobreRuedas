@@ -84,6 +84,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="110dp"
         android:gravity="center"
+        android:textAllCaps="false"
+        android:textSize="20sp"
         android:paddingTop="28dp"
         android:paddingRight="10dp" />
 

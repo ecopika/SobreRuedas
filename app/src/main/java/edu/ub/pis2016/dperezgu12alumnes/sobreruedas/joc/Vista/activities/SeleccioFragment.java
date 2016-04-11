@@ -1,6 +1,7 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,15 +49,22 @@ public class SeleccioFragment extends Fragment{
         text.setText(readFile(args.getInt(IMAGE)));
         Button buttonL = (Button) rootView.findViewById(R.id.buttonL);
         buttonL.setText("Izquierda");
+        buttonL.setTextColor(Color.WHITE);
         buttonL.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         Button buttonR = (Button) rootView.findViewById(R.id.buttonR);
         buttonR.setText("Derecha");
+        buttonR.setTextColor(Color.WHITE);
         buttonR.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
-        ImageButton btnJugar = (ImageButton) rootView.findViewById(R.id.imageButton);
+        Button btnJugar = (Button) rootView.findViewById(R.id.buttonPlay);
+        btnJugar.setText("Jugar");
+        btnJugar.setTextColor(Color.parseColor("#996699"));
+        btnJugar.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         
-        if(args.getInt("noJugar")==0) btnJugar.setVisibility(View.INVISIBLE);
-        
+        if(args.getInt("noJugar")==0){
+            btnJugar.setText("Editar Perfil");
+            btnJugar.setTextSize(19.3f);
 
+        }
         return rootView;
     }
 

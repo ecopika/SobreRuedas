@@ -40,32 +40,41 @@
         android:layout_alignParentEnd="true">
 
         <Button
-            android:layout_width="110dp"
-            android:layout_height="86dp"
+            android:layout_width="96dp"
+            android:layout_height="80dp"
             android:layout_below="@+id/textView"
             android:id="@+id/buttonL"
             android:background="@drawable/botonnubemorada"
             android:onClick="changePageLeft"
-            android:paddingTop="28dp"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:paddingTop="32dp"
             android:paddingRight="10dp" />
 
-        <ImageButton
-            android:layout_width="110dp"
-            android:layout_height="86dp"
-            android:id="@+id/imageButton"
-            android:background="@drawable/botonlugar"
+        <Button
+            android:layout_width="96dp"
+            android:layout_height="80dp"
+            android:id="@+id/buttonPlay"
+            android:background="@drawable/blanca"
             android:onClick="bottonPlay"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:paddingTop="32dp"
+            android:paddingRight="5dp"
             android:layout_marginLeft="20dp" />
 
         <Button
-            android:layout_width="110dp"
-            android:layout_height="86dp"
+            android:layout_width="96dp"
+            android:layout_height="80dp"
             android:id="@+id/buttonR"
             android:background="@drawable/botonnubemorada"
             android:onClick="changePageRight"
-            android:paddingTop="28dp"
-            android:paddingRight="20dp"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:paddingTop="32dp"
+            android:paddingRight="5dp"
             android:layout_marginLeft="20dp" />
 
     </LinearLayout>
+
 </RelativeLayout>
