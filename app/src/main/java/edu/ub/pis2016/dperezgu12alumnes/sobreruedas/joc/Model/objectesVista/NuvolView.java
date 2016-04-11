@@ -31,7 +31,7 @@ public class NuvolView {
         alcada = 10;
         if(color.equals("blanca")){
             imatge = (BitmapDrawable)mContext.getResources().getDrawable(R.drawable.blanca);
-            text.setColor(Color.MAGENTA);
+            text.setColor(Color.parseColor("#996699"));
             setTextStrokeWidth(55);
             setTextSize(60f);
 

@@ -42,13 +42,6 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
         ViewMapaHandler.setContext(this);
         ViewMapaHandler.generateBD();
         ViewMapaHandler.generaJoc();
-
-
-
-
-
-
-
     }
 
     public void changePageLeft(View view) {
@@ -60,8 +53,19 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
     }
 
     public void bottonPlay(View view){
-        Intent in = new Intent(this,MapActivity.class);
-        startActivity(in);
+        Bundle args = new Bundle();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            args.putInt("noJugar",0);
+            Intent in = new Intent(this,OpcionsActivity.class);
+            startActivity(in);
+
+        }
+        else{
+            args.putInt("noJugar",1);
+            Intent in = new Intent(this,MapActivity.class);
+            startActivity(in);
+        }
     }
 
     public class SeleccioPagerAdapter extends FragmentStatePagerAdapter {
