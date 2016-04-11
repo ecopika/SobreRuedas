@@ -32,7 +32,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
         Paint paint = new Paint();
         canvas.drawColor(Color.BLACK);
         Bitmap titol = BitmapFactory.decodeResource(getResources(), R.mipmap.sobreruedas);
-        Bitmap cadira = BitmapFactory.decodeResource(getResources(),R.mipmap.nuriafotograma);
+        Bitmap cadira = BitmapFactory.decodeResource(getResources(),R.drawable.nuriafotograma);
         Bitmap fons = BitmapFactory.decodeResource(getResources(),R.mipmap.intro);
         canvas.drawBitmap(utils.escalaImatge(fons,utils.getHeightScreen(),utils.getWidthScreen()),0,0,paint);
         canvas.drawBitmap(utils.escalaImatge(titol, 200, 700), 40, 50, null);

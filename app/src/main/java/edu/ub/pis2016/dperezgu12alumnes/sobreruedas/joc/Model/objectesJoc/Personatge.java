@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.GifMovieView;
 
@@ -93,9 +94,9 @@ public abstract class Personatge {
     }
 
     public void loadImage(){
-        int resourceId = cnt.getResources().getIdentifier(nomImatge, "drawable", cnt.getPackageName());
+        //int resourceId = cnt.getResources().getIdentifier(nomImatge, "drawable", cnt.getPackageName());
 
-        this.img = BitmapFactory.decodeResource(cnt.getResources(),resourceId);
+        this.img = BitmapFactory.decodeResource(cnt.getResources(), R.drawable.nuriafotograma);
     }
 
     public void loadGif(){

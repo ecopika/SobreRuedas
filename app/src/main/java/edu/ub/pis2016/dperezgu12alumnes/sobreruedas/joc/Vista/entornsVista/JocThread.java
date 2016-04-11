@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Movie;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class JocThread extends Thread {
         pause = false;
         //GIF cadira
         map = ViewMapaHandler.generateMap();
-        map.setFons(BitmapFactory.decodeResource(this.cnt.getResources(), R.drawable.mapabuit));
+        map.setFons(BitmapFactory.decodeResource(this.cnt.getResources(), R.drawable.mapbuit1));
 
 
     }
@@ -70,10 +71,13 @@ public class JocThread extends Thread {
 
     @Override
     public void run() {
+
         while (mRun) {
+            Log.i("JocThread","whileThread");
             while (pause) {
 
             }
+
             Canvas c = null;
             try {
                 prs.getStream().close();
@@ -107,7 +111,7 @@ public class JocThread extends Thread {
 
     private void update() {
         moviment = false;
-        if (x > -2500 + CanvasUtils.getWidthScreen()) {
+        if (x > CanvasUtils.getWidthScreen()-map.getAmplada()+ prs.getAmplada()) {
             moviment = true;
             x -= 5;
 
@@ -119,8 +123,7 @@ public class JocThread extends Thread {
 
     private void doDraw(Canvas c) {
         //Bitmap fons = Bitmap.createBitmap(mapa,0,0,CanvasUtils.getWidthScreen(),956);
-
-        c.drawBitmap(CanvasUtils.escalaImatge(map.getFons(), CanvasUtils.getHeightScreen() + 3, 3700), x, -1, null);
+        c.drawBitmap(CanvasUtils.escalaImatge(map.getFons(), map.getAlcada() + 3, map.getAmplada()), x, -1, null);
 
         if (moviment) {//si el personatge esta en moviment
             //cuadrar el temps del GIF amb el temps del joc
@@ -148,6 +151,7 @@ public class JocThread extends Thread {
     public void setRunning(boolean b) {
         mRun = b;
     }
+
 
     public void clearCanvasObjects() {
         map.setFons(null);

@@ -30,7 +30,7 @@ public class SeleccioFragment extends Fragment{
     private Personatge nuria;
     public static final String IMAGE = "image";
 
-    static int[] img = {R.mipmap.nuriafotograma, R.drawable.coche10, R.drawable.coche13};
+    static int[] img = {R.drawable.nuriafotograma, R.drawable.coche10, R.drawable.coche13};
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override

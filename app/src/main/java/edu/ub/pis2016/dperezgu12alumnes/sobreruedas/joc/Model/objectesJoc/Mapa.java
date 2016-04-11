@@ -18,7 +18,7 @@ public class Mapa  {
     private float iniciY;
     private Bitmap fons;
 
-    private ArrayList<Obstacles> obstacles;
+    private Obstacles obstacles;
 
     public Mapa(int amplada, int alcada){
         x = 0;
@@ -85,11 +85,11 @@ public class Mapa  {
         this.fons = fons;
     }
 
-    public ArrayList<Obstacles> getObstacles() {
+    public Obstacles getObstacles() {
         return obstacles;
     }
 
-    public void setObstacles(ArrayList<Obstacles> obstacles) {
+    public void setObstacles(Obstacles obstacles) {
         this.obstacles = obstacles;
     }
 }

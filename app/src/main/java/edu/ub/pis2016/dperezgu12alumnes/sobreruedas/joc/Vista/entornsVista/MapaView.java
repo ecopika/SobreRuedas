@@ -57,6 +57,7 @@ public class MapaView extends SurfaceView implements SurfaceHolder.Callback{
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
         map.setRunning(false);
+        map.torna();
         map.clearCanvasObjects();//netejem el buffer del canvas
         while(retry){
             //try{

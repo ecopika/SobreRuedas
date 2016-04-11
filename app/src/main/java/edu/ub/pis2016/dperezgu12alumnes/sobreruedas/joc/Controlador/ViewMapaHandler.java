@@ -67,7 +67,7 @@ public  class ViewMapaHandler implements Serializable {
     }
 
     public static Mapa generateMap(){
-        return genJoc.generateMap(3700,CanvasUtils.getHeightScreen());
+        return genJoc.generateMap((int)(CanvasUtils.getHeightScreen()*1.5),CanvasUtils.getHeightScreen());
     }
 
     public static void finishThread(){
