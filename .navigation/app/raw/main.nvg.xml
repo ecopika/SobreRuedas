@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.TaulaPuntuacioActivity"/>
+      <point      
+        x = "1180"      
+        y = "164"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.PerfilActivity"/>
+      <point      
+        x = "2956"      
+        y = "88"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MapActivity"/>
+      <point      
+        x = "3600"      
+        y = "544"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.seleccioPersonatgeActivity"/>
+      <point      
+        x = "292"      
+        y = "172"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.IntroActivity"/>
+      <point      
+        x = "2440"      
+        y = "1116"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.CreditsActivity"/>
+      <point      
+        x = "400"      
+        y = "1224"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MenuActivity"/>
+      <point      
+        x = "3956"      
+        y = "116"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.OpcionsActivity"/>
+      <point      
+        x = "2268"      
+        y = "396"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>
