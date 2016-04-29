@@ -27,15 +27,21 @@ public class BaseDades extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         ArrayList<String> sentencies = getSentenciesSQL();
-        db.execSQL(sentencies.get(0));
-        String compt = "SELECT count(*) FROM personatge_ES";
-        Cursor mcursor = db.rawQuery(compt, null);
-        mcursor.moveToFirst();
-        int icount = mcursor.getInt(0);
-        if(icount==0){
-            db.execSQL(sentencies.get(1));
-        }
+        for(int i = 0;i<sentencies.size();i++) {
+            if(i==1){
+                String compt = "SELECT count(*) FROM personatge_ES";
+                Cursor mcursor = db.rawQuery(compt, null);
+                mcursor.moveToFirst();
+                int icount = mcursor.getInt(0);
+                if (icount == 0) {
+                    db.execSQL(sentencies.get(i));
+                }
+            }
+            else {
+                db.execSQL(sentencies.get(i));
+            }
 
+        }
     }
 
     @Override
@@ -43,7 +49,7 @@ public class BaseDades extends SQLiteOpenHelper {
 
     }
 
-
+//carreguem cada linia de l'script sql per ser executada desde el programa
     private ArrayList<String> getSentenciesSQL(){
         ArrayList<String> sentencies = new ArrayList<String>();
         try{

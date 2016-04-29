@@ -7,10 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.GeneradorObjectesJoc;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Mapa;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.ObjecteJoc;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MapActivity;
@@ -55,7 +57,7 @@ public  class ViewMapaHandler implements Serializable {
     public static void init(MapActivity act){
         mapView = (MapaView) act.findViewById(R.id.MapView);
        // ctrl = new ViewHandlerMenu(cnt);
-        generaJoc();
+        //generaJoc();
     }
 
     public static void generaJoc(){
@@ -67,7 +69,11 @@ public  class ViewMapaHandler implements Serializable {
     }
 
     public static Mapa generateMap(){
-        return genJoc.generateMap((int)(CanvasUtils.getHeightScreen()*1.5),CanvasUtils.getHeightScreen());
+        return genJoc.generateMap((int) (CanvasUtils.getHeightScreen() * 1.5), CanvasUtils.getHeightScreen(), ctrlBD);
+    }
+
+    public static ArrayList<ObjecteJoc> generateObjecteJoc(){
+        return genJoc.generateObjecte( ctrlBD);
     }
 
     public static void finishThread(){

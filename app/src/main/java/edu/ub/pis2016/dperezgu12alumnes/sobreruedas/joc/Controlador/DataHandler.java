@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +12,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.BaseDades.BaseDades;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Mapa;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.ObjecteJoc;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Obstacles;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.PCadiraRodes;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 
 /**
  * Created by ecopika on 22/03/16.
@@ -33,6 +38,65 @@ public class DataHandler  {
     public static int getNumPersonatges(){
         // TODO: 22/03/16
         return 0;
+    }
+
+    public ArrayList<Mapa> getMapes(){
+        ArrayList<Mapa> mps = new ArrayList<Mapa>();
+        Cursor c = db.rawQuery("SELECT * FROM mapa",null);
+
+        if(c.moveToFirst()){
+            do{
+                Mapa m = new Mapa(0,0);
+                m.setId(c.getInt(0));
+                m.setIniciX(c.getFloat(1));
+                m.setIniciY(c.getFloat(2));
+                m.setFons(CanvasUtils.loadBitmapFromString(cnt, c.getString(3)));
+                Obstacles o = getObstacle(m.getId());
+                m.setObstacles(o);
+                mps.add(m);
+            }while (c.moveToNext());
+        }
+        return mps;
+    }
+
+//obtenim els objectes del joc(arbres, edificis, vehicles...) de la base de dades
+    public ArrayList<ObjecteJoc> getObjectes(){
+        ArrayList<ObjecteJoc> obj = new ArrayList<ObjecteJoc>();
+
+        Cursor c = db.rawQuery("SELECT * FROM objectesmapa_ES",null);
+        if(c.moveToFirst()){
+            do{
+                int id = c.getInt(0);
+                ObjecteJoc p = new ObjecteJoc(c.getString(1),c.getInt(2),cnt);
+                obj.add(p);
+            }while(c.moveToNext());
+        }
+        return obj;
+    }
+//obtenim els obstacles de cada mapa a partir del seu id
+    public Obstacles getObstacle(int idMap){
+        Cursor c = db.rawQuery("SELECT * FROM obstacle WHERE MAP=?",new String[]{String.valueOf(idMap)});//això es fa per poder passar paràmetres
+        Obstacles o = null;
+        if(c.moveToFirst()){
+            do{
+                int id = c.getInt(0);
+                int pos = c.getInt(1);
+                String nomImg = c.getString(2);
+                ArrayList<String> llisImgRes = new ArrayList<String>();
+
+                Cursor cu = db.rawQuery("SELECT * FROM resposta WHERE OBSTACLE=?", new String[]{String.valueOf(id)});
+                if(cu.moveToFirst()){
+                    do {
+                        llisImgRes.add(cu.getString(1));
+                    }while(cu.moveToNext());
+                }
+
+                o=new Obstacles(id,pos,nomImg,llisImgRes,cnt);
+            }while(c.moveToNext());
+        }
+
+        return o;
+
     }
 
 

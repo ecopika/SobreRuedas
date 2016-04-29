@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewHandlerMenu;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
 
@@ -31,7 +29,7 @@ public class SeleccioFragment extends Fragment{
     private Personatge nuria;
     public static final String IMAGE = "image";
 
-    static int[] img = {R.drawable.nuriafotograma, R.drawable.coche10, R.drawable.coche13};
+    static int[] img = {R.drawable.nuriafotograma, R.drawable.motoesq, R.drawable.motodret};
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override

@@ -1,8 +1,13 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.util.DisplayMetrics;
+
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 
 /**
  * Created by dperezgu12.alumnes on 14/03/16.
@@ -51,6 +56,12 @@ public class CanvasUtils {
         return Bitmap.createBitmap(bm,0,0,width,height,matrix,false);
 
 
+    }
+
+    public static Bitmap loadBitmapFromString(Context cnt, String name){
+        Resources res = cnt.getResources();
+        final int resId = res.getIdentifier(name, "drawable", cnt.getPackageName());
+        return BitmapFactory.decodeResource(cnt.getResources(), resId);
     }
 
 

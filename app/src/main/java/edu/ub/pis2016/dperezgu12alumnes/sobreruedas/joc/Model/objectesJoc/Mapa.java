@@ -1,9 +1,8 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc;
 
+
 import android.graphics.Bitmap;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by dperezgu12.alumnes on 06/04/16.
@@ -17,6 +16,7 @@ public class Mapa  {
     private float iniciX;
     private float iniciY;
     private Bitmap fons;
+    private int id;
 
     private Obstacles obstacles;
 
@@ -29,9 +29,19 @@ public class Mapa  {
         this.iniciY = 0;
     }
 
+    public int getId(){
+        return this.id;
+    }
+
+    public void setId(int id){
+        this.id=id;
+    }
+
     public int getAlcada() {
         return alcada;
     }
+
+
 
     public void setAlcada(int alcada) {
         this.alcada = alcada;

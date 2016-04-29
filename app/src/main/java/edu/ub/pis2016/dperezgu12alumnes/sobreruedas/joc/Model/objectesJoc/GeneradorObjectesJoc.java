@@ -22,8 +22,9 @@ public class GeneradorObjectesJoc {
      */
 
     private Personatge p;
-
-    public GeneradorObjectesJoc(){ }
+    private ObjecteJoc o;
+    public GeneradorObjectesJoc(){
+    }
 
 
 
@@ -38,9 +39,18 @@ public class GeneradorObjectesJoc {
 
     }
 
-    public Mapa generateMap(int ampladaMapa, int alcadaMapa){
-        map = new Mapa(ampladaMapa, alcadaMapa);
+    public Mapa generateMap(int ampladaMapa, int alcadaMapa, DataHandler db){
+
+        map = db.getMapes().get(0);
+        map.setAlcada(alcadaMapa);
+        map.setAmplada(ampladaMapa);
         return map;
+    }
+
+    public ArrayList<ObjecteJoc> generateObjecte( DataHandler bd){
+        ArrayList<ObjecteJoc> obj = bd.getObjectes();
+        return obj;
+
     }
 
     public Mapa getMap() {
