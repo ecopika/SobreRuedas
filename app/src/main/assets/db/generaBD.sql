@@ -6,6 +6,10 @@ CREATE TABLE IF NOT EXISTS objectesmapa (ID INT PRIMARY KEY NOT NULL,IMATGE TEXT
 INSERT INTO personatge_ES (ID,NOM,EDAT,COLOR_P,MENJAR_P,HOBBY,IDOL,PASIONS,HABITS,NOSOPORTA,FRASE,SOMNI,IMATGE,GIF) VALUES (0,'Núria',10,'azul','Lasaña','Baloncesto','Mujer Maravilla','Pintar','leer comics de mortadelo y filemon','payasos','no hay nada imposible para mi','llegar a ser una gran politica y cambiar las cosas','nuriafotograma','movnuria.gif');
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT) VALUES (0,"motoesq",10);
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT) VALUES (1,"motodret",10);
+INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT) VALUES (1,"motodret",10);
+INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT) VALUES (1,"motodret",10);
+INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT) VALUES (1,"motodret",10);
+INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT) VALUES (1,"motodret",10);
 INSERT INTO mapa (ID, INICIX, INICIY,NOMIMG)VALUES (0,0.0,0.0,"mapbuit1");
 INSERT INTO obstacle (ID, POS, NOMIMGSOL, MAP)VALUES (0,0,"sol1",0);
 INSERT INTO resposta (ID,NOMIMGRES,OBSTACLE)VALUES ("rampa","rampa",0);
