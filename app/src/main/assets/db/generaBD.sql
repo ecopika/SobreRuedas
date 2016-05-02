@@ -6,11 +6,6 @@ CREATE TABLE IF NOT EXISTS objectesmapa (ID INT PRIMARY KEY NOT NULL,IMATGE TEXT
 CREATE TABLE IF NOT EXISTS perfil(ID INT PRIMARY KEY NOT NULL, NOMPERSONATGE TEXT, DIFICULAT INT, PUNTUACIO INT);
 CREATE TABLE IF NOT EXISTS mapa_object(IDMAPA INT NOT NULL, IDOBJECTE INT NOT NULL,PRIMARY KEY (IDMAPA, IDOBJECTE),FOREIGN KEY(IDMAPA) REFERENCES mapa(ID),FOREIGN KEY(IDOBJECTE) REFERENCES objectesmapa(ID));
 INSERT INTO personatge_ES (ID,NOM,EDAT,COLOR_P,MENJAR_P,HOBBY,IDOL,PASIONS,HABITS,NOSOPORTA,FRASE,SOMNI,IMATGE,GIF) VALUES (0,'Núria',10,'azul','Lasaña','Baloncesto','Mujer Maravilla','Pintar','leer comics de mortadelo y filemon','payasos','no hay nada imposible para mi','llegar a ser una gran politica y cambiar las cosas','nuriafotograma','movnuria.gif');
-<<<<<<< HEAD
-INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT) VALUES (0,"motoesq",10);
-INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT) VALUES (1,"motodret",10);
-
-=======
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (0,"noia1",43,0.0,0.0);
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (1,"noia2",44,0.0,0.0);
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (2,"noia3",45,0.0,0.0);
@@ -47,7 +42,6 @@ INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (32,"motodret",23,0.
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (33,"motodreta2",24,0.0,0.0);
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (34,"motodreta3",25,0.0,0.0);
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (35,"bus",26,0.0,0.0);
->>>>>>> 69fc31fa59838e4435ddad60b000c9069abd1c5e
 INSERT INTO mapa (ID, INICIX, INICIY,NOMIMG)VALUES (0,0.0,0.0,"mapbuit1");
 INSERT INTO obstacle (ID, POS, NOMIMGSOL, MAP)VALUES (0,0,"sol1",0);
 INSERT INTO resposta (ID,NOMIMGRES,OBSTACLE)VALUES ("rampa","rampa",0);
