@@ -43,6 +43,10 @@ public class JocThread extends Thread {
 
     private ArrayList<ObjecteJoc> obj;
 
+
+
+
+
     //objecte GIF
 
 
