@@ -60,14 +60,16 @@ public class DataHandler  {
     }
 
 //obtenim els objectes del joc(arbres, edificis, vehicles...) de la base de dades
-    public ArrayList<ObjecteJoc> getObjectes(){
+    public ArrayList<ObjecteJoc> getObjectes(int idMapa){
         ArrayList<ObjecteJoc> obj = new ArrayList<ObjecteJoc>();
 
-        Cursor c = db.rawQuery("SELECT * FROM objectesmapa",null);
+        Cursor c = db.rawQuery("SELECT o.ID,o.IMATGE,o.PROFUNDITAT,o.X,o.Y, m.IDMAPA FROM objectesmapa o JOIN mapa_object m ON m.IDMAPA=? AND m.IDOBJECTE = o.ID",new String[]{String.valueOf(idMapa)} );
         if(c.moveToFirst()){
             do{
                 int id = c.getInt(0);
                 ObjecteJoc p = new ObjecteJoc(c.getString(1),c.getInt(2),cnt);
+                p.setX(c.getFloat(3));
+                p.setY(c.getFloat(4));
                 obj.add(p);
             }while(c.moveToNext());
         }

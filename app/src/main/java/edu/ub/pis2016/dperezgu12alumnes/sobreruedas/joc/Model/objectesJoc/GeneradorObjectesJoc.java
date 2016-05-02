@@ -48,7 +48,7 @@ public class GeneradorObjectesJoc {
     }
 
     public ArrayList<ObjecteJoc> generateObjecte( DataHandler bd){
-        ArrayList<ObjecteJoc> obj = bd.getObjectes();
+        ArrayList<ObjecteJoc> obj = bd.getObjectes(0);
         return obj;
 
     }
