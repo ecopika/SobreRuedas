@@ -63,7 +63,7 @@ public class DataHandler  {
     public ArrayList<ObjecteJoc> getObjectes(){
         ArrayList<ObjecteJoc> obj = new ArrayList<ObjecteJoc>();
 
-        Cursor c = db.rawQuery("SELECT * FROM objectesmapa_ES",null);
+        Cursor c = db.rawQuery("SELECT * FROM objectesmapa",null);
         if(c.moveToFirst()){
             do{
                 int id = c.getInt(0);
