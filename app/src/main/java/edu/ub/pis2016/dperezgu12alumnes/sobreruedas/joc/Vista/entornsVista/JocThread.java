@@ -58,23 +58,37 @@ public class JocThread extends Thread {
         this.cnt = cnt;
         ViewMapaHandler.setActivity((MapActivity) this.cnt);
         ViewMapaHandler.setContext(cnt);
-
+        map = ViewMapaHandler.generateMap();
 
         x = 0;
 
-        mapSize = 3700;
         prs = ViewMapaHandler.generatePersonatge();
         moviment = false;
         pause = false;
+
+        //MAPA 1
         obj = ViewMapaHandler.generateObjecteJoc();
-        obj.get(0).setX(CanvasUtils.getWidthScreen()/2);
-        obj.get(0).setY(CanvasUtils.getHeightScreen()/2-(obj.get(0).getAlcada()/2));
-        obj.get(1).setX(CanvasUtils.getWidthScreen()/2);
-        obj.get(1).setY(CanvasUtils.getHeightScreen()/2-50);
+
+        //NOIA
+        obj.get(0).setAlcada(map.getAlcada()/3);
+        obj.get(0).setAmplada(obj.get(0).getAlcada()*3/4);
+        obj.get(0).setY(map.getAlcada()/4);
+        obj.get(0).setX(map.getAmplada()/4);
+        //BOTIGA
+        /*
+        obj.get(1).setX(CanvasUtils.getWidthScreen() / 2);
+        obj.get(1).setY(CanvasUtils.getHeightScreen() / 2 - 50);
+        //
+        obj.get(2).setX(CanvasUtils.getWidthScreen() / 2);
+        obj.get(2).setY(CanvasUtils.getHeightScreen() / 2 - 50);
+        //
+        obj.get(3).setX(CanvasUtils.getWidthScreen() / 2);
+        obj.get(3).setY(CanvasUtils.getHeightScreen() / 2 - 50);
+*/
 
 
         //GIF cadira
-        map = ViewMapaHandler.generateMap();
+
 
 
     }
@@ -129,7 +143,7 @@ public class JocThread extends Thread {
         }
 
         if(obj.get(0).getX()>0-obj.get(0).getAmplada()*2)obj.get(0).setX(obj.get(0).getX() - 8);
-        if(obj.get(1).getX()<map.getAmplada())obj.get(1).setX(obj.get(1).getX() + 8);
+       // if(obj.get(1).getX()<map.getAmplada())obj.get(1).setX(obj.get(1).getX() + 8);
 
 
     }
@@ -138,7 +152,10 @@ public class JocThread extends Thread {
     private void doDraw(Canvas c) {
         c.drawBitmap(CanvasUtils.escalaImatge(map.getFons(), map.getAlcada() + 3, map.getAmplada()), x, -1, null);
         c.drawBitmap(CanvasUtils.escalaImatge(obj.get(0).getImg(), obj.get(0).getAmplada(), obj.get(0).getAlcada()), obj.get(0).getX(), obj.get(0).getY(), null);
-        c.drawBitmap(CanvasUtils.escalaImatge(obj.get(1).getImg(),obj.get(1).getAmplada(), obj.get(1).getAlcada()), obj.get(1).getX(), obj.get(1).getY(), null);
+      //  c.drawBitmap(CanvasUtils.escalaImatge(obj.get(1).getImg(),obj.get(1).getAmplada(), obj.get(1).getAlcada()), obj.get(1).getX(), obj.get(1).getY(), null);
+        //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(2).getImg(),obj.get(2).getAmplada(), obj.get(2).getAlcada()), obj.get(2).getX(), obj.get(2).getY(), null);
+        //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(3).getImg(),obj.get(3).getAmplada(), obj.get(3).getAlcada()), obj.get(3).getX(), obj.get(3).getY(), null);
+
         if (moviment) {//si el personatge esta en moviment
             //cuadrar el temps del GIF amb el temps del joc
             final long now = SystemClock.uptimeMillis();//s'obté el temps actual
