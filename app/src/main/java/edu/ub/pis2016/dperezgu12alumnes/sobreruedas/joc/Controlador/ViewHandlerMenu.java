@@ -3,6 +3,7 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,14 +24,26 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MenuAct
 public class ViewHandlerMenu {
 
 
-    private  Context meuContext;
+    private static Context meuContext;
     private Credits crd;
+
+    private static SharedPreferences settings;
 
     //constructor del controlador de la vista
     public ViewHandlerMenu(Context cnt){
         meuContext = cnt;
 
 
+
+    }
+
+    public static void loadPreferences(){
+         settings = meuContext.getSharedPreferences("SobreRuedasPref", 0);
+
+    }
+
+    public static SharedPreferences getPreferences(){
+        return settings;
     }
 
     public void initCredits(){

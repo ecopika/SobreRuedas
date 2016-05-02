@@ -22,7 +22,7 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.MapaV
 /**
  * Created by ecopika on 22/03/16.
  */
-public  class ViewMapaHandler implements Serializable {
+public  class ViewMapaHandler{
 
     private static MapaView mapView;
     private static Context cnts;

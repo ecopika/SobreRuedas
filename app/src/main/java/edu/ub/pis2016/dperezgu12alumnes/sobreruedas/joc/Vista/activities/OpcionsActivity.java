@@ -18,13 +18,14 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 
 
 public class OpcionsActivity extends Activity {
-    public static final String PREFS_NAME = "SobreRuedasPref";
-    public static final String  KEY_DIFICULTAT = "Dificultat";
-    public static final Integer  FACIL = R.id.radioButtonFacil;
-    public static final Integer  MODERADO = R.id.radioButtonModerat;
-    public static final Integer  DIFICIL = R.id.radioButtonDificil;
-    public static final Integer  MUYDIFICIL = R.id.radioButtonMoltDificil;
-    public static final String KEY_SO = "So";
+    public  final String PREFS_NAME = "SobreRuedasPref";
+    public  final String  KEY_DIFICULTAT = "Dificultat";
+    public  final Integer  FACIL = R.id.radioButtonFacil;
+    public  final Integer  MODERADO = R.id.radioButtonModerat;
+    public  final Integer  DIFICIL = R.id.radioButtonDificil;
+    public  final Integer  MUYDIFICIL = R.id.radioButtonMoltDificil;
+    public  final String KEY_SO = "So";
+    public SharedPreferences settings;
 
 
     @Override
@@ -42,7 +43,6 @@ public class OpcionsActivity extends Activity {
 
         CheckBox so_chk = (CheckBox) findViewById(R.id.cbDesactivarSo);
         RadioGroup nivell_rg = (RadioGroup) findViewById(R.id.radioGroup);
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         so_chk.setChecked(settings.getBoolean(KEY_SO, false));
         Integer rb =  settings.getInt(KEY_DIFICULTAT, -1);
         if (rb != -1) {
