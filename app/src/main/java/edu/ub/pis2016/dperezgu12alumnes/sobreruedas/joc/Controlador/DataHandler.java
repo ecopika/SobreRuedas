@@ -3,12 +3,7 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.BaseDades.BaseDades;

@@ -28,6 +28,14 @@ public class Obstacles {
         }
     }
 
+    public Bitmap getSolutionImg(){
+        return this.mapaSolucioImg;
+    }
+
+    public Bitmap getRespostes(){
+        if(respostes.size()>0)return respostes.get(0);
+        else return null;
+    }
 
 
 }

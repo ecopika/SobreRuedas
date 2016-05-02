@@ -98,7 +98,7 @@ public class JocThread extends Thread {
     public void run() {
 
         while (mRun) {
-            Log.i("JocThread","whileThread");
+           // Log.i("JocThread","whileThread");
             while (pause) {
 
             }
@@ -174,7 +174,7 @@ public class JocThread extends Thread {
 
         } else {//si el personatge no és mou
             c.drawBitmap(CanvasUtils.escalaImatge(prs.getImg(), CanvasUtils.getWidthScreen() / 3, CanvasUtils.getHeightScreen() / 4), 50, CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3, null);
-
+            c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(),CanvasUtils.getWidthScreen(),CanvasUtils.getHeightScreen()/2),0,0,null);
         }
 
     }
