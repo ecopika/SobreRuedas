@@ -64,5 +64,11 @@ public class CanvasUtils {
         return BitmapFactory.decodeResource(cnt.getResources(), resId);
     }
 
+    public static float calcularFactorEscalatge (Bitmap img){
+        float width = img.getWidth();
+        float height = img.getHeight();
+        return width/height;
+    }
+
 
 }

@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import android.widget.ArrayAdapter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +41,9 @@ public class JocThread extends Thread {
     private boolean pause;
     private int x;
     private int mapSize;
-
+    private ArrayList<Bitmap> fons;
+    private float pl;
+    private float fr;
     private ArrayList<ObjecteJoc> obj;
 
 
@@ -66,28 +69,54 @@ public class JocThread extends Thread {
         moviment = false;
         pause = false;
 
+        fons = new ArrayList<Bitmap>();
+       // fons = CanvasUtils.escalaImatge(map.getFons(), map.getAlcada() + 3, map.getAmplada());
         //MAPA 1
         obj = ViewMapaHandler.generateObjecteJoc();
 
-        //NOIA
-        obj.get(0).setAlcada(map.getAlcada()/3);
-        obj.get(0).setAmplada(obj.get(0).getAlcada()*3/4);
-        obj.get(0).setY(map.getAlcada()/4);
-        obj.get(0).setX(map.getAmplada()/4);
+        //PERSONATGE
+        prs.setAlcada(map.getAlcada() / 4);
+        float amplada = ((float)prs.getAlcada()*CanvasUtils.calcularFactorEscalatge(prs.getImg()));
+        prs.setAmplada((int) amplada);
+        prs.setX(CanvasUtils.getWidthScreen() * 0.2f);
+        prs.setY(CanvasUtils.getHeightScreen() * 0.6f);
+        fr = (float)prs.getAmplada() /(float) prs.getImg().getWidth();
+        prs.setGifX(prs.getX() /fr );
+        //prs.setGifY(prs.getY() * prs.getAlcada() / prs.getImg().getHeight());
+        //pl =((1280f/4f)/402f);
+        pl = (float)prs.getAlcada()/(float)prs.getImg().getHeight();
+        prs.setGifY(prs.getY() /pl );
+        //prs.setGifX(1280/4/402*376/402);
+
+        //NOIA1
+        obj.get(0).setAlcada(map.getAlcada() / 3);
+        amplada = ((float)obj.get(0).getAlcada()*0.75f);
+        obj.get(0).setAmplada((int) amplada);
+        obj.get(0).setY(map.getAlcada() / 2);
+        obj.get(0).setX(map.getAmplada() * 0.15f);
+
+
         //BOTIGA
-        /*
-        obj.get(1).setX(CanvasUtils.getWidthScreen() / 2);
-        obj.get(1).setY(CanvasUtils.getHeightScreen() / 2 - 50);
-        //
-        obj.get(2).setX(CanvasUtils.getWidthScreen() / 2);
-        obj.get(2).setY(CanvasUtils.getHeightScreen() / 2 - 50);
-        //
+        obj.get(1).setAlcada((int) (map.getAlcada() * 0.8));
+        amplada = ((float)obj.get(1).getAlcada()*0.73f);
+        obj.get(1).setAmplada((int) amplada);
+        obj.get(1).setY(map.getAlcada() / 6);
+        obj.get(1).setX( (map.getAmplada() *0.25f));
+
+        //BARCO2
+        obj.get(3).setAlcada((int) (map.getAlcada() * 0.15));
+        amplada = ((float)obj.get(3).getAlcada()*0.92f);
+        obj.get(3).setAmplada((int) amplada);
+        obj.get(3).setY((float) (map.getAlcada() * 0.25));
+        obj.get(3).setX((map.getAmplada() * 0.15f));
+   /*     //
         obj.get(3).setX(CanvasUtils.getWidthScreen() / 2);
         obj.get(3).setY(CanvasUtils.getHeightScreen() / 2 - 50);
+
 */
 
-
         //GIF cadira
+        escalaImatges();
 
 
 
@@ -133,16 +162,41 @@ public class JocThread extends Thread {
         this.pause = false;
     }
 
+    //FUNCIO PER ESCALAR LES IMATGES
+    private void escalaImatges(){
+        //ESCALAR IMATGE MAPA
+        fons.add(CanvasUtils.escalaImatge(map.getFons(), map.getAlcada() + 3, map.getAmplada()));
+        //ESCALAR IMATGE DEL PERSONATGE
+        fons.add(CanvasUtils.escalaImatge(prs.getImg(), prs.getAlcada(), prs.getAmplada()));
+
+        //ESCALAR OBJECTES JOC
+        //ESCALAR NOIA1
+        fons.add(CanvasUtils.escalaImatge(obj.get(0).getImg(), obj.get(0).getAmplada(), obj.get(0).getAlcada()));
+        //ESCALAR BOTIGA3
+        fons.add(CanvasUtils.escalaImatge(obj.get(1).getImg(), obj.get(1).getAmplada(), obj.get(1).getAlcada()));
+        //ESCALAR BARCO2
+        fons.add(CanvasUtils.escalaImatge(obj.get(3).getImg(), obj.get(3).getAmplada(), obj.get(3).getAlcada()));
+
+
+    }
+
 
     private void update() {
         moviment = false;
         if (x > CanvasUtils.getWidthScreen()-map.getAmplada()+ prs.getAmplada()) {
             moviment = true;
             x -= 5;
-
+            obj.get(0).setX(obj.get(0).getX()-5);
+            obj.get(1).setX(obj.get(1).getX()-5);
+            obj.get(3).setX(obj.get(3).getX()-5);
         }
 
-        if(obj.get(0).getX()>0-obj.get(0).getAmplada()*2)obj.get(0).setX(obj.get(0).getX() - 8);
+        //VELOCITAT DELS OBJECTES NO MOVILS
+        //obj.get(0).setX(obj.get(0).getX()-5);
+        //obj.get(1).setX(obj.get(1).getX()-5);
+
+
+        //if(obj.get(0).getX()>0-obj.get(0).getAmplada()*2)obj.get(0).setX(obj.get(0).getX() - 8);
        // if(obj.get(1).getX()<map.getAmplada())obj.get(1).setX(obj.get(1).getX() + 8);
 
 
@@ -150,8 +204,22 @@ public class JocThread extends Thread {
 
 
     private void doDraw(Canvas c) {
-        c.drawBitmap(CanvasUtils.escalaImatge(map.getFons(), map.getAlcada() + 3, map.getAmplada()), x, -1, null);
-        c.drawBitmap(CanvasUtils.escalaImatge(obj.get(0).getImg(), obj.get(0).getAmplada(), obj.get(0).getAlcada()), obj.get(0).getX(), obj.get(0).getY(), null);
+        //drawBitmap(img,x,y,null)
+
+        //canvasutils(img, height, width)
+
+        //MAPA
+        c.drawBitmap(fons.get(0), x, -1, null);
+
+        //OBJECTES
+        c.drawBitmap(fons.get(2), obj.get(0).getX(), obj.get(0).getY(), null);
+        c.drawBitmap(fons.get(3), obj.get(1).getX(), obj.get(1).getY(), null);
+        c.drawBitmap(fons.get(4), obj.get(3).getX(), obj.get(3).getY(), null);
+
+        //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(3).getImg(),obj.get(3).getAmplada(), obj.get(3).getAlcada()), obj.get(3).getX(), obj.get(3).getY(), null);
+
+
+        // c.drawBitmap(CanvasUtils.escalaImatge(obj.get(0).getImg(), obj.get(0).getAmplada(), obj.get(0).getAlcada()), obj.get(0).getX(), obj.get(0).getY(), null);
       //  c.drawBitmap(CanvasUtils.escalaImatge(obj.get(1).getImg(),obj.get(1).getAmplada(), obj.get(1).getAlcada()), obj.get(1).getX(), obj.get(1).getY(), null);
         //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(2).getImg(),obj.get(2).getAmplada(), obj.get(2).getAlcada()), obj.get(2).getX(), obj.get(2).getY(), null);
         //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(3).getImg(),obj.get(3).getAmplada(), obj.get(3).getAlcada()), obj.get(3).getX(), obj.get(3).getY(), null);
@@ -168,13 +236,15 @@ public class JocThread extends Thread {
             int relTime = (int) ((now - prs.getTempsInici()) % dur);
             prs.getGifPrs().getMovie().setTime(relTime);
             //fi de la sincronització temporal
-
+            c.scale(fr,pl);
             //dibuixem el GIF
-            prs.getGifPrs().getMovie().draw(c,50,CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
+            prs.getGifPrs().getMovie().draw(c,prs.getGifX(),prs.getGifY());
+            c.restore();
+            }
+        else {//si el personatge no és mou
+            c.drawBitmap(fons.get(1),prs.getX(),prs.getY()+5, null);
 
-        } else {//si el personatge no és mou
-            c.drawBitmap(CanvasUtils.escalaImatge(prs.getImg(), CanvasUtils.getWidthScreen() / 3, CanvasUtils.getHeightScreen() / 4), 50, CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3, null);
-            c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(),CanvasUtils.getWidthScreen(),CanvasUtils.getHeightScreen()/2),0,0,null);
+           // c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(),CanvasUtils.getWidthScreen(),CanvasUtils.getHeightScreen()/2),0,0,null);
         }
 
     }
