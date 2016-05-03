@@ -32,9 +32,13 @@ public class Obstacles {
         return this.mapaSolucioImg;
     }
 
-    public Bitmap getRespostes(){
+    public Bitmap getSolution(){
         if(respostes.size()>0)return respostes.get(0);
         else return null;
+    }
+
+    public Bitmap getRespostes(){
+        return mapaSolucioImg;
     }
 
 

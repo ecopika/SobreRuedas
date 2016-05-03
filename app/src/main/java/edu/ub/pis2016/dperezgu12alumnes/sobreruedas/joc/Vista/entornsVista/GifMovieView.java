@@ -2,6 +2,7 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista;
 
 import android.content.Context;
 import android.graphics.Movie;
+import android.util.Log;
 import android.view.View;
 
 import java.io.InputStream;
@@ -13,6 +14,9 @@ public class GifMovieView extends View {
 
     private Movie movie;
     private InputStream mStream;
+    private float mScale;
+    private int mMeasuredMovieWidth;
+    private int mMeasuredMovieHeight;
 
     public GifMovieView(Context context, InputStream stream) {
         super(context);
@@ -25,6 +29,7 @@ public class GifMovieView extends View {
     public Movie getMovie(){
         return movie;
     }
+
 
 
 }

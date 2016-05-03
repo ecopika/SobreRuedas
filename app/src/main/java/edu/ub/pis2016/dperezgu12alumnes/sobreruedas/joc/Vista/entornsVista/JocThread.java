@@ -170,11 +170,14 @@ public class JocThread extends Thread {
             //fi de la sincronització temporal
 
             //dibuixem el GIF
-            prs.getGifPrs().getMovie().draw(c,50,CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
+            //prs.getGifPrs().getMovie().draw(c,50,CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
+            c.scale(0.78f,0.79f);
 
+            prs.getGifPrs().getMovie().draw(c, 50, CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
+            c.restore();
         } else {//si el personatge no és mou
-            c.drawBitmap(CanvasUtils.escalaImatge(prs.getImg(), CanvasUtils.getWidthScreen() / 3, CanvasUtils.getHeightScreen() / 4), 50, CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3, null);
-            c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(),CanvasUtils.getWidthScreen(),CanvasUtils.getHeightScreen()/2),0,0,null);
+            c.drawBitmap(CanvasUtils.escalaImatge(prs.getImg(),CanvasUtils.getHeightScreen() / 4 , CanvasUtils.getWidthScreen() / 3), 50, CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3, null);
+            c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(),CanvasUtils.getHeightScreen(),CanvasUtils.getWidthScreen()),0,0,null);
         }
 
     }
