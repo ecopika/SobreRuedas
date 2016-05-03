@@ -240,13 +240,13 @@ public class JocThread extends Thread {
             //dibuixem el GIF
             //prs.getGifPrs().getMovie().draw(c,50,CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
 
-            prs.getGifPrs().getMovie().draw(c,prs.getGifX(),prs.getGifY());
+            prs.getGifPrs().getMovie().draw(c, prs.getGifX(), prs.getGifY());
             c.restore();
             }
         else {//si el personatge no és mou
             c.drawBitmap(fons.get(1),prs.getX(),prs.getY()+5, null);
 
-           // c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(),CanvasUtils.getWidthScreen(),CanvasUtils.getHeightScreen()/2),0,0,null);
+            c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(), CanvasUtils.getHeightScreen() ,CanvasUtils.getWidthScreen()),0,0,null);
         }
 
     }
