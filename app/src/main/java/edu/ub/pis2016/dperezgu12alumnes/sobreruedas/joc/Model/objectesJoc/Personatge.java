@@ -36,6 +36,8 @@ public abstract class Personatge {
     //atributs del personatge al mapa
     protected float x;
     protected float y;
+    protected float gifX;
+    protected float gifY;
     protected int amplada;
     protected int alcada;
     protected int velX;
@@ -77,6 +79,8 @@ public abstract class Personatge {
         this.amplada = this.alcada/2;
         this.y= 0;
         this.x = 0;
+        this.gifX = 0;
+        this.gifY=0;
         this.velX = 0;
         this.velY = 0;
         this.movX = false;
@@ -207,13 +211,32 @@ public abstract class Personatge {
         this.x = x;
     }
 
+    public float getGifX() {
+        return gifX;
+    }
+
+    public void setGifX(float gifX) {
+        this.gifX = gifX;
+    }
+
+    public float getGifY() {
+        return gifY;
+    }
+
+    public void setGifY(float gifY) {
+        this.gifY = gifY;
+    }
+
     public float getY() {
+
         return y;
     }
 
     public void setY(float y) {
         this.y = y;
     }
+
+
 
     public int getAmplada() {
         return amplada;
