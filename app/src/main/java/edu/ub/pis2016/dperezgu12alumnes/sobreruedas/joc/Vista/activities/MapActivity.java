@@ -1,23 +1,33 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.JocThread;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.MapaView;
 
 public class MapActivity extends Activity {
-
+    public static float x;
+    public static float y;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,7 @@ public class MapActivity extends Activity {
 
         setContentView(R.layout.activity_map);
         MapaView mpVi = (MapaView)findViewById(R.id.MapView);
+
         ViewMapaHandler.init(this);
         mpVi.initGameThread(this);
 
@@ -66,6 +77,15 @@ public class MapActivity extends Activity {
 
         //Intent returnMain = new Intent("android.intent.action.MAIN");
         //startActivity(returnMain);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        if (JocThread.clic) {
+            x = event.getX();
+            y = event.getY();
+        }
+        return false;
     }
 
 

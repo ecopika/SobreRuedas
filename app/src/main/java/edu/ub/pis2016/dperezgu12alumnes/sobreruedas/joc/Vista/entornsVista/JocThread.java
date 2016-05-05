@@ -5,7 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Movie;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -49,6 +51,21 @@ public class JocThread extends Thread {
 
 
 
+    private float pastX;
+    private float pastY;
+
+    private Bitmap creu;
+    private Bitmap tic;
+
+    private boolean clicado=false;
+    long starttime;
+
+    public static boolean clic=false;
+    private boolean correcte = false;
+    Paint paint = new Paint();
+
+
+
 
     //objecte GIF
 
@@ -65,6 +82,16 @@ public class JocThread extends Thread {
 
         x = 0;
 
+        //CANVI DE COLOR I TAMANY DE LA VARIABLE DE CONTAR EL TEMPS
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(59);
+        //AGAFA EL TEMPS ACTUAL
+        starttime = System.currentTimeMillis();
+
+
+        creu = CanvasUtils.loadBitmapFromString(cnt, "cruzroja");
+        tic = CanvasUtils.loadBitmapFromString(cnt, "tic");
+
         prs = ViewMapaHandler.generatePersonatge();
         moviment = false;
         pause = false;
@@ -74,6 +101,7 @@ public class JocThread extends Thread {
         //MAPA 1
         obj = ViewMapaHandler.generateObjecteJoc();
 
+
         //PERSONATGE
         prs.setAlcada(map.getAlcada() / 4);
         float amplada = ((float)prs.getAlcada()*CanvasUtils.calcularFactorEscalatge(prs.getImg()));
@@ -82,11 +110,9 @@ public class JocThread extends Thread {
         prs.setY(CanvasUtils.getHeightScreen() * 0.6f);
         fr = (float)prs.getAmplada() /(float) prs.getImg().getWidth();
         prs.setGifX(prs.getX() /fr );
-        //prs.setGifY(prs.getY() * prs.getAlcada() / prs.getImg().getHeight());
-        //pl =((1280f/4f)/402f);
         pl = (float)prs.getAlcada()/(float)prs.getImg().getHeight();
-        prs.setGifY(prs.getY() /pl );
-        //prs.setGifX(1280/4/402*376/402);
+        prs.setGifY(prs.getY() / pl);
+
 
         //NOIA1
         obj.get(0).setAlcada(map.getAlcada() / 3);
@@ -101,7 +127,7 @@ public class JocThread extends Thread {
         amplada = ((float)obj.get(1).getAlcada()*0.73f);
         obj.get(1).setAmplada((int) amplada);
         obj.get(1).setY(map.getAlcada() / 6);
-        obj.get(1).setX( (map.getAmplada() *0.25f));
+        obj.get(1).setX((map.getAmplada() * 0.25f));
 
         //BARCO2
         obj.get(3).setAlcada((int) (map.getAlcada() * 0.15));
@@ -112,8 +138,15 @@ public class JocThread extends Thread {
    /*     //
         obj.get(3).setX(CanvasUtils.getWidthScreen() / 2);
         obj.get(3).setY(CanvasUtils.getHeightScreen() / 2 - 50);
-
 */
+
+        //OBSTACLE
+        map.getObstacles().setY1((int) (CanvasUtils.getHeightScreen() * 0.094));
+        map.getObstacles().setY2((int) (CanvasUtils.getHeightScreen() * 0.26));
+
+
+
+
 
         //GIF cadira
         escalaImatges();
@@ -176,6 +209,11 @@ public class JocThread extends Thread {
         fons.add(CanvasUtils.escalaImatge(obj.get(1).getImg(), obj.get(1).getAmplada(), obj.get(1).getAlcada()));
         //ESCALAR BARCO2
         fons.add(CanvasUtils.escalaImatge(obj.get(3).getImg(), obj.get(3).getAmplada(), obj.get(3).getAlcada()));
+        //ESCALAR CREU
+        fons.add(CanvasUtils.escalaImatge(creu,CanvasUtils.getWidthScreen()/4,CanvasUtils.getWidthScreen()/4));
+        //ESCALAR TIC
+        fons.add(CanvasUtils.escalaImatge(tic, CanvasUtils.getWidthScreen()/4, CanvasUtils.getWidthScreen()/4));
+
 
 
     }
@@ -191,6 +229,19 @@ public class JocThread extends Thread {
             obj.get(3).setX(obj.get(3).getX()-5);
         }
 
+        if (correcte){
+            moviment = true;
+            if (prs.getGifX()<CanvasUtils.getWidthScreen()*0.75){
+                prs.setGifX(prs.getGifX()+5);
+            }else if (prs.getGifX()<CanvasUtils.getWidthScreen()*0.9 && prs.getGifY()>CanvasUtils.getHeightScreen()*0.8) {
+                prs.setGifX(prs.getGifX() + 5);
+                prs.setGifY(prs.getGifY() + 4);
+            }
+            else{
+                prs.setGifX(prs.getGifX()+5);
+
+        }}
+
         //VELOCITAT DELS OBJECTES NO MOVILS
         //obj.get(0).setX(obj.get(0).getX()-5);
         //obj.get(1).setX(obj.get(1).getX()-5);
@@ -203,13 +254,17 @@ public class JocThread extends Thread {
     }
 
 
-    private void doDraw(Canvas c) {
+    private void doDraw(Canvas c) throws InterruptedException {
         //drawBitmap(img,x,y,null)
-
         //canvasutils(img, height, width)
-
+        if(clicado){
+            sleep(3000);
+            clicado=false;
+        }
         //MAPA
         c.drawBitmap(fons.get(0), x, -1, null);
+
+
 
         //OBJECTES
         c.drawBitmap(fons.get(2), obj.get(0).getX(), obj.get(0).getY(), null);
@@ -244,12 +299,42 @@ public class JocThread extends Thread {
             c.restore();
             }
         else {//si el personatge no és mou
-            c.drawBitmap(fons.get(1),prs.getX(),prs.getY()+5, null);
+            c.drawBitmap(fons.get(1), prs.getX(), prs.getY() + 5, null);
+            c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(), CanvasUtils.getHeightScreen(), CanvasUtils.getWidthScreen()), 0, 0, null);
+            clic = true;
 
-            c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(), CanvasUtils.getHeightScreen() ,CanvasUtils.getWidthScreen()),0,0,null);
+            //MIREM SI EL CLIC ESTA DINS DE LES POSSIBLES SOLUCIONS
+            if (MapActivity.x!= pastX || MapActivity.y != pastY){
+                pastX = MapActivity.x;
+                pastY = MapActivity.y;
+                if (MapActivity.x>50 && MapActivity.x<235 && MapActivity.y>map.getObstacles().getY1() && MapActivity.y<map.getObstacles().getY2()) {
+                    c.drawBitmap(fons.get(5), 50, 115, null);
+                    clicado=true;
+                    clic = false;
+                }
+                if (MapActivity.x>295 && MapActivity.x<480 && MapActivity.y>map.getObstacles().getY1() && MapActivity.y<map.getObstacles().getY2()){
+                    c.drawBitmap(fons.get(5), 295, 115, null);
+                    clicado = true;
+                    clic = false;
+                }
+                if (MapActivity.x>530 && MapActivity.x<715 && MapActivity.y>map.getObstacles().getY1() && MapActivity.y<map.getObstacles().getY2()){
+                    c.drawBitmap(fons.get(6), 530, 115, null);
+                    clicado = true;
+                    clic = false;
+                    correcte = true;
+                }
+                Log.d("X", "X" + Float.toString(MapActivity.x));
+                Log.d("Y","Y"+Float.toString(MapActivity.y));
+            }
         }
 
+        //CALCULAR I DIBUIXAR TEMPS
+        long segons = (System.currentTimeMillis() - starttime)/1000;
+        c.drawText(String.valueOf(segons),50,50,paint);
+
     }
+
+
 
     public void setRunning(boolean b) {
         mRun = b;
@@ -258,7 +343,7 @@ public class JocThread extends Thread {
 
     public void clearCanvasObjects() {
         map.setFons(null);
-        prs.setImg( null);
+        prs.setImg(null);
         map = null;
         prs = null;
 
