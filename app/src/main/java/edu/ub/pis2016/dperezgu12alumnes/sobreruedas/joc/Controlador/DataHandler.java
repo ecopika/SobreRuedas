@@ -105,6 +105,8 @@ public class DataHandler  {
         if(c.moveToFirst()){
             do{
                 Personatge p = new PCadiraRodes(c.getString(1),c.getInt(2),c.getString(3),c.getString(4),c.getString(5),c.getString(6),c.getString(7),c.getString(8),c.getString(9),c.getString(10),c.getString(11),c.getString(12),c.getString(13),cnt,c.getString(14));
+                p.setVides((CanvasUtils.loadBitmapFromString(cnt, c.getString(15))));
+                p.setVides(CanvasUtils.loadBitmapFromString(cnt, c.getString(16)));
                 prs.add(p);
             }while(c.moveToNext());
         }

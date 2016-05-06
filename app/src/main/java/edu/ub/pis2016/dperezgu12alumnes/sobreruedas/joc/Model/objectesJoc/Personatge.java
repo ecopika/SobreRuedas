@@ -9,6 +9,7 @@ import android.graphics.Movie;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
@@ -50,6 +51,9 @@ public abstract class Personatge {
     protected Movie gif;
     protected String nomGif;
     protected Context cnt;
+    protected int numVides;
+    protected ArrayList<Bitmap> vides;
+
 //config gif
     private long tempsInici;
     private GifMovieView gifPrs;
@@ -88,6 +92,8 @@ public abstract class Personatge {
         this.profunditat = 10;
         this.nomImatge = nomImatge;
         this.nomGif = nomGif;
+        this.numVides = 0;
+        vides = new ArrayList<Bitmap>();
 
 
         this.cnt = cnt;
@@ -362,4 +368,15 @@ public abstract class Personatge {
     public Bitmap getImg() {
         return img;
     }
+
+    public int getNumVides() {
+        return numVides;
+    }
+
+    public void setNumVides(int numVides) { this.numVides = numVides; }
+
+    public ArrayList<Bitmap> getVides() { return vides; }
+
+    public void setVides(Bitmap imgVides) { vides.add(imgVides); }
+
 }

@@ -64,6 +64,9 @@ public class JocThread extends Thread {
     private boolean correcte = false;
     Paint paint = new Paint();
 
+    //ARRAY PER POSAR LES IMATGES DE LES VIDES DEL PERSONATGE
+    private ArrayList<Bitmap> vides;
+
 
 
 
@@ -87,12 +90,17 @@ public class JocThread extends Thread {
         paint.setTextSize(59);
         //AGAFA EL TEMPS ACTUAL
         starttime = System.currentTimeMillis();
+        prs = ViewMapaHandler.generatePersonatge();
+
+        //inicialitzem l'array de les vides
+        vides = new ArrayList<Bitmap>();
+        vides = prs.getVides();
+        prs.setNumVides(2);
 
 
         creu = CanvasUtils.loadBitmapFromString(cnt, "cruzroja");
         tic = CanvasUtils.loadBitmapFromString(cnt, "tic");
 
-        prs = ViewMapaHandler.generatePersonatge();
         moviment = false;
         pause = false;
 
@@ -197,51 +205,72 @@ public class JocThread extends Thread {
 
     //FUNCIO PER ESCALAR LES IMATGES
     private void escalaImatges(){
-        //ESCALAR IMATGE MAPA
+        //ESCALAR IMATGE MAPA :0
         fons.add(CanvasUtils.escalaImatge(map.getFons(), map.getAlcada() + 3, map.getAmplada()));
-        //ESCALAR IMATGE DEL PERSONATGE
+        //ESCALAR IMATGE DEL PERSONATGE :1
         fons.add(CanvasUtils.escalaImatge(prs.getImg(), prs.getAlcada(), prs.getAmplada()));
 
         //ESCALAR OBJECTES JOC
-        //ESCALAR NOIA1
+        //ESCALAR NOIA1 :2
         fons.add(CanvasUtils.escalaImatge(obj.get(0).getImg(), obj.get(0).getAmplada(), obj.get(0).getAlcada()));
-        //ESCALAR BOTIGA3
+        //ESCALAR BOTIGA3 :3
         fons.add(CanvasUtils.escalaImatge(obj.get(1).getImg(), obj.get(1).getAmplada(), obj.get(1).getAlcada()));
-        //ESCALAR BARCO2
+        //ESCALAR BARCO2 :4
         fons.add(CanvasUtils.escalaImatge(obj.get(3).getImg(), obj.get(3).getAmplada(), obj.get(3).getAlcada()));
-        //ESCALAR CREU
+        //ESCALAR CREU :5
         fons.add(CanvasUtils.escalaImatge(creu,CanvasUtils.getWidthScreen()/4,CanvasUtils.getWidthScreen()/4));
-        //ESCALAR TIC
+        //ESCALAR TIC :6
         fons.add(CanvasUtils.escalaImatge(tic, CanvasUtils.getWidthScreen()/4, CanvasUtils.getWidthScreen()/4));
-
+        //ESCALAR VIDES
+        //1 VDIA :7
+        fons.add(CanvasUtils.escalaImatge(vides.get(0), CanvasUtils.getHeightScreen(), CanvasUtils.getWidthScreen()));
+        //2 VIDES :8
+        fons.add(CanvasUtils.escalaImatge(vides.get(1), CanvasUtils.getHeightScreen(), CanvasUtils.getWidthScreen()));
 
 
     }
 
 
     private void update() {
-        moviment = false;
-        if (x > CanvasUtils.getWidthScreen()-map.getAmplada()+ prs.getAmplada()) {
-            moviment = true;
-            x -= 5;
-            obj.get(0).setX(obj.get(0).getX()-5);
-            obj.get(1).setX(obj.get(1).getX()-5);
-            obj.get(3).setX(obj.get(3).getX()-5);
-        }
 
-        if (correcte){
-            moviment = true;
-            if (prs.getGifX()<CanvasUtils.getWidthScreen()*0.75){
-                prs.setGifX(prs.getGifX()+5);
-            }else if (prs.getGifX()<CanvasUtils.getWidthScreen()*0.9 && prs.getGifY()>CanvasUtils.getHeightScreen()*0.8) {
-                prs.setGifX(prs.getGifX() + 5);
-                prs.setGifY(prs.getGifY() + 4);
+        //SI AL PERSONATGE LI QUEDEN VIDES SEGUIM AMB EL JOC
+        if (prs.getNumVides()>0) {
+            moviment = false;
+            if (x > CanvasUtils.getWidthScreen() - map.getAmplada() + prs.getAmplada()) {
+                moviment = true;
+                x -= 5;
+                obj.get(0).setX(obj.get(0).getX() - 5);
+                obj.get(1).setX(obj.get(1).getX() - 5);
+                obj.get(3).setX(obj.get(3).getX() - 5);
             }
-            else{
-                prs.setGifX(prs.getGifX()+5);
 
-        }}
+            if (correcte) {
+                moviment = true;
+                if (prs.getGifX() < CanvasUtils.getWidthScreen() * 0.75) {
+                    prs.setGifX(prs.getGifX() + 5);
+                } else if (prs.getGifX() < CanvasUtils.getWidthScreen() * 0.9 && prs.getGifY() > CanvasUtils.getHeightScreen() * 0.8) {
+                    prs.setGifX(prs.getGifX() + 5);
+                    prs.setGifY(prs.getGifY() + 4);
+                } else {
+                    prs.setGifX(prs.getGifX() + 5);
 
+                }
+            }
+
+
+            //SI EL PERSONATGE PERD TOTES LES VIDES REINICIEM LES VARIABLES
+        }else{
+
+            x=0;
+            obj.get(0).setY(map.getAlcada() / 2);
+            obj.get(0).setX(map.getAmplada() * 0.15f);
+            obj.get(1).setY(map.getAlcada() / 6);
+            obj.get(1).setX((map.getAmplada() * 0.25f));
+            obj.get(3).setY((float) (map.getAlcada() * 0.25));
+            obj.get(3).setX((map.getAmplada() * 0.15f));
+            prs.setNumVides(2);
+
+        }
         //VELOCITAT DELS OBJECTES NO MOVILS
         //obj.get(0).setX(obj.get(0).getX()-5);
         //obj.get(1).setX(obj.get(1).getX()-5);
@@ -270,6 +299,11 @@ public class JocThread extends Thread {
         c.drawBitmap(fons.get(2), obj.get(0).getX(), obj.get(0).getY(), null);
         c.drawBitmap(fons.get(3), obj.get(1).getX(), obj.get(1).getY(), null);
         c.drawBitmap(fons.get(4), obj.get(3).getX(), obj.get(3).getY(), null);
+        if (prs.getNumVides() == 2){
+            c.drawBitmap(fons.get(8),0,0,null);
+        }else {
+            c.drawBitmap(fons.get(7), 0, 0, null);
+        }
 
         //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(3).getImg(),obj.get(3).getAmplada(), obj.get(3).getAlcada()), obj.get(3).getX(), obj.get(3).getY(), null);
 
@@ -304,6 +338,7 @@ public class JocThread extends Thread {
             clic = true;
 
             //MIREM SI EL CLIC ESTA DINS DE LES POSSIBLES SOLUCIONS
+            
             if (MapActivity.x!= pastX || MapActivity.y != pastY){
                 pastX = MapActivity.x;
                 pastY = MapActivity.y;
@@ -311,11 +346,13 @@ public class JocThread extends Thread {
                     c.drawBitmap(fons.get(5), 50, 115, null);
                     clicado=true;
                     clic = false;
+                    prs.setNumVides(prs.getNumVides()-1);
                 }
                 if (MapActivity.x>295 && MapActivity.x<480 && MapActivity.y>map.getObstacles().getY1() && MapActivity.y<map.getObstacles().getY2()){
                     c.drawBitmap(fons.get(5), 295, 115, null);
                     clicado = true;
                     clic = false;
+                    prs.setNumVides(prs.getNumVides()-1);
                 }
                 if (MapActivity.x>530 && MapActivity.x<715 && MapActivity.y>map.getObstacles().getY1() && MapActivity.y<map.getObstacles().getY2()){
                     c.drawBitmap(fons.get(6), 530, 115, null);
@@ -329,9 +366,8 @@ public class JocThread extends Thread {
         }
 
         //CALCULAR I DIBUIXAR TEMPS
-        long segons = (System.currentTimeMillis() - starttime)/1000;
+        long segons = (System.currentTimeMillis() - starttime) / 1000;
         c.drawText(String.valueOf(segons),50,50,paint);
-
     }
 
 
