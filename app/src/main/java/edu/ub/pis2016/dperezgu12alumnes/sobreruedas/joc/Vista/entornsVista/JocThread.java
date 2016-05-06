@@ -47,6 +47,7 @@ public class JocThread extends Thread {
     private float pl;
     private float fr;
     private ArrayList<ObjecteJoc> obj;
+    private boolean clickat;
 
 
 
@@ -57,10 +58,8 @@ public class JocThread extends Thread {
     private Bitmap creu;
     private Bitmap tic;
 
-    private boolean clicado=false;
     long starttime;
 
-    public static boolean clic=false;
     private boolean correcte = false;
     Paint paint = new Paint();
 
@@ -90,7 +89,8 @@ public class JocThread extends Thread {
         paint.setTextSize(59);
         //AGAFA EL TEMPS ACTUAL
         starttime = System.currentTimeMillis();
-        prs = ViewMapaHandler.generatePersonatge();
+
+        prs = ViewMapaHandler.generatePersonatge().get(0);
 
         //inicialitzem l'array de les vides
         vides = new ArrayList<Bitmap>();
@@ -101,6 +101,8 @@ public class JocThread extends Thread {
         creu = CanvasUtils.loadBitmapFromString(cnt, "cruzroja");
         tic = CanvasUtils.loadBitmapFromString(cnt, "tic");
 
+
+
         moviment = false;
         pause = false;
 
@@ -109,6 +111,7 @@ public class JocThread extends Thread {
         //MAPA 1
         obj = ViewMapaHandler.generateObjecteJoc();
 
+        ViewMapaHandler.setClic(false);
 
         //PERSONATGE
         prs.setAlcada(map.getAlcada() / 4);
@@ -117,7 +120,7 @@ public class JocThread extends Thread {
         prs.setX(CanvasUtils.getWidthScreen() * 0.2f);
         prs.setY(CanvasUtils.getHeightScreen() * 0.6f);
         fr = (float)prs.getAmplada() /(float) prs.getImg().getWidth();
-        prs.setGifX(prs.getX() /fr );
+        prs.setGifX(prs.getX() / fr);
         pl = (float)prs.getAlcada()/(float)prs.getImg().getHeight();
         prs.setGifY(prs.getY() / pl);
 
@@ -205,7 +208,9 @@ public class JocThread extends Thread {
 
     //FUNCIO PER ESCALAR LES IMATGES
     private void escalaImatges(){
+
         //ESCALAR IMATGE MAPA :0
+
         fons.add(CanvasUtils.escalaImatge(map.getFons(), map.getAlcada() + 3, map.getAmplada()));
         //ESCALAR IMATGE DEL PERSONATGE :1
         fons.add(CanvasUtils.escalaImatge(prs.getImg(), prs.getAlcada(), prs.getAmplada()));
@@ -227,6 +232,8 @@ public class JocThread extends Thread {
         //2 VIDES :8
         fons.add(CanvasUtils.escalaImatge(vides.get(1), CanvasUtils.getHeightScreen(), CanvasUtils.getWidthScreen()));
 
+        //SEGONA IMATGE DEL MAPA :9
+        fons.add(CanvasUtils.escalaImatge(map.getFons2(), map.getAlcada() + 3, map.getAmplada()));
 
     }
 
@@ -236,7 +243,7 @@ public class JocThread extends Thread {
         //SI AL PERSONATGE LI QUEDEN VIDES SEGUIM AMB EL JOC
         if (prs.getNumVides()>0) {
             moviment = false;
-            if (x > CanvasUtils.getWidthScreen() - map.getAmplada() + prs.getAmplada()) {
+            if (x > CanvasUtils.getWidthScreen()-map.getAmplada()+ (prs.getAmplada()/2)) {
                 moviment = true;
                 x -= 5;
                 obj.get(0).setX(obj.get(0).getX() - 5);
@@ -286,12 +293,17 @@ public class JocThread extends Thread {
     private void doDraw(Canvas c) throws InterruptedException {
         //drawBitmap(img,x,y,null)
         //canvasutils(img, height, width)
-        if(clicado){
+        if(clickat && !moviment){
             sleep(3000);
-            clicado=false;
+            clickat =! clickat;
+
         }
         //MAPA
-        c.drawBitmap(fons.get(0), x, -1, null);
+        if (!correcte){
+            c.drawBitmap(fons.get(0), x, -1, null);
+        }else{
+            c.drawBitmap(fons.get(9),x,-1,null);
+        }
 
 
 
@@ -335,34 +347,38 @@ public class JocThread extends Thread {
         else {//si el personatge no és mou
             c.drawBitmap(fons.get(1), prs.getX(), prs.getY() + 5, null);
             c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(), CanvasUtils.getHeightScreen(), CanvasUtils.getWidthScreen()), 0, 0, null);
-            clic = true;
+            //variable per desactivar el touch
+            ViewMapaHandler.setClic(true);
 
             //MIREM SI EL CLIC ESTA DINS DE LES POSSIBLES SOLUCIONS
-            
-            if (MapActivity.x!= pastX || MapActivity.y != pastY){
-                pastX = MapActivity.x;
-                pastY = MapActivity.y;
-                if (MapActivity.x>50 && MapActivity.x<235 && MapActivity.y>map.getObstacles().getY1() && MapActivity.y<map.getObstacles().getY2()) {
+
+            //if (touchCoord.get(0)!= pastX || touchCoord.get(1) != pastY){
+
+
+                if (ViewMapaHandler.getX()>50 && ViewMapaHandler.getX()<235 && ViewMapaHandler.getX()>map.getObstacles().getY1() && ViewMapaHandler.getY()<map.getObstacles().getY2()) {
                     c.drawBitmap(fons.get(5), 50, 115, null);
-                    clicado=true;
-                    clic = false;
+                    ViewMapaHandler.setClic(false);
+                    clickat=true;
                     prs.setNumVides(prs.getNumVides()-1);
+
                 }
-                if (MapActivity.x>295 && MapActivity.x<480 && MapActivity.y>map.getObstacles().getY1() && MapActivity.y<map.getObstacles().getY2()){
+                if (ViewMapaHandler.getX()>295 && ViewMapaHandler.getX()<480 && ViewMapaHandler.getY()>map.getObstacles().getY1() && ViewMapaHandler.getY()<map.getObstacles().getY2()){
                     c.drawBitmap(fons.get(5), 295, 115, null);
-                    clicado = true;
-                    clic = false;
                     prs.setNumVides(prs.getNumVides()-1);
+                    ViewMapaHandler.setClic(false);
+                    clickat=true;
+
                 }
-                if (MapActivity.x>530 && MapActivity.x<715 && MapActivity.y>map.getObstacles().getY1() && MapActivity.y<map.getObstacles().getY2()){
+                if (ViewMapaHandler.getX()>530 &&ViewMapaHandler.getX()<715 && ViewMapaHandler.getY()>map.getObstacles().getY1() && ViewMapaHandler.getY()<map.getObstacles().getY2()) {
                     c.drawBitmap(fons.get(6), 530, 115, null);
-                    clicado = true;
-                    clic = false;
+                    ViewMapaHandler.setClic(false);
+                    clickat=true;
                     correcte = true;
+                    map.setFons(map.getFons2());
                 }
-                Log.d("X", "X" + Float.toString(MapActivity.x));
-                Log.d("Y","Y"+Float.toString(MapActivity.y));
-            }
+                ViewMapaHandler.setX(0);
+                ViewMapaHandler.setY(0);
+
         }
 
         //CALCULAR I DIBUIXAR TEMPS

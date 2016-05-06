@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
@@ -26,7 +27,7 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Person
  */
 public class SeleccioFragment extends Fragment{
 
-    private Personatge nuria;
+
     public static final String IMAGE = "image";
 
     static int[] img = {R.drawable.nuriafotograma, R.drawable.motoesq, R.drawable.motodret};
@@ -38,7 +39,7 @@ public class SeleccioFragment extends Fragment{
 
 
 
-        nuria = ViewMapaHandler.generatePersonatge();
+        ViewMapaHandler.generatePersonatge();
 
         View rootView = inflater.inflate(R.layout.activity_seleccio_personatge, container, false);
         ImageView image1 = (ImageView) rootView.findViewById(R.id.imageView);
@@ -65,6 +66,7 @@ public class SeleccioFragment extends Fragment{
         }
         return rootView;
     }
+
 
     private String readFile(int i){
         String text ="";

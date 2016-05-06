@@ -26,8 +26,8 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.JocTh
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.MapaView;
 
 public class MapActivity extends Activity {
-    public static float x;
-    public static float y;
+    public float x;
+    public float y;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +81,9 @@ public class MapActivity extends Activity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        if (JocThread.clic) {
-            x = event.getX();
-            y = event.getY();
+        if (ViewMapaHandler.isClic()) {
+            ViewMapaHandler.setX(event.getX());
+            ViewMapaHandler.setY(event.getY());
         }
         return false;
     }

@@ -16,6 +16,7 @@ public class Mapa  {
     private float iniciX;
     private float iniciY;
     private Bitmap fons;
+    private Bitmap fons2;
     private int id;
 
     private Obstacles obstacles;
@@ -93,6 +94,14 @@ public class Mapa  {
 
     public void setFons(Bitmap fons) {
         this.fons = fons;
+    }
+
+    public Bitmap getFons2() {
+        return fons2;
+    }
+
+    public void setFons2(Bitmap fons2) {
+        this.fons2 = fons2;
     }
 
     public Obstacles getObstacles() {
