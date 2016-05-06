@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -82,8 +83,14 @@ public class MapActivity extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent event){
         if (ViewMapaHandler.isClic()) {
-            ViewMapaHandler.setX(event.getX());
-            ViewMapaHandler.setY(event.getY());
+            int action = MotionEventCompat.getActionMasked(event);
+
+            switch(action) {
+                case MotionEvent.ACTION_DOWN:
+                    ViewMapaHandler.setX(event.getX());
+                    ViewMapaHandler.setY(event.getY());
+                    return true;
+            }
         }
         return false;
     }
