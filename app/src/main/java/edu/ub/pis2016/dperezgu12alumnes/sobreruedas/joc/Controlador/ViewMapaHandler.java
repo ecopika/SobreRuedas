@@ -30,6 +30,10 @@ public  class ViewMapaHandler{
     private static GeneradorObjectesJoc genJoc;
     private static DataHandler ctrlBD;
     private static SQLiteDatabase db;
+    private static float x;
+    private static float y;
+    private static boolean clic;
+    private static ArrayList<Personatge> prs;
 
 
     public ViewMapaHandler(Context cnt, Activity act){
@@ -39,6 +43,22 @@ public  class ViewMapaHandler{
 
 
 
+    }
+
+    public static float getX() {
+        return x;
+    }
+
+    public static void setX(float x) {
+        ViewMapaHandler.x = x;
+    }
+
+    public static float getY() {
+        return y;
+    }
+
+    public static void setY(float y) {
+        ViewMapaHandler.y = y;
     }
 
     public static void generateBD(){
@@ -56,7 +76,8 @@ public  class ViewMapaHandler{
     }
     public static void init(MapActivity act){
         mapView = (MapaView) act.findViewById(R.id.MapView);
-       // ctrl = new ViewHandlerMenu(cnt);
+
+        // ctrl = new ViewHandlerMenu(cnt);
         //generaJoc();
     }
 
@@ -64,8 +85,9 @@ public  class ViewMapaHandler{
         genJoc = new GeneradorObjectesJoc();
     }
 
-    public static Personatge generatePersonatge(){
-        return genJoc.generatePersonatge(cnts,ctrlBD);
+    public static ArrayList<Personatge> generatePersonatge(){
+        prs = genJoc.generatePersonatge(cnts, ctrlBD);
+        return prs;
     }
 
     public static Mapa generateMap(){
@@ -73,7 +95,7 @@ public  class ViewMapaHandler{
     }
 
     public static ArrayList<ObjecteJoc> generateObjecteJoc(){
-        return genJoc.generateObjecte( ctrlBD);
+        return genJoc.generateObjecte(ctrlBD);
     }
 
     public static void finishThread(){
@@ -98,6 +120,24 @@ public  class ViewMapaHandler{
 
     public static void setActivity(Activity act){
         acts = act;
+    }
+
+
+
+    public static void setClic(boolean Clic){
+        clic = Clic;
+    }
+
+    public static boolean isClic(){
+        return clic;
+    }
+
+    public static ArrayList<Personatge> getPersonatges(){
+        return prs;
+    }
+
+    public static int numPersonatges(){
+        return prs.size();
     }
 
 

@@ -46,6 +46,7 @@ public class DataHandler  {
                 m.setIniciX(c.getFloat(1));
                 m.setIniciY(c.getFloat(2));
                 m.setFons(CanvasUtils.loadBitmapFromString(cnt, c.getString(3)));
+                m.setFons2(CanvasUtils.loadBitmapFromString(cnt, c.getString(4)));
                 Obstacles o = getObstacle(m.getId());
                 m.setObstacles(o);
                 mps.add(m);

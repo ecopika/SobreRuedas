@@ -32,10 +32,10 @@ public class GeneradorObjectesJoc {
      *    Perfil personatge
      ***********************************************************************/
 
-    public Personatge generatePersonatge(Context  cnt, DataHandler bd){
+    public ArrayList<Personatge> generatePersonatge(Context  cnt, DataHandler bd){
         ArrayList<Personatge> prs = bd.getPersonatges();
-        p =  prs.get(0);
-        return p;
+
+        return prs;
 
     }
 
