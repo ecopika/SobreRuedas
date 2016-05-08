@@ -26,7 +26,6 @@ public class ViewHandlerMenu {
     //constructor del controlador de la vista
     public ViewHandlerMenu(Context cnt) {
         meuContext = cnt;
-        per = ViewMapaHandler.generatePersonatge().get(0);
     }
 
     public static void loadPreferences(){
@@ -98,13 +97,16 @@ public class ViewHandlerMenu {
      * SELECCIÓ FRAGMENT
      **********************************************************************************************/
     public String nomPersonatge(){
+        per = ViewMapaHandler.generatePersonatge().get(0);
         return per.getNom();
     }
 
     public String frasePersonatge(){
+        per = ViewMapaHandler.generatePersonatge().get(0);
         return per.getFrase();
     }
     public String descripcioPersonatge(){
+        per = ViewMapaHandler.generatePersonatge().get(0);
         String texto = "Nombre: "+per.getNom()+"\nEdad: "+per.getEdat()+"\nColor Favorito: "+per.getColorPref()+
                         "\nComida Favorita: "+per.getMenjarPref()+"\nHobby: "+per.getHobby()+"\nÍdolo: "+per.getIdol()+
                         "\nLe encanta "+per.getPasions()+"\nAntes de irse dormir "+per.getHabits()+"No soporta "+per.getNoSoporta()+

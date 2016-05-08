@@ -91,7 +91,6 @@
             android:layout_width="115dp"
             android:layout_columnSpan="1"
             android:layout_rowSpan="2"
-            android:background="@drawable/nuriaalreves"
             android:layout_marginTop="15dp"
             android:id="@+id/imageView"
             android:layout_gravity="top|bottom" />

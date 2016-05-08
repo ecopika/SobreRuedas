@@ -26,7 +26,7 @@ public class SeleccioFragment extends Fragment{
     Context cnt;
     public static final String IMAGE = "image";
 
-    static int[] img = {R.drawable.prova, R.drawable.motoesq, R.drawable.motodret};
+    static int[] img = {R.drawable.nuriaalreves, R.drawable.motoesq, R.drawable.motodret};
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -34,7 +34,7 @@ public class SeleccioFragment extends Fragment{
         Bundle args = getArguments();
 
 
-        menu=new ViewHandlerMenu(cnt);
+        menu = new ViewHandlerMenu((Context)cnt);
 
 
         View rootView = inflater.inflate(R.layout.activity_seleccio_personatge, container, false);
