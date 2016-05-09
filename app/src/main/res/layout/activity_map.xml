@@ -5,6 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:keepScreenOn="true"
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MapActivity">

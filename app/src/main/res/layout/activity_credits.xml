@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".joc.Vista.activities.CreditsActivity">
 <edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista.AnimatedView
+    android:keepScreenOn="true"
     android:id="@+id/animCredits"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
