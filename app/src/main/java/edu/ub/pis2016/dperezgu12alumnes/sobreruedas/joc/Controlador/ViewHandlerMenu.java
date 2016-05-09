@@ -2,7 +2,6 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.view.Window;
@@ -10,13 +9,8 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.menu.Credits;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.PCadiraRodes;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesVista.NuvolView;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MenuActivity;
 
 /**
  * Created by ecopika on 15/03/16.
@@ -26,15 +20,12 @@ public class ViewHandlerMenu {
 
     private static Context meuContext;
     private Credits crd;
-
     private static SharedPreferences settings;
+    Personatge per;
 
     //constructor del controlador de la vista
-    public ViewHandlerMenu(Context cnt){
+    public ViewHandlerMenu(Context cnt) {
         meuContext = cnt;
-
-
-
     }
 
     public static void loadPreferences(){
@@ -95,14 +86,34 @@ public class ViewHandlerMenu {
     /**********************************************************************************************
      * TAULA PUNTUACIONS
      **********************************************************************************************/
-        public GridView omplirTaules(GridView gv,Activity act, String[] taula){
+    public GridView omplirTaules(GridView gv,Activity act, String[] taula){
             gv.setAdapter(new ArrayAdapter<String>(act,android.R.layout.simple_list_item_1,taula));
             return gv;
+    }
+    /********************************************************************************************/
 
-        }
 
+    /**********************************************************************************************
+     * SELECCIÓ FRAGMENT
+     **********************************************************************************************/
+    public String nomPersonatge(){
+        per = ViewMapaHandler.generatePersonatge().get(0);
+        return per.getNom();
+    }
 
+    public String frasePersonatge(){
+        per = ViewMapaHandler.generatePersonatge().get(0);
+        return per.getFrase();
+    }
+    public String descripcioPersonatge(){
+        per = ViewMapaHandler.generatePersonatge().get(0);
+        String texto = "Nombre: "+per.getNom()+"\nEdad: "+per.getEdat()+"\nColor Favorito: "+per.getColorPref()+
+                        "\nComida Favorita: "+per.getMenjarPref()+"\nHobby: "+per.getHobby()+"\nÍdolo: "+per.getIdol()+
+                        "\nLe encanta "+per.getPasions()+"\nAntes de irse dormir "+per.getHabits()+"No soporta "+per.getNoSoporta()+
+                        "Su sueño "+per.getSomni();
 
+        return texto;
+    }
 
 
 }

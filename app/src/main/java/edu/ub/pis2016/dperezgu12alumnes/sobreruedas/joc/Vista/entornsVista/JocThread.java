@@ -44,6 +44,7 @@ public class JocThread extends Thread {
     private int xTic = 0;
     private int alfa;
 
+
     private Personatge prs;
     private Mapa map;
     private boolean moviment;
@@ -234,58 +235,12 @@ public class JocThread extends Thread {
 
 
     private void update() {
-        if(!pantallaNegra) {
-            if (!passaTemps) {
-                //SI AL PERSONATGE LI QUEDEN VIDES SEGUIM AMB EL JOC
-                if (prs.getNumVides() > 0) {
-                    moviment = false;
-
-                    if (x > CanvasUtils.getWidthScreen() - map.getAmplada() + (prs.getAmplada() / 2)) {
-                        moviment = true;
-                        x -= 5;
-
-                        obj.get(0).setX(obj.get(0).getX() - 5);
-                        obj.get(1).setX(obj.get(1).getX() - 5);
-                        obj.get(3).setX(obj.get(3).getX() - 5);
-                    }
 
 
-                    if (correcte) {
-                        moviment = true;
-                        if (prs.getGifX() < CanvasUtils.getWidthScreen() * 0.75) {
-                            prs.setGifX(prs.getGifX() + 5);
-                        } else if (prs.getGifX() < CanvasUtils.getWidthScreen() * 0.9 && prs.getGifY() > CanvasUtils.getHeightScreen() * 0.8) {
-                            prs.setGifX(prs.getGifX() + 5);
-                            prs.setGifY(prs.getGifY() + 4);
-                        } else {
-                            prs.setGifX(prs.getGifX() + 5);
-
-                        }
-                        Log.i("X i width", String.valueOf(prs.getGifX()) + " | " + String.valueOf(CanvasUtils.getWidthScreen()));
-                        if (prs.getGifX() - prs.getAmplada() >= CanvasUtils.getWidthScreen()) {
-                            pantallaNegra = true;
-
-                        }
-                    }
+        updateMapa1();
 
 
-                    //SI EL PERSONATGE PERD TOTES LES VIDES REINICIEM LES VARIABLES
-                } else {
 
-                    restartValuesMap1();
-
-
-                }
-                //VELOCITAT DELS OBJECTES NO MOVILS
-                //obj.get(0).setX(obj.get(0).getX()-5);
-                //obj.get(1).setX(obj.get(1).getX()-5);
-
-
-                //if(obj.get(0).getX()>0-obj.get(0).getAmplada()*2)obj.get(0).setX(obj.get(0).getX() - 8);
-                // if(obj.get(1).getX()<map.getAmplada())obj.get(1).setX(obj.get(1).getX() + 8);
-
-            }
-        }
     }
 
     private void initCoordsObjects(){
@@ -307,6 +262,80 @@ public class JocThread extends Thread {
         primeraVegadaEntra=false;
     }
 
+
+
+    /**************************************************************************************************************
+     * UPDATE DEL MAPA 1
+     **************************************************************************************************************/
+
+    private void updateMapa1(){
+        if(!pantallaNegra){
+        if (!passaTemps) {
+            //SI AL PERSONATGE LI QUEDEN VIDES SEGUIM AMB EL JOC
+            if (prs.getNumVides() > 0) {
+                moviment = false;
+
+                //if (x > CanvasUtils.getWidthScreen() - map.getAmplada() + (prs.getAmplada() / 2)) {
+                if (x> map.getAmplada()*-0.5){
+                    moviment = true;
+                    x -= 5;
+
+                    obj.get(0).setX(obj.get(0).getX() - 5);
+                    obj.get(1).setX(obj.get(1).getX() - 5);
+                    obj.get(3).setX(obj.get(3).getX() - 5);
+                }
+
+
+                if (correcte) {
+                    moviment = true;
+                    if (x > map.getAmplada() * -0.55) {
+                        x -= 5;
+
+                        obj.get(0).setX(obj.get(0).getX() - 5);
+                        obj.get(1).setX(obj.get(1).getX() - 5);
+                        obj.get(3).setX(obj.get(3).getX() - 5);
+                    } else if (prs.getGifY() < map.getAlcada() * 0.65) {
+                        prs.setGifX(prs.getGifX() + 5);
+                        prs.setGifY(prs.getGifY() + 2);
+                    } else {
+                        prs.setGifX(prs.getGifX() + 5);
+                        if (prs.getGifX() > CanvasUtils.getWidthScreen()) {
+                            pantallaNegra = true;
+
+                        }
+                    }
+                }
+
+
+                }
+
+
+
+
+
+
+
+                    //SI EL PERSONATGE PERD TOTES LES VIDES REINICIEM LES VARIABLES
+                } else {
+
+                    restartValuesMap1();
+
+
+                }
+                //VELOCITAT DELS OBJECTES NO MOVILS
+                //obj.get(0).setX(obj.get(0).getX()-5);
+                //obj.get(1).setX(obj.get(1).getX()-5);
+
+
+                //if(obj.get(0).getX()>0-obj.get(0).getAmplada()*2)obj.get(0).setX(obj.get(0).getX() - 8);
+                // if(obj.get(1).getX()<map.getAmplada())obj.get(1).setX(obj.get(1).getX() + 8);
+
+            }
+        }
+
+
+
+
     private void pintaNegra(Canvas c){
         if(alfa<100)alfa++;
         p.setAlpha(alfa);
@@ -318,19 +347,115 @@ public class JocThread extends Thread {
     private void doDraw(Canvas c) throws InterruptedException {
         //drawBitmap(img,x,y,null)
         //canvasutils(img, height, width)
-
         if (!pantallaNegra) {
-
-            mostraMapa1(c);
-
-
-            //CALCULAR I DIBUIXAR TEMPS
-            //c.drawText(String.valueOf(segons), 50, 50, paint);
-        } else {
-
-               pintaNegra(c);
-
+            drawMapa1(c);
+        }else {
+            pintaNegra(c);
         }
+    }
+    /**********************************************************************************************************
+     * DRAW DEL MAPA 1
+     *******************************************************************************************************/
+
+    private void drawMapa1(Canvas c){
+
+
+            //OBJECTES
+            c.drawBitmap(fons.get(2), obj.get(0).getX(), obj.get(0).getY(), null);
+            c.drawBitmap(fons.get(3), obj.get(1).getX(), obj.get(1).getY(), null);
+            c.drawBitmap(fons.get(4), obj.get(3).getX(), obj.get(3).getY(), null);
+            if (prs.getNumVides() == 2) {
+                c.drawBitmap(fons.get(8), 0, 0, null);
+            } else {
+                c.drawBitmap(fons.get(7), 0, 0, null);
+            }
+
+            //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(3).getImg(),obj.get(3).getAmplada(), obj.get(3).getAlcada()), obj.get(3).getX(), obj.get(3).getY(), null);
+
+
+            // c.drawBitmap(CanvasUtils.escalaImatge(obj.get(0).getImg(), obj.get(0).getAmplada(), obj.get(0).getAlcada()), obj.get(0).getX(), obj.get(0).getY(), null);
+            //  c.drawBitmap(CanvasUtils.escalaImatge(obj.get(1).getImg(),obj.get(1).getAmplada(), obj.get(1).getAlcada()), obj.get(1).getX(), obj.get(1).getY(), null);
+            //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(2).getImg(),obj.get(2).getAmplada(), obj.get(2).getAlcada()), obj.get(2).getX(), obj.get(2).getY(), null);
+            //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(3).getImg(),obj.get(3).getAmplada(), obj.get(3).getAlcada()), obj.get(3).getX(), obj.get(3).getY(), null);
+
+            if (moviment) {//si el personatge esta en moviment
+                //cuadrar el temps del GIF amb el temps del joc
+                final long now = SystemClock.uptimeMillis();//s'obté el temps actual
+                if (prs.getTempsInici() == 0) {
+                    prs.setTempsInici(now);
+                }
+
+                int dur = prs.getGifPrs().getMovie().duration();
+                if (dur == 0) dur = 1000;
+                int relTime = (int) ((now - prs.getTempsInici()) % dur);
+                prs.getGifPrs().getMovie().setTime(relTime);
+                //fi de la sincronització temporal
+                c.scale(fr, pl);
+                //dibuixem el GIF
+                //prs.getGifPrs().getMovie().draw(c,50,CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
+
+                prs.getGifPrs().getMovie().draw(c, prs.getGifX(), prs.getGifY());
+                c.restore();
+            } else {//si el personatge no és mou
+                if(!primeraVegadaEntra){
+                    ViewMapaHandler.setClic(true);
+                }
+                primeraVegadaEntra=true;
+
+                c.drawBitmap(fons.get(1), prs.getX(), prs.getY() + 5, null);
+                c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(), CanvasUtils.getHeightScreen(), CanvasUtils.getWidthScreen()), 0, 0, null);
+                //variable per desactivar el touch
+
+                //MIREM SI EL CLIC ESTA DINS DE LES POSSIBLES SOLUCIONS
+
+                //if (touchCoord.get(0)!= pastX || touchCoord.get(1) != pastY){
+
+
+                if (ViewMapaHandler.getX() > 50 && ViewMapaHandler.getX() < 235 && ViewMapaHandler.getX() > map.getObstacles().getY1() && ViewMapaHandler.getY() < map.getObstacles().getY2()) {
+                    prs.setNumVides(prs.getNumVides() - 1);
+                    clickTime = System.currentTimeMillis();
+                    passaTemps=true;
+                    index = 5;
+                    xTic = 50;
+
+
+                }
+                if (ViewMapaHandler.getX() > 295 && ViewMapaHandler.getX() < 480 && ViewMapaHandler.getY() > map.getObstacles().getY1() && ViewMapaHandler.getY() < map.getObstacles().getY2()) {
+                    prs.setNumVides(prs.getNumVides() - 1);
+                    clickTime = System.currentTimeMillis();
+                    passaTemps=true;
+                    index = 5;
+                    xTic = 295;
+
+                }
+                if (ViewMapaHandler.getX() > 530 && ViewMapaHandler.getX() < 715 && ViewMapaHandler.getY() > map.getObstacles().getY1() && ViewMapaHandler.getY() < map.getObstacles().getY2()) {
+                    correcte = true;
+                    passaTemps = true;
+                    clickTime = System.currentTimeMillis();
+                    map.setFons(map.getFons2());
+                    index = 6;
+                    xTic = 530;
+                }
+                ViewMapaHandler.setX(0);
+                ViewMapaHandler.setY(0);
+
+            }
+
+            if (passaTemps) {
+                clickat = true;
+
+                ViewMapaHandler.setClic(false);
+                pintaTic(index, xTic, yTic, c);
+                long segons = (System.currentTimeMillis() - clickTime) / 1000;
+                Log.i("seg",String.valueOf(segons));
+                if (2 <segons) {
+                    clickat = !clickat;
+                    passaTemps = false;
+                    ViewMapaHandler.setClic(true);
+                }
+            }
+
+
     }
 //funció per calcular el temps dels tics
     private void comptaTempsTic(int segons,Canvas c){
@@ -345,8 +470,13 @@ public class JocThread extends Thread {
                 passaTemps = false;
                 ViewMapaHandler.setClic(true);
             }
+
         }
     }
+
+
+
+
 
     public void pintaTic(int index,int x,int y,Canvas c){
         c.drawBitmap(fons.get(index), x, y, null);

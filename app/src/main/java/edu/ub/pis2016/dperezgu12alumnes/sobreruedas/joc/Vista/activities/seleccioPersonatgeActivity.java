@@ -2,18 +2,14 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
-import android.text.Layout;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -22,7 +18,7 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHand
 
 public class seleccioPersonatgeActivity extends FragmentActivity {
 
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 1;
     private SeleccioPagerAdapter adapter;
     private ViewPager viewPager;
     private ImageButton btnJugar;
@@ -57,7 +53,7 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             args.putInt("noJugar",0);
-            Intent in = new Intent(this,OpcionsActivity.class);
+            Intent in = new Intent(this,MenuActivity.class);
             startActivity(in);
 
         }
