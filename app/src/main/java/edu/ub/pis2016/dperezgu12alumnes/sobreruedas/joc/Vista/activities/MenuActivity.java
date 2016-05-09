@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
 
 public class MenuActivity extends Activity {
 
@@ -33,8 +34,12 @@ public class MenuActivity extends Activity {
     }
 
     public void seleccioPersonatge(View view) {
+        ViewMapaHandler.setActivity(this);
+        ViewMapaHandler.setContext(this);
+        ViewMapaHandler.generateBD();
+        ViewMapaHandler.generaJoc();
 
-        startActivity(new Intent(getApplicationContext(), seleccioPersonatgeActivity.class));
+        startActivity(new Intent(getApplicationContext(), MapActivity.class));
     }
 
     public void seleccioOpcions(View view) {

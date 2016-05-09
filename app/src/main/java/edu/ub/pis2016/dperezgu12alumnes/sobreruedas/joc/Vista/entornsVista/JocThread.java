@@ -59,8 +59,6 @@ public class JocThread extends Thread {
     private int yTic = 115;
     private boolean primeraVegadaEntra=false;
 
-    private float pastX;
-    private float pastY;
 
     private Bitmap creu;
     private Bitmap tic;
@@ -229,7 +227,7 @@ public class JocThread extends Thread {
         fons.add(CanvasUtils.escalaImatge(vides.get(1), CanvasUtils.getHeightScreen(), CanvasUtils.getWidthScreen()));
 
         //SEGONA IMATGE DEL MAPA :9
-        fons.add(CanvasUtils.escalaImatge(map.getFons2(), map.getAlcada() + 3, map.getAmplada()));
+        //fons.add(CanvasUtils.escalaImatge(map.getFons2(), map.getAlcada() + 3, map.getAmplada()));
 
     }
 
@@ -270,7 +268,7 @@ public class JocThread extends Thread {
 
     private void updateMapa1(){
         if(!pantallaNegra){
-        if (!passaTemps) {
+            if (!passaTemps) {
             //SI AL PERSONATGE LI QUEDEN VIDES SEGUIM AMB EL JOC
             if (prs.getNumVides() > 0) {
                 moviment = false;
@@ -307,7 +305,7 @@ public class JocThread extends Thread {
                 }
 
 
-                }
+
 
 
 
@@ -333,6 +331,8 @@ public class JocThread extends Thread {
             }
         }
 
+    }
+
 
 
 
@@ -348,115 +348,12 @@ public class JocThread extends Thread {
         //drawBitmap(img,x,y,null)
         //canvasutils(img, height, width)
         if (!pantallaNegra) {
-            drawMapa1(c);
+            mostraMapa1(c);
         }else {
             pintaNegra(c);
         }
     }
-    /**********************************************************************************************************
-     * DRAW DEL MAPA 1
-     *******************************************************************************************************/
 
-    private void drawMapa1(Canvas c){
-
-
-            //OBJECTES
-            c.drawBitmap(fons.get(2), obj.get(0).getX(), obj.get(0).getY(), null);
-            c.drawBitmap(fons.get(3), obj.get(1).getX(), obj.get(1).getY(), null);
-            c.drawBitmap(fons.get(4), obj.get(3).getX(), obj.get(3).getY(), null);
-            if (prs.getNumVides() == 2) {
-                c.drawBitmap(fons.get(8), 0, 0, null);
-            } else {
-                c.drawBitmap(fons.get(7), 0, 0, null);
-            }
-
-            //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(3).getImg(),obj.get(3).getAmplada(), obj.get(3).getAlcada()), obj.get(3).getX(), obj.get(3).getY(), null);
-
-
-            // c.drawBitmap(CanvasUtils.escalaImatge(obj.get(0).getImg(), obj.get(0).getAmplada(), obj.get(0).getAlcada()), obj.get(0).getX(), obj.get(0).getY(), null);
-            //  c.drawBitmap(CanvasUtils.escalaImatge(obj.get(1).getImg(),obj.get(1).getAmplada(), obj.get(1).getAlcada()), obj.get(1).getX(), obj.get(1).getY(), null);
-            //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(2).getImg(),obj.get(2).getAmplada(), obj.get(2).getAlcada()), obj.get(2).getX(), obj.get(2).getY(), null);
-            //c.drawBitmap(CanvasUtils.escalaImatge(obj.get(3).getImg(),obj.get(3).getAmplada(), obj.get(3).getAlcada()), obj.get(3).getX(), obj.get(3).getY(), null);
-
-            if (moviment) {//si el personatge esta en moviment
-                //cuadrar el temps del GIF amb el temps del joc
-                final long now = SystemClock.uptimeMillis();//s'obté el temps actual
-                if (prs.getTempsInici() == 0) {
-                    prs.setTempsInici(now);
-                }
-
-                int dur = prs.getGifPrs().getMovie().duration();
-                if (dur == 0) dur = 1000;
-                int relTime = (int) ((now - prs.getTempsInici()) % dur);
-                prs.getGifPrs().getMovie().setTime(relTime);
-                //fi de la sincronització temporal
-                c.scale(fr, pl);
-                //dibuixem el GIF
-                //prs.getGifPrs().getMovie().draw(c,50,CanvasUtils.getHeightScreen() - CanvasUtils.getHeightScreen() / 3);
-
-                prs.getGifPrs().getMovie().draw(c, prs.getGifX(), prs.getGifY());
-                c.restore();
-            } else {//si el personatge no és mou
-                if(!primeraVegadaEntra){
-                    ViewMapaHandler.setClic(true);
-                }
-                primeraVegadaEntra=true;
-
-                c.drawBitmap(fons.get(1), prs.getX(), prs.getY() + 5, null);
-                c.drawBitmap(CanvasUtils.escalaImatge(map.getObstacles().getRespostes(), CanvasUtils.getHeightScreen(), CanvasUtils.getWidthScreen()), 0, 0, null);
-                //variable per desactivar el touch
-
-                //MIREM SI EL CLIC ESTA DINS DE LES POSSIBLES SOLUCIONS
-
-                //if (touchCoord.get(0)!= pastX || touchCoord.get(1) != pastY){
-
-
-                if (ViewMapaHandler.getX() > 50 && ViewMapaHandler.getX() < 235 && ViewMapaHandler.getX() > map.getObstacles().getY1() && ViewMapaHandler.getY() < map.getObstacles().getY2()) {
-                    prs.setNumVides(prs.getNumVides() - 1);
-                    clickTime = System.currentTimeMillis();
-                    passaTemps=true;
-                    index = 5;
-                    xTic = 50;
-
-
-                }
-                if (ViewMapaHandler.getX() > 295 && ViewMapaHandler.getX() < 480 && ViewMapaHandler.getY() > map.getObstacles().getY1() && ViewMapaHandler.getY() < map.getObstacles().getY2()) {
-                    prs.setNumVides(prs.getNumVides() - 1);
-                    clickTime = System.currentTimeMillis();
-                    passaTemps=true;
-                    index = 5;
-                    xTic = 295;
-
-                }
-                if (ViewMapaHandler.getX() > 530 && ViewMapaHandler.getX() < 715 && ViewMapaHandler.getY() > map.getObstacles().getY1() && ViewMapaHandler.getY() < map.getObstacles().getY2()) {
-                    correcte = true;
-                    passaTemps = true;
-                    clickTime = System.currentTimeMillis();
-                    map.setFons(map.getFons2());
-                    index = 6;
-                    xTic = 530;
-                }
-                ViewMapaHandler.setX(0);
-                ViewMapaHandler.setY(0);
-
-            }
-
-            if (passaTemps) {
-                clickat = true;
-
-                ViewMapaHandler.setClic(false);
-                pintaTic(index, xTic, yTic, c);
-                long segons = (System.currentTimeMillis() - clickTime) / 1000;
-                Log.i("seg",String.valueOf(segons));
-                if (2 <segons) {
-                    clickat = !clickat;
-                    passaTemps = false;
-                    ViewMapaHandler.setClic(true);
-                }
-            }
-
-
-    }
 //funció per calcular el temps dels tics
     private void comptaTempsTic(int segons,Canvas c){
         if (passaTemps) {
@@ -465,6 +362,9 @@ public class JocThread extends Thread {
             ViewMapaHandler.setClic(false);
             pintaTic(index, xTic, yTic, c);
             long sec = (System.currentTimeMillis() - clickTime) / 1000;
+            Log.i("entra temps",String.valueOf(sec));
+            Log.i("t2",String.valueOf(segons));
+
             if (segons <sec) {
                 clickat = !clickat;
                 passaTemps = false;
@@ -501,6 +401,9 @@ public class JocThread extends Thread {
         return mapSize;
     }
 
+    /**********************************************************************************************************
+     * DRAW DEL MAPA 1
+     *******************************************************************************************************/
 
     public void mostraMapa1(Canvas c){
         //MAPA
@@ -583,17 +486,19 @@ public class JocThread extends Thread {
                 correcte = true;
                 passaTemps = true;
                 clickTime = System.currentTimeMillis();
-                map.setFons(map.getFons2());
+                //map.setFons(map.getFons2());
                 index = 6;
                 xTic = 530;
                 //pantallaNegra = true;
             }
             ViewMapaHandler.setX(0);
             ViewMapaHandler.setY(0);
+            Log.i("sec", String.valueOf(passaTemps));
 
         }
-
         comptaTempsTic(2, c);
+
+
 
     }
 

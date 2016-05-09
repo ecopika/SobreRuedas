@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
+import java.util.ArrayList;
+
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.menu.Credits;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
 
@@ -96,24 +98,14 @@ public class ViewHandlerMenu {
     /**********************************************************************************************
      * SELECCIÓ FRAGMENT
      **********************************************************************************************/
-    public String nomPersonatge(){
-        per = ViewMapaHandler.generatePersonatge().get(0);
-        return per.getNom();
+
+
+    public ArrayList<Personatge> getPersonatges(){
+        return ViewMapaHandler.generatePersonatge();
     }
 
-    public String frasePersonatge(){
-        per = ViewMapaHandler.generatePersonatge().get(0);
-        return per.getFrase();
-    }
-    public String descripcioPersonatge(){
-        per = ViewMapaHandler.generatePersonatge().get(0);
-        String texto = "Nombre: "+per.getNom()+"\nEdad: "+per.getEdat()+"\nColor Favorito: "+per.getColorPref()+
-                        "\nComida Favorita: "+per.getMenjarPref()+"\nHobby: "+per.getHobby()+"\nÍdolo: "+per.getIdol()+
-                        "\nLe encanta "+per.getPasions()+"\nAntes de irse dormir "+per.getHabits()+"No soporta "+per.getNoSoporta()+
-                        "Su sueño "+per.getSomni();
 
-        return texto;
-    }
+
 
 
 }

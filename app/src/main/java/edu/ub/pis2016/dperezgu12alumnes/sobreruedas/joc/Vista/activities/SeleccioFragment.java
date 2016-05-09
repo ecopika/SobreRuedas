@@ -14,8 +14,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewHandlerMenu;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
 
 /**
  * Created by JRomario on 27/03/2016.
@@ -25,6 +28,7 @@ public class SeleccioFragment extends Fragment{
     private ViewHandlerMenu menu;
     Context cnt;
     public static final String IMAGE = "image";
+    private ArrayList<Personatge> pers;
 
     static int[] img = {R.drawable.nuriaalreves, R.drawable.motoesq, R.drawable.motodret};
 
@@ -35,24 +39,26 @@ public class SeleccioFragment extends Fragment{
 
 
         menu = new ViewHandlerMenu((Context)cnt);
-
+        pers = menu.getPersonatges();
 
         View rootView = inflater.inflate(R.layout.activity_seleccio_personatge, container, false);
         ImageView image1 = (ImageView) rootView.findViewById(R.id.imageView);
         image1.setImageResource(img[args.getInt(IMAGE)]);
 
         TextView nom = (TextView) rootView.findViewById(R.id.textViewNom) ;
-        nom.setText(menu.nomPersonatge());
+        nom.setText(pers.get(0).getNom());
         nom.setRotation(-15);
         nom.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         nom.setTextColor(Color.WHITE);
         TextView text = (TextView) rootView.findViewById(R.id.textView) ;
-        text.setText(menu.frasePersonatge());
+        text.setText(pers.get(0).getFrase());
         text.setRotation(-20);
         text.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         text.setTextColor(Color.WHITE);
         TextView text2 = (TextView) rootView.findViewById(R.id.textView2);
-        text2.setText(menu.descripcioPersonatge());
+        
+        
+        text2.setText(getInfoPers());
         text2.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         text2.setTextColor(Color.parseColor("#72449E"));
 
@@ -75,5 +81,13 @@ public class SeleccioFragment extends Fragment{
 
         }
         return rootView;
+    }
+    
+    private String getInfoPers(){
+        String texto = "Nombre: "+pers.get(0).getNom()+"\nEdad: "+pers.get(0).getEdat()+"\nColor Favorito: "+pers.get(0).getColorPref()+
+                "\nComida Favorita: "+pers.get(0).getMenjarPref()+"\nHobby: "+pers.get(0).getHobby()+"\nÍdolo: "+pers.get(0).getIdol()+
+                "\nLe encanta "+pers.get(0).getPasions()+"\nAntes de irse dormir "+pers.get(0).getHabits()+"No soporta "+pers.get(0).getNoSoporta()+
+                "Su sueño "+pers.get(0).getSomni();
+        return texto;
     }
 }
