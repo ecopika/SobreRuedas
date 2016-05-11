@@ -18,6 +18,7 @@ public class Mapa  {
     private Bitmap fons;
     private Bitmap fons2;
     private int id;
+    private int velX;
 
     private Obstacles obstacles;
 
@@ -43,7 +44,12 @@ public class Mapa  {
     }
 
 
-
+public void setVelX(int vel){
+    this.velX=vel;
+}
+    public int getVelX(){
+        return this.velX;
+    }
     public void setAlcada(int alcada) {
         this.alcada = alcada;
     }
