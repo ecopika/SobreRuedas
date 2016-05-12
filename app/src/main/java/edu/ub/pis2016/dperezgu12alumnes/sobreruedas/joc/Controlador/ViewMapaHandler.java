@@ -90,12 +90,12 @@ public  class ViewMapaHandler{
         return prs;
     }
 
-    public static Mapa generateMap(){
-        return genJoc.generateMap((int) (CanvasUtils.getHeightScreen() * 1.5), CanvasUtils.getHeightScreen(), ctrlBD);
+    public static ArrayList<Mapa> generateMap(){
+        return genJoc.generateMap(ctrlBD);
     }
 
-    public static ArrayList<ObjecteJoc> generateObjecteJoc(){
-        return genJoc.generateObjecte(ctrlBD);
+    public static ArrayList<ObjecteJoc> generateObjecteJoc(int id){
+        return genJoc.generateObjecte(id, ctrlBD);
     }
 
     public static void finishThread(){
@@ -110,7 +110,7 @@ public  class ViewMapaHandler{
         mapView.resumeThread();
     }
 
-    public static Mapa getMap(){
+    public static ArrayList<Mapa> getMap(){
         return genJoc.getMap();
     }
 

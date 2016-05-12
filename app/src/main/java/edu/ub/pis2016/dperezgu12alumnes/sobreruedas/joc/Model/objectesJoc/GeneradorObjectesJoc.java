@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
@@ -15,7 +16,7 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.DataHandler;
 public class GeneradorObjectesJoc {
 
    // private ArrayList<Mapa> maps;
-    private Mapa map;
+    private ArrayList<Mapa> map;
 
     /*********************************************+
      * S'ha d'implementar la part de la base de dades per obtenir els i el personatge a partir del seu identificador
@@ -39,25 +40,23 @@ public class GeneradorObjectesJoc {
 
     }
 
-    public Mapa generateMap(int ampladaMapa, int alcadaMapa, DataHandler db){
+    public ArrayList<Mapa> generateMap(DataHandler db){
 
-        map = db.getMapes().get(0);
-        map.setAlcada(alcadaMapa);
-        map.setAmplada(ampladaMapa);
+        map = db.getMapes();
         return map;
     }
 
-    public ArrayList<ObjecteJoc> generateObjecte( DataHandler bd){
-        ArrayList<ObjecteJoc> obj = bd.getObjectes(0);
+    public ArrayList<ObjecteJoc> generateObjecte(int id, DataHandler bd){
+        ArrayList<ObjecteJoc> obj = bd.getObjectes(id);
         return obj;
 
     }
 
-    public Mapa getMap() {
+    public ArrayList<Mapa> getMap() {
         return map;
     }
 
-    public void setMap(Mapa map) {
+    public void setMap(ArrayList<Mapa> map) {
         this.map = map;
     }
 
