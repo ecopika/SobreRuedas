@@ -53,8 +53,11 @@ public abstract class Personatge {
     protected Context cnt;
     protected int numVides;
     protected ArrayList<Bitmap> vides;
+    protected float coords;
+    protected float factorAlcada;
+    protected float factorAmplada;
 
-//config gif
+    //config gif
     private long tempsInici;
     private GifMovieView gifPrs;
     private InputStream stream;
@@ -94,7 +97,9 @@ public abstract class Personatge {
         this.nomGif = nomGif;
         this.numVides = 0;
         vides = new ArrayList<Bitmap>();
-
+        this.coords=0;
+        this.factorAlcada = 0.25f;
+        this.factorAmplada = 0.5f;
 
         this.cnt = cnt;
         loadImage();
@@ -118,6 +123,22 @@ public abstract class Personatge {
         }
         gifPrs = new GifMovieView(cnt,stream);
 
+    }
+
+    public float getFactorAlcada() {
+        return factorAlcada;
+    }
+
+    public void setFactorAlcada(float factorAlcada) {
+        this.factorAlcada = factorAlcada;
+    }
+
+    public float getFactorAmplada() {
+        return factorAmplada;
+    }
+
+    public void setFactorAmplada(float factorAmplada) {
+        this.factorAmplada = factorAmplada;
     }
 
     public String getNomGif() {
@@ -148,6 +169,10 @@ public abstract class Personatge {
         return gifPrs;
     }
 
+    public void setCoords(float c){
+        this.coords=c;
+    }
+
     public void setGifPrs(GifMovieView gifPrs) {
         this.gifPrs = gifPrs;
     }
@@ -168,29 +193,6 @@ public abstract class Personatge {
         this.profunditat = profunditat;
     }
 
-    public void mouX(){
-        this.x = this.x+this.velX;
-    }
-
-    public void mouY(){
-        this.y = this.y+this.velY;
-    }
-
-    public boolean isMovX() {
-        return movX;
-    }
-
-    public void setMovX(boolean movX) {
-        this.movX = movX;
-    }
-
-    public boolean isMovY() {
-        return movY;
-    }
-
-    public void setMovY(boolean movY) {
-        this.movY = movY;
-    }
 
     public int getVelX() {
         return velX;
@@ -227,6 +229,10 @@ public abstract class Personatge {
 
     public float getGifY() {
         return gifY;
+    }
+
+    public float getCoords(){
+        return this.coords;
     }
 
     public void setGifY(float gifY) {

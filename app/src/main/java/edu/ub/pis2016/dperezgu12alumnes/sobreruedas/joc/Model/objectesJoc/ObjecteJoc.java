@@ -30,6 +30,11 @@ public class ObjecteJoc {
     private Bitmap img;
     private String nomImatge;
     private Context cnt;
+    private float factorX;
+    private float factorY;
+    private float factorAlcada;
+    private float factorAmplada;
+
 
 
 
@@ -59,9 +64,37 @@ public class ObjecteJoc {
     }
 
 
+    public float getFactorAlcada() {
+        return factorAlcada;
+    }
 
+    public void setFactorAlcada(float factorAlcada) {
+        this.factorAlcada = factorAlcada;
+    }
 
+    public float getFactorAmplada() {
+        return factorAmplada;
+    }
 
+    public void setFactorAmplada(float factorAmplada) {
+        this.factorAmplada = factorAmplada;
+    }
+
+    public float getFactorY() {
+        return factorY;
+    }
+
+    public void setFactorY(float factorY) {
+        this.factorY = factorY;
+    }
+
+    public float getFactorX() {
+        return factorX;
+    }
+
+    public void setFactorX(float factorX) {
+        this.factorX = factorX;
+    }
 
     public int getProfunditat() {
         return profunditat;

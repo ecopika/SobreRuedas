@@ -90,6 +90,10 @@ public  class ViewMapaHandler{
         return prs;
     }
 
+    public static ArrayList<Float> getFactors(int id){
+        return ctrlBD.getFactors(id);
+    }
+
     public static ArrayList<Mapa> generateMap(){
         return genJoc.generateMap(ctrlBD);
     }

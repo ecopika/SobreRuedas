@@ -43,10 +43,8 @@ public class DataHandler  {
             do{
                 Mapa m = new Mapa(0,0);
                 m.setId(c.getInt(0));
-                m.setIniciX(c.getFloat(1));
-                m.setIniciY(c.getFloat(2));
-                m.setFons(CanvasUtils.loadBitmapFromString(cnt, c.getString(3)));
-                m.setFons2(CanvasUtils.loadBitmapFromString(cnt, c.getString(4)));
+                m.setFons(CanvasUtils.loadBitmapFromString(cnt, c.getString(1)));
+                m.setFons2(CanvasUtils.loadBitmapFromString(cnt, c.getString(2)));
                 Obstacles o = getObstacle(m.getId());
                 m.setObstacles(o);
                 mps.add(m);
@@ -70,6 +68,20 @@ public class DataHandler  {
             }while(c.moveToNext());
         }
         return obj;
+    }
+
+    //obtenim els factors dels objectes del joc(arbres, edificis, vehicles...) de la base de dades
+    public ArrayList<Float> getFactors(int idMapa){
+        ArrayList<Float> facts = new ArrayList<Float>();
+
+        Cursor c = db.rawQuery("SELECT f.IDFACTOR,f.FACT,m.IDMAPA FROM factors f JOIN mapa_factors m ON m.IDMAPA=? AND m.IDFACTOR = f.IDFACTOR",new String[]{String.valueOf(idMapa)} );
+        if(c.moveToFirst()){
+            do{
+                int id = c.getInt(0);
+                facts.add(c.getFloat(1));
+            }while(c.moveToNext());
+        }
+        return facts;
     }
 //obtenim els obstacles de cada mapa a partir del seu id
     public Obstacles getObstacle(int idMap){
