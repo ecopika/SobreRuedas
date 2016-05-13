@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS perfil(ID INT PRIMARY KEY NOT NULL, NOMPERSONATGE TEX
 CREATE TABLE IF NOT EXISTS mapa_object(IDMAPA INT NOT NULL, IDOBJECTE INT NOT NULL,PRIMARY KEY (IDMAPA, IDOBJECTE),FOREIGN KEY(IDMAPA) REFERENCES mapa(ID),FOREIGN KEY(IDOBJECTE) REFERENCES objectesmapa(ID));
 CREATE TABLE IF NOT EXISTS factors(IDFACTOR INT PRIMARY KEY NOT NULL, FACT FLOAT);
 CREATE TABLE IF NOT EXISTS mapa_factors(IDMAPA INT NOT NULL, IDFACTOR INT NOT NULL,PRIMARY KEY (IDMAPA, IDFACTOR),FOREIGN KEY(IDMAPA) REFERENCES mapa(ID),FOREIGN KEY(IDFACTOR) REFERENCES factors(IDFACTOR));
-INSERT INTO personatge_ES (ID,NOM,EDAT,COLOR_P,MENJAR_P,HOBBY,IDOL,ANIMAL,PASIONS,HABITS,NOSOPORTA,FRASE,SOMNI,IMATGE,GIF,UNAVIDA, DUESVIDES) VALUES (0,'Núria',10,'Azul','Lasaña','Baloncesto','Mujer Maravilla','Pantera','pintar','lee cómics de Mortadelo y Filemón','los payasos',"¡No hay nada imposible para mi!",'llegar a ser una gran politica y cambiar las cosas','nuriafotograma','movnuria.gif',"unavida","duesvides");
+INSERT INTO personatge_ES (ID,NOM,EDAT,COLOR_P,MENJAR_P,HOBBY,IDOL,ANIMAL,PASIONS,HABITS,NOSOPORTA,FRASE,SOMNI,IMATGE,GIF,UNAVIDA, DUESVIDES) VALUES (0,'Núria',10,'Azul','Lasaña','Básquet y senderismo','Mujer Maravilla','Pantera','pintar','lee cómics de Mortadelo y Filemón','los payasos',"¡No hay nada imposible para mi!",'llegar a ser una gran política y cambiar las cosas','nuriafotograma','movnuria.gif',"unavida","duesvides");
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (0,"noia1",43,0.0,0.0);
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (1,"noia2",44,0.0,0.0);
 INSERT INTO objectesmapa (ID,IMATGE,PROFUNDITAT,X,Y) VALUES (2,"noia3",45,0.0,0.0);
