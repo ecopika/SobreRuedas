@@ -1,5 +1,6 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -14,15 +15,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewHandlerMenu;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
 
 public class seleccioPersonatgeActivity extends FragmentActivity {
 
-    private static final int NUM_PAGES = 1;
+    private static int NUM_PAGES ;
     private SeleccioPagerAdapter adapter;
     private ViewPager viewPager;
-    private ImageButton btnJugar;
-    private LinearLayout layout;
+    private ViewHandlerMenu menu;
+    private Context cnt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,17 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         viewPager = (ViewPager) findViewById(R.id.pager);
         adapter = new SeleccioPagerAdapter(getSupportFragmentManager());
+
         viewPager.setAdapter(adapter);
+        menu = new ViewHandlerMenu(cnt);
+
         ViewMapaHandler.setActivity(this);
         ViewMapaHandler.setContext(this);
         ViewMapaHandler.generateBD();
         ViewMapaHandler.generaJoc();
+        NUM_PAGES = menu.getPersonatges().size();
+        adapter.notifyDataSetChanged();
+
     }
 
     public void changePageLeft(View view) {

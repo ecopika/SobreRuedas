@@ -50,16 +50,16 @@ public class SeleccioFragment extends Fragment{
         nom.setRotation(-15);
         nom.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         nom.setTextColor(Color.WHITE);
+
         TextView text = (TextView) rootView.findViewById(R.id.textView) ;
         text.setText(pers.get(0).getFrase());
-        text.setRotation(-20);
-        text.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
+        text.setRotation(-19);
+        text.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/calibri.ttf"));
         text.setTextColor(Color.WHITE);
+
         TextView text2 = (TextView) rootView.findViewById(R.id.textView2);
-        
-        
         text2.setText(getInfoPers());
-        text2.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
+        text2.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/calibri.ttf"));
         text2.setTextColor(Color.parseColor("#72449E"));
 
         Button buttonL = (Button) rootView.findViewById(R.id.buttonL);
@@ -84,10 +84,10 @@ public class SeleccioFragment extends Fragment{
     }
     
     private String getInfoPers(){
-        String texto = "Nombre: "+pers.get(0).getNom()+"\nEdad: "+pers.get(0).getEdat()+"\nColor Favorito: "+pers.get(0).getColorPref()+
-                "\nComida Favorita: "+pers.get(0).getMenjarPref()+"\nHobby: "+pers.get(0).getHobby()+"\nÍdolo: "+pers.get(0).getIdol()+
-                "\nLe encanta "+pers.get(0).getPasions()+"\nAntes de irse dormir "+pers.get(0).getHabits()+"No soporta "+pers.get(0).getNoSoporta()+
-                "Su sueño "+pers.get(0).getSomni();
+        String texto = "Nombre: "+pers.get(0).getNom()+"\nEdad: "+pers.get(0).getEdat()+" años"+"\nColor Favorito: "+pers.get(0).getColorPref()+
+                "\nAnimal Favorito: "+ pers.get(0).getAnimalPref()+"\nComida Favorita: "+pers.get(0).getMenjarPref()+"\nHobby: "+pers.get(0).getHobby()+
+                "\nÍdolo: "+pers.get(0).getIdol()+"\nLe encanta "+pers.get(0).getPasions()+"\nAntes de irse dormir "+pers.get(0).getHabits()+
+                "\nNo soporta "+pers.get(0).getNoSoporta()+ "\nSu sueño es "+pers.get(0).getSomni();
         return texto;
     }
 }
