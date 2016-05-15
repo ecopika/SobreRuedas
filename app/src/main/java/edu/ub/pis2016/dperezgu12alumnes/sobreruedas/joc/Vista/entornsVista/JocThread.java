@@ -8,21 +8,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Movie;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import android.widget.ArrayAdapter;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.GeneradorObjectesJoc;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Mapa;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.ObjecteJoc;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MapActivity;
@@ -43,10 +40,15 @@ public class JocThread extends Thread {
     private int xTic = 0;
     private int alfa;
     private int mapa;
-    
+    private int resposta;
+
     private int amplaPantalla;
     private int alcadaPantalla;
-    private boolean mostraRespostes = false;
+    private float accMetro;
+    private boolean metroEnPantalla;
+    private boolean metroAturat;
+    private boolean primeraVegadaThread;
+    private ArrayList<Integer> auxiliarNumMapes;
 
     private Personatge prs;
     private ArrayList<Mapa> map;
@@ -58,22 +60,21 @@ public class JocThread extends Thread {
     private boolean clickat;
     private int yTic;
     private boolean primeraVegadaEntra=false;
-    private float amplada;
     private boolean loadImage;
-
+    private int alfaText;
+    private Paint pText;
+    private ArrayList<Integer> numMapes;
+    private String frase;
+    private Bitmap finalFons;
+    private boolean finalJoc;
 
     private Bitmap creu;
     private Bitmap tic;
 
-
     private boolean correcte = false;
     Paint paint = new Paint();
 
-    //ARRAY PER POSAR LES IMATGES DE LES VIDES DEL PERSONATGE
-    private ArrayList<Bitmap> vides;
 
-
-    //objecte GIF
 
 
     public JocThread(SurfaceHolder sHold, Context cnt, Handler handler) {
@@ -85,36 +86,49 @@ public class JocThread extends Thread {
 
         this.amplaPantalla = CanvasUtils.getWidthScreen();
         this.alcadaPantalla = CanvasUtils.getHeightScreen();
+        numMapes = new ArrayList<Integer>();
+        finalJoc = false;
 
         //-------------------------INICIALITZEM ELS OBJECTES GLOBALS AL JOC (MAPES, PERSONATGE, VIDES ...)----------------------------
-        initObjectesJoc();
         fons = new ArrayList<Bitmap>();
         alfa=0;
+        alfaText = 0;
+
+        pText = new Paint();
+        frase = "Al cap d'una estona..";
+        pText.setTextSize((amplaPantalla/frase.length())*2);
+        pText.setColor(Color.WHITE);
         //-----------------------------------------------------------------------------------------------------------------------------
 
         //de moment no utilitzem, però s'utilitzarà
         /*//CANVI DE COLOR I TAMANY DE LA VARIABLE DE CONTAR EL TEMPS
         paint.setColor(Color.BLACK);
         paint.setTextSize(59);
-
         //AGAFA EL TEMPS ACTUAL
         starttime = System.currentTimeMillis();
         **/
-        mapa=0;
-        initMapes();
+        primeraVegadaThread=true;
+        generateMapa();
+        generatePersonatge();
+
+        restartValuesMap();
+
+
 
         ViewMapaHandler.setClic(false);
 
+    }
 
+    private void generateMapa(){
+        map = ViewMapaHandler.generateMap();
+        for(int i=0;i<map.size();i++){
+            numMapes.add(i);
+        }
+        Collections.shuffle(numMapes);
+    }
 
-
-
-
-
-
-
-
-
+    private void generatePersonatge(){
+        prs = ViewMapaHandler.generatePersonatge().get(0);
     }
 
 
@@ -132,10 +146,11 @@ public class JocThread extends Thread {
                 prs.getStream().close();
                 c = mSurfHolder.lockCanvas(null);
                 synchronized (mSurfHolder) {
+
                     update();
                     doDraw(c);
 
-                    sleep(2);
+
 
 
                 }
@@ -160,38 +175,24 @@ public class JocThread extends Thread {
     }
 
     private void update() {
-        switch (mapa){
-            case 0:
-                updateMapa1();
-                break;
-
-            case 1:
-                break;
-            case 2:
-               // updateMapa3();
-                break;
-        }
+        updateMapa();
 
 
     }
 
     private void doDraw(Canvas c) throws InterruptedException {
-        if (!pantallaNegra) {
-            switch (mapa){
-                case 0:
-                    drawMapa1(c);
-                    break;
-                case 1:
-                    break;
-
-                case 2:
-                    //drawMapa3(c);
-                    break;
-            }
+       if(!finalJoc) {
+           if (!pantallaNegra) {
+               drawMapa(c);
 
 
-        }else {
-            pintaNegra(c);
+           } else {
+               pintaNegra(c);
+
+           }
+       }
+       else{
+            mostraFinal(c);
         }
 
     }
@@ -204,40 +205,29 @@ public class JocThread extends Thread {
     //FUNCIONS GLOBALS AL JOC -------------------------------------------------------------------------------
 
     private void initMapes(){
-
-                //--------INICIALITZEM EL MAPA -----------
-                initObjMapa();
-                configPersonatge();
-                initTouchMapa1();
-                escalaImatgesMapa(mapa);
+        //--------INICIALITZEM EL MAPA -----------
+        initObjectesJoc();
+        initObjMapa();
+        if (mapa == 1){
+            configMetro();
+        }
+        configPersonatge();
+        initTouchMapa();
+        escalaImatgesMapa(mapa);
 
 
     }
 
     private void carregaUnaVida(){
         if (!loadImage) {
-            recycle(fons.get(7));
-            fons.set(7, CanvasUtils.escalaImatge(vides.get(0), alcadaPantalla, amplaPantalla));
+            recycle(fons.get(map.get(mapa).getObjects().size() + 4));
+            fons.set(map.get(mapa).getObjects().size()+4, CanvasUtils.escalaImatge(prs.getVides().get(0), alcadaPantalla, amplaPantalla));
             loadImage = true;
         }
     }
 
 
     private void initObjectesJoc(){
-        map = ViewMapaHandler.generateMap();
-
-
-
-        prs = ViewMapaHandler.generatePersonatge().get(0);
-
-        //inicialitzem l'array de les vides
-        vides = new ArrayList<Bitmap>();
-        vides = prs.getVides();
-        prs.setNumVides(2);
-
-        //CARREGUEM LES IMATGES DEL TIC I LA CREU
-        creu = CanvasUtils.loadBitmapFromString(cnt, "cruzroja");
-        tic = CanvasUtils.loadBitmapFromString(cnt, "tic");
 
         passaTemps = false;
         moviment = false;
@@ -249,13 +239,35 @@ public class JocThread extends Thread {
 
     }
 
+    private void configMetro(){
+        accMetro = map.get(1).getVelX()*0.001666667f;
+        metroAturat = false;
+    }
+
+    private void loadTics(){
+        //CARREGUEM LES IMATGES DEL TIC I LA CREU
+        recycle(creu);
+        recycle(tic);
+        creu=null;
+        tic=null;
+        creu = CanvasUtils.loadBitmapFromString(cnt, "cruzroja");
+        tic = CanvasUtils.loadBitmapFromString(cnt, "tic");
+    }
 
     //FUNCIO PER PINTAR LA PANTALLA NEGRE QUAN S'HA ACAVAT EL NIVELL
     private void pintaNegra(Canvas c){
-        if(alfa<100)alfa++;
-        paint.setAlpha(alfa);
-        paint.setColor(Color.BLACK);
-        c.drawARGB(alfa,0,0,0);
+
+            if (alfa < 100) alfa++;
+            paint.setAlpha(alfa);
+            paint.setColor(Color.BLACK);
+            c.drawARGB(alfa, 0, 0, 0);
+        if(numMapes.size()>0) {
+            if (alfa == 100) {
+                if (alfaText < 100) alfaText++;
+                pText.setAlpha(alfaText);
+                c.drawText(frase, 5, alcadaPantalla / 2, pText);
+            }
+        }
 
     }
 
@@ -267,15 +279,12 @@ public class JocThread extends Thread {
             ViewMapaHandler.setClic(false);
             pintaTic(index, xTic, yTic, c);
             long sec = (System.currentTimeMillis() - clickTime) / 1000;
-            Log.i("entra temps",String.valueOf(sec));
-            Log.i("t2",String.valueOf(segons));
-
             if (segons <sec) {
                 clickat = !clickat;
                 passaTemps = false;
                 ViewMapaHandler.setClic(true);
                 if (correcte){
-                    recycle(fons.get(8));
+                    recycle(fons.get(map.get(mapa).getObjects().size()+5));
                 }
             }
 
@@ -295,9 +304,17 @@ public class JocThread extends Thread {
         }
     }
 
+    //funció que mostra la pantalla final del joc
+    private void mostraFinal(Canvas c){
+        finalFons = ((BitmapDrawable)cnt.getResources().getDrawable(R.drawable.pantallafinal)).getBitmap();
+        c.drawBitmap(CanvasUtils.escalaImatge(finalFons,alcadaPantalla,amplaPantalla),0,0,null);
+
+    }
+
 
     //FUNCIO QUE PINTA EL GIF DEL PERSONATGE MENTRE S'ESTA MOVENT, SI S'ATURA PINTA LA IMATGE DEL PERSONATGE I L'OBSTACLE DEL MAPA CORRESPONENT
     private void pintarObstaclePersonatge(Canvas c) {
+
         if (moviment) {//si el personatge esta en moviment
             //cuadrar el temps del GIF amb el temps del joc
             final long now = SystemClock.uptimeMillis();//s'obté el temps actual
@@ -309,11 +326,15 @@ public class JocThread extends Thread {
             if (dur == 0) dur = 1000;
             int relTime = (int) ((now - prs.getTempsInici()) % dur);
             prs.getGifPrs().getMovie().setTime(relTime);
+
             //fi de la sincronització temporal
             c.scale(fr, pl);
             //dibuixem el GIF
             prs.getGifPrs().getMovie().draw(c, prs.getGifX(), prs.getGifY());
-            c.restore();
+
+            c.scale(1/fr, 1/pl);
+
+
         } else {//si el personatge no és mou
             if (!primeraVegadaEntra) {
                 ViewMapaHandler.setClic(true);
@@ -324,14 +345,14 @@ public class JocThread extends Thread {
             c.drawBitmap(fons.get(1), prs.getX(), prs.getY() + 5, null);
 
 
-            c.drawBitmap(fons.get(8), 0, 0, null);
+            c.drawBitmap(fons.get(map.get(mapa).getObjects().size()+5), 0, 0, null);
         }
     }
 
 
     //FI FUNCIONS GLOBALS AL JOC ----------------------------------------------------------
     private void carregaRespostes(Canvas c){
-        loadBitmap(map.get(0).getObstacles().getRespostes(),alcadaPantalla,amplaPantalla,8);
+        loadBitmap(map.get(mapa).getObstacles().getRespostes(), alcadaPantalla, amplaPantalla, 8);
     }
 
     private void loadBitmap(Bitmap bm, int alcada, int ampl, int ind){
@@ -345,17 +366,17 @@ public class JocThread extends Thread {
             loadImage = true;
         }
     }
-    
+
 
     /**************************************************************************************************************************
      *  FUNCIONS MAPA
-      *************************************************************************************************************************/
+     *************************************************************************************************************************/
 
     private void configMapes(int i){
         //alcada mapa
         map.get(i).setAlcada(alcadaPantalla);
         //amplada mapa
-        map.get(i).setAmplada((int) (map.get(i).getAlcada() * map.get(i).getFactorEscalatge()));
+        map.get(i).setAmplada(map.get(i).getAlcada() * map.get(i).getFactorEscalatge());
         //VELOCITAT MAPES
         map.get(i).calcularVelocitat();
         //set x dels mapes
@@ -373,9 +394,9 @@ public class JocThread extends Thread {
             configMapes(i);
             for (int j = 0; j<map.get(i).getObjects().size(); j++){
                 //calcul alçada
-                map.get(i).getObjects().get(j).setAlcada((int) (map.get(i).getAlcada() * map.get(i).getObjects().get(j).getFactorAlcada()));
+                map.get(i).getObjects().get(j).setAlcada( (map.get(i).getAlcada() * map.get(i).getObjects().get(j).getFactorAlcada()));
                 //calcul amplada
-                map.get(i).getObjects().get(j).setAmplada((int) (map.get(i).getObjects().get(j).getAlcada()*map.get(i).getObjects().get(j).getFactorAmplada()));
+                map.get(i).getObjects().get(j).setAmplada( (map.get(i).getObjects().get(j).getAlcada()*map.get(i).getObjects().get(j).getFactorAmplada()));
                 //calcul Y
                 map.get(i).getObjects().get(j).setY(map.get(i).getAlcada()*map.get(i).getObjects().get(j).getFactorY());
                 //calcul X
@@ -392,51 +413,72 @@ public class JocThread extends Thread {
 
         //ESCALAR IMATGE MAPA :0
         fons.add(CanvasUtils.escalaImatge(map.get(k).getFons(), map.get(k).getAlcada() + 3, map.get(k).getAmplada()));
-
+        recycle(map.get(k).getFons());
         //ESCALAR IMATGE DEL PERSONATGE :1
         fons.add(CanvasUtils.escalaImatge(prs.getImg(), prs.getAlcada(), prs.getAmplada()));
 
         //ESCALAR OBJECTES DEL MAPA K
         for (int i = 0;i<map.get(k).getObjects().size()  ;i++){
             fons.add(CanvasUtils.escalaImatge(map.get(k).getObjects().get(i).getImg(), map.get(k).getObjects().get(i).getAlcada(), map.get(k).getObjects().get(i).getAmplada()));
+            recycle(map.get(k).getObjects().get(i).getImg());
         }
 
 
         //ESCALAR CREU :5
         fons.add(CanvasUtils.escalaImatge(creu, amplaPantalla / 4, amplaPantalla / 4));
+        recycle(creu);
         //ESCALAR TIC :6
         fons.add(CanvasUtils.escalaImatge(tic, amplaPantalla / 4, amplaPantalla / 4));
-
+        recycle(tic);
         //2 VIDES :8
-        fons.add(CanvasUtils.escalaImatge(vides.get(1), alcadaPantalla, amplaPantalla));
+        if(prs.getNumVides()==2) {
+            fons.add(CanvasUtils.escalaImatge(prs.getVides().get(1), alcadaPantalla, amplaPantalla));
+        }
+        else{
+            fons.add(CanvasUtils.escalaImatge(prs.getVides().get(0), alcadaPantalla, amplaPantalla));
 
-        
+        }
+
+
+    }
+
+    private void regenerateBitmaps(){
+        map.get(mapa).loadFons1();
+        regenerateObjectsMapa();
+        loadTics();
+
+    }
+
+    private void regenerateObjectsMapa(){
+        for(int i = 0;i<map.get(mapa).getObjects().size();i++){
+            map.get(mapa).getObjects().get(i).loadImatge();
+        }
 
     }
 
 
 
     //CONFIGURACIO DEL TOUCH
-    private void initTouchMapa1(){
+    private void initTouchMapa(){
 
         //CONFIGURACIO DEL TOUCH
 
-        map.get(0).getObstacles().setY1((int) (alcadaPantalla * 0.094));
-        map.get(0).getObstacles().setY2((int) (alcadaPantalla * 0.26));
+        map.get(mapa).getObstacles().setY1((int) (alcadaPantalla * 0.094));
+        map.get(mapa).getObstacles().setY2((int) (alcadaPantalla * 0.26));
 
-        map.get(0).getObstacles().setX11Dolenta((int) (amplaPantalla * 0.07));
-        map.get(0).getObstacles().setX12Dolenta((int) (amplaPantalla * 0.31));
+        map.get(mapa).getObstacles().setX11((int) (amplaPantalla * 0.07));
+        map.get(mapa).getObstacles().setX12((int) (amplaPantalla * 0.31));
 
-        map.get(0).getObstacles().setX21Dolenta((int) (amplaPantalla * 0.385));
-        map.get(0).getObstacles().setX22Dolenta((int) (amplaPantalla * 0.62));
+        map.get(mapa).getObstacles().setX21((int) (amplaPantalla * 0.385));
+        map.get(mapa).getObstacles().setX22((int) (amplaPantalla * 0.62));
 
-        map.get(0).getObstacles().setX11Bona((int) (amplaPantalla * 0.69));
-        map.get(0).getObstacles().setX12Bona((int) (amplaPantalla * 0.93));
+        map.get(mapa).getObstacles().setX31((int) (amplaPantalla * 0.69));
+        map.get(mapa).getObstacles().setX32((int) (amplaPantalla * 0.93));
 
         yTic=(int) (alcadaPantalla*0.089);
 
-        map.get(0).getObstacles().setY1((int) (alcadaPantalla * 0.094));
-        map.get(0).getObstacles().setY2((int) (alcadaPantalla * 0.26));
+        map.get(mapa).getObstacles().setY1((int) (alcadaPantalla * 0.094));
+        map.get(mapa).getObstacles().setY2((int) (alcadaPantalla * 0.26));
     }
 
 
@@ -446,28 +488,73 @@ public class JocThread extends Thread {
 
 
         //PERSONATGE
-        prs.setAlcada(map.get(0).getAlcada() / 4);
-        float amplada = ((float) prs.getAlcada() * CanvasUtils.calcularFactorEscalatge(prs.getImg()));
-        prs.setAmplada((int) amplada);
+        prs.setAlcada(map.get(mapa).getAlcada() / 4);
+        float amplada = ( prs.getAlcada() * CanvasUtils.calcularFactorEscalatge(prs.getImg()));
+        prs.setAmplada( amplada);
         prs.setX(prs.getAmplada() / 2);
-        prs.setY(map.get(0).getAlcada() * 0.6f);
-        fr = (float) prs.getAmplada() / (float) prs.getImg().getWidth();
+        prs.setY(map.get(mapa).getAlcada() * 0.6f);
+        fr =  prs.getAmplada() / (float) prs.getImg().getWidth();
         prs.setGifX(prs.getX() / fr);
-        pl = (float) prs.getAlcada() / (float) prs.getImg().getHeight();
+        pl =  prs.getAlcada() / (float) prs.getImg().getHeight();
         prs.setGifY(prs.getY() / pl);
 
-        prs.setVelX(map.get(0).getVelX());
-        prs.setVelY((int) (prs.getVelX() * 0.3f));
+        prs.setVelX(map.get(mapa).getVelX());
+        prs.setVelY((prs.getVelX() * 0.6f));
         prs.setCoords(prs.getX());//coordenades relatives al mapa
     }
 
+    private ArrayList<Integer> cloneArray(ArrayList<Integer> llista){
+        ArrayList<Integer> nwLlista = new ArrayList<Integer>();
+        for(int i = 0;i<llista.size();i++){
+            nwLlista.add(llista.get(i));
+        }
+        return nwLlista;
+    }
+
     //funció per reiniciar els valors de tots els objectes del mapa
-    private void restartValuesMap1(){
+    private void restartValuesMap(){
         //initCoordsObjectsMapa1();
-        prs.setNumVides(2);
-        correcte=false;
-        ViewMapaHandler.setClic(false);
-        primeraVegadaEntra=false;
+
+        clearCanvasObjects(0);
+
+            if (primeraVegadaThread) {
+                auxiliarNumMapes = cloneArray(numMapes);
+                primeraVegadaThread = false;
+                prs.setNumVides(2);
+
+            } else {
+                if (prs.getNumVides() == 0) {
+                    numMapes = cloneArray(auxiliarNumMapes);
+                    prs.setNumVides(2);
+
+                }
+            }
+        if(numMapes.size()==0){
+            finalJoc=true;
+        }
+            if (numMapes.size() > 0) {
+
+                mapa = numMapes.remove(0);
+            }
+
+        if(!finalJoc) {
+            fons = new ArrayList<Bitmap>();
+            regenerateBitmaps();
+            initMapes();
+            correcte = false;
+            ViewMapaHandler.setClic(false);
+            primeraVegadaEntra = false;
+            if (mapa == 1) {
+                metroEnPantalla = true;
+            } else {
+                metroEnPantalla = false;
+            }
+            alfa = 0;
+            alfaText = 0;
+
+        }
+        pantallaNegra = false;
+
     }
 
 
@@ -479,100 +566,138 @@ public class JocThread extends Thread {
     private void endevant(){
         moviment = true;
         //moviment del mapa
-        map.get(0).setX(map.get(0).getX() - map.get(0).getVelX());
+        map.get(mapa).setX((int) (map.get(mapa).getX() - map.get(mapa).getVelX()));
         //moviment dels objectes
-        for (int i = 0; i<map.get(0).getObjects().size(); i++){
-            map.get(0).getObjects().get(i).setX(map.get(0).getObjects().get(i).getX()-map.get(0).getObjects().get(i).getVelX());
+        for (int i = 0; i<map.get(mapa).getObjects().size(); i++){
+            map.get(mapa).getObjects().get(i).setX(map.get(mapa).getObjects().get(i).getX()-map.get(mapa).getObjects().get(i).getVelX());
         }
         //posicio del personatge respecte al mapa
-        prs.setCoords(prs.getCoords() + map.get(0).getVelX());
+        prs.setCoords(prs.getCoords() + map.get(mapa).getVelX());
     }
 
     private void updateMapa1(){
-        loadImage=false;
-        if(!pantallaNegra){
-            if (!passaTemps) {
-                //SI AL PERSONATGE LI QUEDEN VIDES SEGUIM AMB EL JOC
-                if (prs.getNumVides() > 0) {
-                    moviment = false;
+        moviment = false;
 
-                    //if (x > amplaPantalla - map.getAmplada() + (prs.getAmplada() / 2)) {
-                    if (map.get(0).getX()> map.get(0).getAmplada()*-0.5){
-                        endevant();
+        //if (x > amplaPantalla - map.getAmplada() + (prs.getAmplada() / 2)) {
+        if (map.get(0).getX()> map.get(0).getAmplada()*-0.5){
+            endevant();
 
 
-                    }
+        }
 
-                    if (correcte) {
+        if (correcte) {
 
-                        if (map.get(0).getX() > map.get(0).getAmplada() * -0.55) {
-                           endevant();
+            if (map.get(0).getX() > map.get(0).getAmplada() * -0.55) {
+                endevant();
 
-                        } else {
-                            prs.setGifX(prs.getGifX() + prs.getVelX());
+            } else {
+                moviment = true;
+                prs.setGifX(prs.getGifX() + prs.getVelX());
 
-                            Log.i("amplada", String.valueOf(map.get(0).getAmplada()));
-                            prs.setCoords(prs.getCoords() + prs.getVelX());
+                prs.setCoords(prs.getCoords() + prs.getVelX());
 
-                            if (prs.getCoords() > map.get(0).getAmplada()*0.7f && prs.getCoords()<map.get(0).getAmplada()*0.8f) {
-                                prs.setGifY(prs.getGifY() + prs.getVelY());
+                if (prs.getCoords() > map.get(0).getAmplada()*0.65f && prs.getCoords()<map.get(0).getAmplada()*0.97f) {
+                    prs.setGifY(prs.getGifY() + prs.getVelY()*0.5f);
 
-                            }
+                }
 
-                            if (prs.getGifX()-prs.getAmplada()*3 > amplaPantalla) {
 
-                                pantallaNegra = true;
+                if (prs.getGifX()-prs.getAmplada()*3 > amplaPantalla) {
 
-                            }
-                        }
-                    }
-
-                    //SI EL PERSONATGE PERD TOTES LES VIDES REINICIEM LES VARIABLES
-                } else {
-
-                    restartValuesMap1();
+                    pantallaNegra = true;
 
 
                 }
             }
         }
+    }
 
+    private void updateMapa(){
+        loadImage=false;
+        if(!finalJoc) {
+            if (!pantallaNegra) {
+                if (!passaTemps) {
+                    //SI AL PERSONATGE LI QUEDEN VIDES SEGUIM AMB EL JOC
+                    if (prs.getNumVides() > 0) {
+                        switch (mapa) {
+                            case 0:
+                                updateMapa1();
+                                break;
+                            case 1:
+                                Log.i("velocitat",String.valueOf(map.get(1).getVelX()));
+                                Log.i("velocitat",String.valueOf(map.get(1).getObjects().get(2).getVelX()));
+                                updateMapa2();
+                                break;
+                            case 2:
+                                updateMapa3();
+                                break;
+                        }
+
+                        //SI EL PERSONATGE PERD TOTES LES VIDES REINICIEM LES VARIABLES
+                    } else {
+
+                        restartValuesMap();
+
+
+                    }
+                }
+            } else {
+                Log.i("alfa",String.valueOf(alfa));
+                Log.i("numMapes",String.valueOf(numMapes.size()));
+                if (alfaText == 100 || (numMapes.size()==0 && alfa==100)) {
+                    restartValuesMap();
+
+                }
+
+            }
+        }
     }
 
 
 
 
     /**********************************************************************************************************
-     * DRAW DEL MAPA 1
+     * DRAW DEL MAPA
      *******************************************************************************************************/
 
-    public void drawMapa1(Canvas c){
+    public void drawMapa(Canvas c){
         //MAPA
 
-        c.drawBitmap(fons.get(0), map.get(0).getX(), map.get(0).getY(), null);
+        c.drawBitmap(fons.get(0), map.get(mapa).getX(), map.get(mapa).getY(), null);
 
-
+        if (mapa == 1 && accMetro<0 && metroEnPantalla){
+            pintarObstaclePersonatge(c);
+        }
 
 
 
         //OBJECTES
-        c.drawBitmap(fons.get(2), map.get(0).getObjects().get(0).getX(),map.get(0).getObjects().get(0).getY(), null);
-        c.drawBitmap(fons.get(3), map.get(0).getObjects().get(1).getX(), map.get(0).getObjects().get(1).getY(), null);
-        c.drawBitmap(fons.get(4), map.get(0).getObjects().get(2).getX(), map.get(0).getObjects().get(2).getY(), null);
+        for(int i = 2;i<map.get(mapa).getObjects().size()+2;i++) {
+            if(mapa==1) {
+                if (i != 4) {
+                    c.drawBitmap(fons.get(i), map.get(mapa).getObjects().get(i - 2).getX(), map.get(mapa).getObjects().get(i - 2).getY(), null);
+                } else if (i == 4 && metroEnPantalla) {
+                    c.drawBitmap(fons.get(i), map.get(mapa).getObjects().get(i - 2).getX(), map.get(mapa).getObjects().get(i - 2).getY(), null);
 
+                }
+            }else{
+                c.drawBitmap(fons.get(i), map.get(mapa).getObjects().get(i - 2).getX(), map.get(mapa).getObjects().get(i - 2).getY(), null);
+
+            }
+        }
         //vides
-        c.drawBitmap(fons.get(7), 0, 0, null);
+        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4), 0, 0, null);
 
-
-        pintarObstaclePersonatge(c);
+        if (!metroEnPantalla) {
+            pintarObstaclePersonatge(c);
+        }
 
 
         //MIREM SI EL CLIC ESTA DINS DE LES POSSIBLES SOLUCIONS
-        comprovarTouchMapa1();
+        comprovarTouchMapa();
 
 
 
-        //Log.i("sec", String.valueOf(passaTemps));
 
         comptaTempsTic(2, c);
 
@@ -580,179 +705,225 @@ public class JocThread extends Thread {
 
     }
 
+    private void controlarResposta(){
+        if (resposta != -1){
+            clickTime = System.currentTimeMillis();
+            passaTemps=true;
+
+            if (resposta == map.get(mapa).getObstacles().getRespostaCorrecte()){
+                correcte = true;
+                map.get(mapa).setFons(map.get(mapa).getFons2());
+                index = map.get(mapa).getObjects().size()+3;
+                if (!loadImage) {
+                    recycle(fons.get(0));
+                    recycle(map.get(mapa).getFons());
+                    map.get(mapa).loadFons2();
+                    fons.set(0,CanvasUtils.escalaImatge(map.get(mapa).getFons2(), map.get(mapa).getAlcada(), map.get(mapa).getAmplada()));
+                    loadImage = true;
+                }
+            }else{
+                prs.setNumVides(prs.getNumVides() - 1);
+                index = map.get(mapa).getObjects().size()+2;
+                if(prs.getNumVides()<2){
+                    carregaUnaVida();
+                }
+
+            }
+        }
+    }
+
     //FUNCIO PER COMPROVAR EL TOUCH
-    private void comprovarTouchMapa1(){
-        if (ViewMapaHandler.getX() > map.get(0).getObstacles().getX11Dolenta() && ViewMapaHandler.getX() < map.get(0).getObstacles().getX12Dolenta() && ViewMapaHandler.getY() > map.get(0).getObstacles().getY1() && ViewMapaHandler.getY() < map.get(0).getObstacles().getY2()){
-            prs.setNumVides(prs.getNumVides() - 1);
-            clickTime = System.currentTimeMillis();
-            passaTemps=true;
-            index = 5;
+    private void comprovarTouchMapa(){
+        resposta = -1;
+
+        if (ViewMapaHandler.getX() > map.get(mapa).getObstacles().getX11() && ViewMapaHandler.getX() < map.get(mapa).getObstacles().getX12() && ViewMapaHandler.getY() > map.get(mapa).getObstacles().getY1() && ViewMapaHandler.getY() < map.get(mapa).getObstacles().getY2()){
+            resposta = 1;
+            controlarResposta();
             xTic = (int) (amplaPantalla*0.065);
-            if(prs.getNumVides()<2){
-                carregaUnaVida();
-            }
+
         }
-        if (ViewMapaHandler.getX() > map.get(0).getObstacles().getX21Dolenta() && ViewMapaHandler.getX() < map.get(0).getObstacles().getX22Dolenta() && ViewMapaHandler.getY() > map.get(0).getObstacles().getY1() && ViewMapaHandler.getY() < map.get(0).getObstacles().getY2())  {
-            prs.setNumVides(prs.getNumVides() - 1);
-            clickTime = System.currentTimeMillis();
-            passaTemps=true;
-            index = 5;
+        if (ViewMapaHandler.getX() > map.get(mapa).getObstacles().getX21() && ViewMapaHandler.getX() < map.get(mapa).getObstacles().getX22() && ViewMapaHandler.getY() > map.get(mapa).getObstacles().getY1() && ViewMapaHandler.getY() < map.get(mapa).getObstacles().getY2())  {
+            resposta = 2;
+            controlarResposta();
             xTic = (int) (amplaPantalla*0.384);
-            if(prs.getNumVides()<2){
-                carregaUnaVida();
-            }
+
         }
-        if (ViewMapaHandler.getX() > map.get(0).getObstacles().getX11Bona() && ViewMapaHandler.getX() < map.get(0).getObstacles().getX12Bona() && ViewMapaHandler.getY() > map.get(0).getObstacles().getY1() && ViewMapaHandler.getY() < map.get(0).getObstacles().getY2()) {
-            correcte = true;
-            passaTemps = true;
-            clickTime = System.currentTimeMillis();
-            map.get(0).setFons(map.get(0).getFons2());
-            index = 6;
-            if (!loadImage) {
-                recycle(fons.get(0));
-                fons.set(0,CanvasUtils.escalaImatge(map.get(0).getFons2(), map.get(0).getAlcada(), map.get(0).getAmplada()));
-                loadImage = true;
-            }
+        if (ViewMapaHandler.getX() > map.get(mapa).getObstacles().getX31() && ViewMapaHandler.getX() < map.get(mapa).getObstacles().getX32() && ViewMapaHandler.getY() > map.get(mapa).getObstacles().getY1() && ViewMapaHandler.getY() < map.get(mapa).getObstacles().getY2()) {
+            resposta=3;
+            controlarResposta();
             xTic = (int) (amplaPantalla* 0.69);
         }
         ViewMapaHandler.setX(0);
         ViewMapaHandler.setY(0);
 
     }
+    /*********************************************************************************************************************
+     * ------------------------ FUNCIONS DEL MAPA 2 ----------------------------------------------------------------
+     *********************************************************************************************************************/
+
+    /*********************************************************************************************************************
+     * --------------------------   UPDATE DEL MAPA 2  -------------------------------------------------------------------
+     *********************************************************************************************************************/
+
+    private void arribaMetro(){
+        if (map.get(1).getObjects().get(2).getVelX() > 0) {
+            //moviment = true;
+
+            map.get(1).getObjects().get(2).setVelX(map.get(1).getObjects().get(2).getVelX() - accMetro);
+            map.get(1).getObjects().get(2).setX(map.get(1).getObjects().get(2).getX() + (map.get(1).getObjects().get(2).getVelX()));
+        }else{
+            metroAturat = true;
+        }
+    }
+
+    private void metroAturada(int s){
+      //  try {
+           // sleep(s*1000);
+            metroAturat = false;
+            accMetro = map.get(1).getVelX()*-0.02f;
+            map.get(1).getObjects().get(2).setVelX(1);
+
+        //} catch (InterruptedException e) {
+         //   e.printStackTrace();
+        //}
+    }
+
+    private void personatgeSurtMetro(){
+        //prs.setGifX((prs.getGifX()+prs.getVelX()*0.5f));
+        float yPersonatge = 0f;
+        if (alcadaPantalla>1000){
+            yPersonatge = 0.5f;
+        }else{
+            yPersonatge = 0.75f;
+        }
+        if (prs.getGifY()>alcadaPantalla*yPersonatge){
+            Log.i("velocitat",String.valueOf(prs.getVelY()));
+            prs.setGifY(prs.getGifY() - prs.getVelY()*2);
+            prs.setY(prs.getGifY()*fr);
+        }
+    }
+
+    private void updateMapa2() {
+
+        if(!correcte) {
+            if (map.get(1).getObjects().get(2).getX() > amplaPantalla) {
+                recycle(fons.get(4));
+                metroEnPantalla = false;
+            }
+
+            if (metroEnPantalla) {
+                moviment = true;
+                if (!metroAturat) {
+                    arribaMetro();
+                    if (accMetro < 0) {
+                        personatgeSurtMetro();
+                    }
+                } else {
+                    metroAturada(2);
+                }
+
+            } else if (map.get(1).getX() > map.get(1).getAmplada() * -0.5) {
+                endevant();
+
+            } else {
+                moviment = false;
+
+            }
+        }else{
+            if(map.get(1).getX()>map.get(1).getAmplada()*-0.65f){
+
+                endevant();
+
+
+            }
+            else{
+                pantallaNegra=true;
+
+
+            }
+        }
+    }
+
+
+
+
+
+
 
 
     /*********************************************************************************************************************
      * ------------------------ FUNCIONS DEL MAPA 3 ----------------------------------------------------------------
      *********************************************************************************************************************/
 
-/*
-
-
-    private void initObjMapa3(){
-        obj = ViewMapaHandler.generateObjecteJoc(1);
-
-        //CASA
-        obj.get(0).setAlcada((int) (map.get(1).getAlcada() * 0.8));
-        amplada = ((float) obj.get(0).getAlcada() * 0.5f);
-        obj.get(0).setAmplada((int) amplada);
-    }
-
-
-    private void initCoordsObjectsMapa3(){
-        map.get(1).setX(0);
-        map.get(1).setY(-1);
-        map.get(1).setVelX((int) (map.get(1).getAmplada() * 0.005f));
-        obj.get(0).setY((float) (map.get(1).getAlcada() * 0.1));
-        obj.get(0).setX(map.get(1).getAmplada() * 0.6f);
-        obj.get(0).setVelX(map.get(1).getVelX());
-
-    }
-
-    private void escalaImatgesMapa3 (){
-        fons.add(CanvasUtils.escalaImatge(map.get(1).getFons(), map.get(1).getAlcada() + 3, map.get(1).getAmplada()));
-        //ESCALAR IMATGE DEL PERSONATGE :1
-        fons.add(CanvasUtils.escalaImatge(prs.getImg(), prs.getAlcada(), prs.getAmplada()));
-
-        //ESCALAR OBJECTES JOC
-        //ESCALAR CASA :2
-        fons.add(CanvasUtils.escalaImatge(obj.get(0).getImg(), obj.get(0).getAmplada(), obj.get(0).getAlcada()));
-        //1 VIDA : 3
-        fons.add(CanvasUtils.escalaImatge(vides.get(0), alcadaPantalla, amplaPantalla));
-        //2 VIDES :4
-        fons.add(CanvasUtils.escalaImatge(vides.get(1), alcadaPantalla, amplaPantalla));
-    }
-
     /*********************************************************************************************************************
      * --------------------------   UPDATE DEL MAPA 3  -------------------------------------------------------------------
      *********************************************************************************************************************/
-/*
+
 
     private void updateMapa3(){
-        if(!pantallaNegra){
+        moviment = false;
 
-            if (!passaTemps) {
-                //SI AL PERSONATGE LI QUEDEN VIDES SEGUIM AMB EL JOC
-                if (prs.getNumVides() > 0) {
-                    moviment = false;
-
-                    //if (x > amplaPantalla - map.getAmplada() + (prs.getAmplada() / 2)) {
-                    if (map.get(1).getX()> map.get(1).getAmplada()*-0.5){
-                        moviment = true;
-                        map.get(1).setX(map.get(1).getX() - map.get(1).getVelX());
-
-                      //  obj.get(0).setX(obj.get(0).getX() - obj.get(0).getVelX());
-
-                    }
-
-/*
-                    if (correcte) {
-
-                        moviment = true;
-                        if (map.get(0).getX() > map.get(0).getAmplada() * -0.55) {
-                            map.get(0).setX(map.get(0).getX() - map.get(0).getVelX());
-                            obj.get(0).setX(obj.get(0).getX() - obj.get(0).getVelX());
-                            obj.get(1).setX(obj.get(1).getX() - obj.get(1).getVelX());
-                            obj.get(3).setX(obj.get(3).getX() - obj.get(3).getVelX());
+        //if (x > amplaPantalla - map.getAmplada() + (prs.getAmplada() / 2)) {
+        if (map.get(2).getX()> map.get(2).getAmplada()*-0.5){
+            endevant();
+            map.get(2).getObjects().get(0).setX(map.get(2).getObjects().get(0).getX() - map.get(2).getObjects().get(0).getVelX());
 
 
-                        } else {
-                            prs.setGifX(prs.getGifX() + prs.getVelX());
+        }
 
+        if (correcte) {
 
-                            if (prs.getGifX() > map.get(0).getAmplada()*0.15f && prs.getGifX()<map.get(0).getAmplada()*0.38f) {
-                                prs.setGifY(prs.getGifY() + prs.getVelY());
+            if (map.get(2).getX() > map.get(2).getAmplada() * -0.55) {
+                endevant();
 
-                            }
-
-                            if (prs.getGifX()-prs.getAmplada()*3 > amplaPantalla) {
-
-                                pantallaNegra = true;
-
-                            }
-                        }
-                    }
-
-                    //SI EL PERSONATGE PERD TOTES LES VIDES REINICIEM LES VARIABLES
-                } else {
-
-                    restartValuesMap1();
-
-
+            } else {
+                pantallaNegra = true;
                 }
-            }
-        }
-    }
-    }
-*/
-    /*********************************************************************************************************************
-    * --------------------------   DRAW DEL MAPA 3  -------------------------------------------------------------------
-    *********************************************************************************************************************/
-/*
-    private void drawMapa3(Canvas c) {
-        Log.i("aloooooooo", "");
-        c.drawBitmap(fons.get(0), map.get(1).getX(), map.get(1).getY(), null);
 
-        if (prs.getNumVides() == 2) {
-            c.drawBitmap(fons.get(3), 0, 0, null);
-        } else {
-            c.drawBitmap(fons.get(4), 0, 0, null);
+
         }
 
-        pintarObstaclePersonatge(c, 1);
-
     }
 
-*/
+    /***********************************************************************************************************-
+     * --------- FI FUNCIONS MAPA 3 ---------     ------------- INICI CONTROL THREAD I BITMAPS ----------------
+     ************************************************************************************************************/
+
+
     public void setRunning(boolean b) {
         mRun = b;
     }
 
 
-    public void clearCanvasObjects() {
-        for (int i = 0; i<fons.size(); i++){
-            recycle(fons.get(i));
-        }
+    public void clearCanvasObjects(int fijoc) {
+        recycleImatgesFons();
+        fons=null;
+        if(fijoc==1){
+            recycle(prs.getImg());
+            recycleVides();
+            recycle(finalFons);
 
+        }
+    }
+
+
+
+
+
+    private void recycleVides(){
+        //netejem imatges vida
+        for(int i = 0;i<prs.getVides().size();i++){
+            recycle(prs.getVides().get(i));
+        }
+    }
+
+    private void recycleImatgesFons(){
+        //netejem imatges fons
+        if(fons!=null) {
+            for (int i = 0; i < fons.size(); i++) {
+                recycle(fons.get(i));
+            }
+        }
     }
 
 

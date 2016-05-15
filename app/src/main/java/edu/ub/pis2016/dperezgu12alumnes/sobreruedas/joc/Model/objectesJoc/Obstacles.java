@@ -16,14 +16,15 @@ public class Obstacles {
     private int id;
     private Bitmap mapaSolucioImg;
     private ArrayList<Bitmap> respostes;
-    private int x11Dolenta;
-    private int x12Dolenta;
-    private int x21Dolenta;
-    private int x22Dolenta;
-    private int x11Bona;
-    private int x12Bona;
+    private int x11;
+    private int x12;
+    private int x21;
+    private int x22;
+    private int x31;
+    private int x32;
     private int y1;
     private int y2;
+    private int respostaCorrecte;
 
 
     public Obstacles(int id,int pos, String nomBitmap, ArrayList<String> resp, Context cnt){
@@ -33,12 +34,12 @@ public class Obstacles {
         for(int i = 0;i<resp.size();i++){
             respostes.add(CanvasUtils.loadBitmapFromString(cnt,resp.get(i)));
         }
-        x12Bona =0;
-        x11Bona =0;
-        x21Dolenta =0;
-        x22Dolenta =0;
-        x11Dolenta =0;
-        x12Dolenta =0;
+        x12 =0;
+        x11 =0;
+        x21 =0;
+        x22 =0;
+        x31 =0;
+        x32 =0;
         y1 =0;
         y2 =0;
     }
@@ -57,52 +58,52 @@ public class Obstacles {
     }
 
 
-    public int getX11Dolenta() {
-        return x11Dolenta;
+    public int getX32() {
+        return x32;
     }
 
-    public void setX11Dolenta(int x11Dolenta) {
-        this.x11Dolenta = x11Dolenta;
+    public void setX32(int x32) {
+        this.x32 = x32;
     }
 
-    public int getX12Dolenta() {
-        return x12Dolenta;
+    public int getX11() {
+        return x11;
     }
 
-    public void setX12Dolenta(int x12Dolenta) {
-        this.x12Dolenta = x12Dolenta;
+    public void setX11(int x11) {
+        this.x11 = x11;
     }
 
-    public int getX21Dolenta() {
-        return x21Dolenta;
+    public int getX12() {
+        return x12;
     }
 
-    public void setX21Dolenta(int x21Dolenta) {
-        this.x21Dolenta = x21Dolenta;
+    public void setX12(int x12) {
+        this.x12 = x12;
     }
 
-    public int getX22Dolenta() {
-        return x22Dolenta;
+    public int getX21() {
+        return x21;
     }
 
-    public void setX22Dolenta(int x22Dolenta) {
-        this.x22Dolenta = x22Dolenta;
+    public void setX21(int x21) {
+        this.x21 = x21;
     }
 
-    public int getX11Bona() {
-        return x11Bona;
+    public int getX22() {
+        return x22;
     }
 
-    public void setX11Bona(int x11Bona) {
-        this.x11Bona = x11Bona;
+    public void setX22(int x22) {
+        this.x22 = x22;
     }
 
-    public int getX12Bona() {
-        return x12Bona;
+    public int getX31() {
+        return x31;
     }
 
-    public void setX12Bona(int x12Bona) {
-        this.x12Bona = x12Bona;
+    public void setX31(int x31) {
+        this.x31 = x31;
     }
 
     public int getY1() {
@@ -119,5 +120,13 @@ public class Obstacles {
 
     public void setY2(int y2) {
         this.y2 = y2;
+    }
+
+    public void setRespostaCorrecte(int r){
+        this.respostaCorrecte = r;
+    }
+
+    public int getRespostaCorrecte(){
+        return this.respostaCorrecte;
     }
 }

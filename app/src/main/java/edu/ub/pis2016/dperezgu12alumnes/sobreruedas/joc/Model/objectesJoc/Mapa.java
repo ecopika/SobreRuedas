@@ -1,6 +1,7 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 
 
 /**
@@ -15,17 +17,18 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHand
  */
 public class Mapa  {
 
-    private int alcada;
-    private int amplada;
+    private float alcada;
+    private float amplada;
     private int x;
     private int y;
     private Bitmap fons;
     private Bitmap fons2;
     private int id;
-    private int velX;
+    private float velX;
     private float factVelX;
     private ArrayList<ObjecteJoc> obj;
-
+    private String nomImg;
+    private String nomImg2;
 
 
 
@@ -33,15 +36,30 @@ public class Mapa  {
 
     private Obstacles obstacles;
 
-    public Mapa(int amplada, int alcada){
+    public Mapa(float amplada, float alcada){
         x = 0;
         y = 0;
         this.amplada = amplada;
         this.alcada = alcada;
         this.factorEscalatge=1.5f;
-        this.factVelX=0.005f;
+        this.factVelX=0.0025f;
+
+
+
+    }
+
+    public void carregaObjectesIFactors(){
         obj = ViewMapaHandler.generateObjecteJoc(id);
         generateFactors();
+    }
+
+    public void loadFons1(){
+        this.setFons(CanvasUtils.loadBitmapFromString(ViewMapaHandler.getContext(), this.getNomImg()));
+
+    }
+
+    public void loadFons2(){
+        this.setFons2(CanvasUtils.loadBitmapFromString(ViewMapaHandler.getContext(), this.getNomImg2()));
 
     }
 
@@ -61,7 +79,7 @@ public class Mapa  {
         this.id=id;
     }
 
-    public int getAlcada() {
+    public float getAlcada() {
         return alcada;
     }
 
@@ -81,7 +99,7 @@ public class Mapa  {
     }
 
     public void calcularVelocitat(){
-        this.velX = (int) (this.factVelX *this.amplada);
+        this.velX =  (this.factVelX *this.amplada);
     }
 
     public ArrayList<ObjecteJoc> getObjects(){
@@ -89,21 +107,22 @@ public class Mapa  {
     }
 
 
-public void setVelX(int vel){
+    public void setVelX(float vel){
     this.velX=vel;
 }
-    public int getVelX(){
+
+    public float getVelX(){
         return this.velX;
     }
-    public void setAlcada(int alcada) {
+    public void setAlcada(float alcada) {
         this.alcada = alcada;
     }
 
-    public int getAmplada() {
+    public float getAmplada() {
         return amplada;
     }
 
-    public void setAmplada(int amplada) {
+    public void setAmplada(float amplada) {
         this.amplada = amplada;
     }
 
@@ -156,5 +175,21 @@ public void setVelX(int vel){
 
     public void setObstacles(Obstacles obstacles) {
         this.obstacles = obstacles;
+    }
+
+    public String getNomImg() {
+        return nomImg;
+    }
+
+    public void setNomImg(String nomImg) {
+        this.nomImg = nomImg;
+    }
+
+    public String getNomImg2() {
+        return nomImg2;
+    }
+
+    public void setNomImg2(String nomImg2) {
+        this.nomImg2 = nomImg2;
     }
 }

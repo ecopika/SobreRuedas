@@ -5,14 +5,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewHandlerMenu;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 
 public class MenuActivity extends Activity {
+    private ViewHandlerMenu mn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +32,12 @@ public class MenuActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_menu);
 
-        //ImageView jugar = (ImageView) findViewById(R.id.imageView);
-        //jugar.setOnClickListener(new View.OnClickListener(){
-           // public void onClick(View v){
-             //   seleccioPersonatge();
-            //}
-        //});
+
+
+        mn.loadPreferences();
     }
+
+
 
     public void seleccioPersonatge(View view) {
         ViewMapaHandler.setActivity(this);
@@ -40,6 +46,7 @@ public class MenuActivity extends Activity {
         ViewMapaHandler.generaJoc();
 
         startActivity(new Intent(getApplicationContext(), MapActivity.class));
+        finish();
     }
 
     public void seleccioOpcions(View view) {
@@ -57,6 +64,7 @@ public class MenuActivity extends Activity {
 
     public void taulaPuntuacio(View view) {
         startActivity(new Intent(getApplicationContext(), TaulaPuntuacioActivity.class));
+
 
     }
 

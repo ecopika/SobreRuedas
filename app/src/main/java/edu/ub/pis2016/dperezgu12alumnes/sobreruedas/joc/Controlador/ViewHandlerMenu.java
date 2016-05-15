@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.menu.Credits;
@@ -31,8 +33,29 @@ public class ViewHandlerMenu {
     }
 
     public static void loadPreferences(){
-         settings = meuContext.getSharedPreferences("SobreRuedasPref", 0);
 
+        if (comprarSharedPreferences()){
+            settings = meuContext.getSharedPreferences("SobreRuedasPref", 0);
+        }
+
+    }
+
+    public static SharedPreferences getSettings(){
+        return settings;
+    }
+
+    public static void setSettings(SharedPreferences setting){
+        settings = setting;
+    }
+
+    public static boolean comprarSharedPreferences(){
+        File f = new File(
+                "/data/data/your_application_package/shared_prefs/SobreRuedasPref.xml");
+        if (f.exists())
+            return true;
+        else{
+            return false;
+        }
     }
 
     public static SharedPreferences getPreferences(){

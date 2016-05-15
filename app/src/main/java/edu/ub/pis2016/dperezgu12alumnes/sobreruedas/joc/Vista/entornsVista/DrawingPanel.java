@@ -35,7 +35,8 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
         Bitmap cadira = BitmapFactory.decodeResource(getResources(),R.drawable.nuriafotograma);
         Bitmap fons = BitmapFactory.decodeResource(getResources(),R.mipmap.intro);
         canvas.drawBitmap(utils.escalaImatge(fons,utils.getHeightScreen(),utils.getWidthScreen()),0,0,paint);
-        canvas.drawBitmap(utils.escalaImatge(titol, 200, 700), 40, 50, null);
+        canvas.drawBitmap(utils.escalaImatge(titol, utils.getHeightScreen()*0.16863f, utils.getWidthScreen()*0.91145f), utils.getWidthScreen()*0.052083f, utils.getHeightScreen()*0.15f, null);
+
 
        //aquests càlculs han d'estar al objecte personatge
         int height = utils.getHeightScreen()/3;
@@ -48,6 +49,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
 
 
     }
+
 
 
 
@@ -67,6 +69,7 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback 
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+
         try {
             _thread.setRunning(false);
             _thread.join();

@@ -81,6 +81,7 @@ public  class ViewMapaHandler{
         //generaJoc();
     }
 
+
     public static void generaJoc(){
         genJoc = new GeneradorObjectesJoc();
     }

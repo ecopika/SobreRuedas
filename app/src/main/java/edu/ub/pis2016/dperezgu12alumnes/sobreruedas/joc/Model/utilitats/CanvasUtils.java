@@ -43,11 +43,11 @@ public class CanvasUtils {
 
 
     //funció per escalar una imatge
-    public static Bitmap escalaImatge(Bitmap bm,int newHeight,int newWidth){
+    public static Bitmap escalaImatge(Bitmap bm,float newHeight,float newWidth){
         int width = bm.getWidth();
         int height = bm.getHeight();
-        float escalaWidth = ((float) newWidth) / width;
-        float escalaHeight = ((float) newHeight) / height;
+        float escalaWidth = ( newWidth) / width;
+        float escalaHeight = ( newHeight) / height;
         //es creea una matriu per manipular el tamany d'una imatge
         Matrix matrix = new Matrix();
         //escalem la imatge bitmap
@@ -57,6 +57,8 @@ public class CanvasUtils {
 
 
     }
+
+
 
     public static Bitmap loadBitmapFromString(Context cnt, String name){
         Resources res = cnt.getResources();
@@ -68,6 +70,11 @@ public class CanvasUtils {
         float width = img.getWidth();
         float height = img.getHeight();
         return width/height;
+    }
+
+    public static void esborrarBaseDades(Context cnt){
+        cnt.deleteDatabase("DADES");
+        cnt.deleteDatabase("DADES-journal");
     }
 
 

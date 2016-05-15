@@ -35,6 +35,8 @@ public class DataHandler  {
         return 0;
     }
 
+
+
     public ArrayList<Mapa> getMapes(){
         ArrayList<Mapa> mps = new ArrayList<Mapa>();
         Cursor c = db.rawQuery("SELECT * FROM mapa",null);
@@ -43,10 +45,12 @@ public class DataHandler  {
             do{
                 Mapa m = new Mapa(0,0);
                 m.setId(c.getInt(0));
-                m.setFons(CanvasUtils.loadBitmapFromString(cnt, c.getString(1)));
-                m.setFons2(CanvasUtils.loadBitmapFromString(cnt, c.getString(2)));
+                m.setNomImg(c.getString(1));
+                m.setNomImg2(c.getString(2));
                 Obstacles o = getObstacle(m.getId());
                 m.setObstacles(o);
+                m.loadFons1();
+                m.carregaObjectesIFactors();
                 mps.add(m);
             }while (c.moveToNext());
         }
@@ -87,11 +91,13 @@ public class DataHandler  {
     public Obstacles getObstacle(int idMap){
         Cursor c = db.rawQuery("SELECT * FROM obstacle WHERE MAP=?",new String[]{String.valueOf(idMap)});//això es fa per poder passar paràmetres
         Obstacles o = null;
+        int res =0;
         if(c.moveToFirst()){
             do{
                 int id = c.getInt(0);
                 int pos = c.getInt(1);
                 String nomImg = c.getString(2);
+                res = c.getInt(3);
                 ArrayList<String> llisImgRes = new ArrayList<String>();
 
                 Cursor cu = db.rawQuery("SELECT * FROM resposta WHERE OBSTACLE=?", new String[]{String.valueOf(id)});
@@ -102,6 +108,8 @@ public class DataHandler  {
                 }
 
                 o=new Obstacles(id,pos,nomImg,llisImgRes,cnt);
+                o.setRespostaCorrecte(res);
+
             }while(c.moveToNext());
         }
 

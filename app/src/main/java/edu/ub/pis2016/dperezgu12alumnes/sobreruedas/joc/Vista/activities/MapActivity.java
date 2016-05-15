@@ -57,7 +57,7 @@ public class MapActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ViewMapaHandler.finishThread();
-                        //MapActivity.this.finish();
+                        finish();
                         Intent inMain=new Intent(MapActivity.this, MenuActivity.class);
                         inMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(inMain);
@@ -74,7 +74,6 @@ public class MapActivity extends Activity {
                     }
                 })
         .show();
-
 
         //Intent returnMain = new Intent("android.intent.action.MAIN");
         //startActivity(returnMain);

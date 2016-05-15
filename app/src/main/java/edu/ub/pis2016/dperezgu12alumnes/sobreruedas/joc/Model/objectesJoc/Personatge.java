@@ -39,10 +39,10 @@ public abstract class Personatge {
     protected float y;
     protected float gifX;
     protected float gifY;
-    protected int amplada;
-    protected int alcada;
-    protected int velX;
-    protected int velY;
+    protected float amplada;
+    protected float alcada;
+    protected float velX;
+    protected float velY;
     protected boolean movX;
     protected boolean movY;
     protected int profunditat;
@@ -194,19 +194,19 @@ public abstract class Personatge {
     }
 
 
-    public int getVelX() {
+    public float getVelX() {
         return velX;
     }
 
-    public void setVelX(int velX) {
+    public void setVelX(float velX) {
         this.velX = velX;
     }
 
-    public int getVelY() {
+    public float getVelY() {
         return velY;
     }
 
-    public void setVelY(int velY) {
+    public void setVelY(float velY) {
         this.velY = velY;
     }
 
@@ -250,19 +250,19 @@ public abstract class Personatge {
 
 
 
-    public int getAmplada() {
+    public float getAmplada() {
         return amplada;
     }
 
-    public void setAmplada(int amplada) {
+    public void setAmplada(float amplada) {
         this.amplada = amplada;
     }
 
-    public int getAlcada() {
+    public float getAlcada() {
         return alcada;
     }
 
-    public void setAlcada(int alcada) {
+    public void setAlcada(float alcada) {
         this.alcada = alcada;
     }
 

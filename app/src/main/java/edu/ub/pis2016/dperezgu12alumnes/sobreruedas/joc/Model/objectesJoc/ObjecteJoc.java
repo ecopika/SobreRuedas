@@ -20,10 +20,10 @@ public class ObjecteJoc {
     //atributs del personatge al mapa
     private float x;
     private float y;
-    private int amplada;
-    private int alcada;
-    private int velX;
-    private int velY;
+    private float amplada;
+    private float alcada;
+    private float velX;
+    private float velY;
     private boolean movX;
     private boolean movY;
     private int profunditat;
@@ -55,11 +55,14 @@ public class ObjecteJoc {
         this.movY = false;
         this.profunditat = profunditat;
         this.nomImatge = nomImatge;
-
-
         this.cnt = cnt;
-        this.img = CanvasUtils.loadBitmapFromString(cnt, nomImatge);
+        loadImatge();
 
+
+    }
+
+    public void loadImatge(){
+        this.img = CanvasUtils.loadBitmapFromString(cnt, nomImatge);
 
     }
 
@@ -128,19 +131,19 @@ public class ObjecteJoc {
         this.movY = movY;
     }
 
-    public int getVelX() {
+    public float getVelX() {
         return velX;
     }
 
-    public void setVelX(int velX) {
+    public void setVelX(float velX) {
         this.velX = velX;
     }
 
-    public int getVelY() {
+    public float getVelY() {
         return velY;
     }
 
-    public void setVelY(int velY) {
+    public void setVelY(float velY) {
         this.velY = velY;
     }
 
@@ -161,19 +164,19 @@ public class ObjecteJoc {
         this.y = y;
     }
 
-    public int getAmplada() {
+    public float getAmplada() {
         return amplada;
     }
 
-    public void setAmplada(int amplada) {
+    public void setAmplada(float amplada) {
         this.amplada = amplada;
     }
 
-    public int getAlcada() {
+    public float getAlcada() {
         return alcada;
     }
 
-    public void setAlcada(int alcada) {
+    public void setAlcada(float alcada) {
         this.alcada = alcada;
     }
 
