@@ -3,6 +3,9 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador;
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.GeneradorObjectesJoc;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Joc;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Mapa;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.ObjecteJoc;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
@@ -34,6 +38,7 @@ public  class ViewMapaHandler{
     private static float y;
     private static boolean clic;
     private static ArrayList<Personatge> prs;
+    private static Joc joc;
 
 
     public ViewMapaHandler(Context cnt, Activity act){
@@ -83,11 +88,13 @@ public  class ViewMapaHandler{
 
 
     public static void generaJoc(){
+        joc=new Joc();
         genJoc = new GeneradorObjectesJoc();
     }
 
     public static ArrayList<Personatge> generatePersonatge(){
         prs = genJoc.generatePersonatge(cnts, ctrlBD);
+        joc.setPersonatge(prs.get(0));
         return prs;
     }
 
@@ -100,6 +107,7 @@ public  class ViewMapaHandler{
     }
 
     public static ArrayList<ObjecteJoc> generateObjecteJoc(int id){
+
         return genJoc.generateObjecte(id, ctrlBD);
     }
 
@@ -119,8 +127,12 @@ public  class ViewMapaHandler{
         return genJoc.getMap();
     }
 
-    public static Personatge getPersonatge(){
-        return genJoc.getP();
+   // public static Personatge getPersonatge(){
+     //   return genJoc.getP();
+    //}
+
+    public static void setPersonatge(Personatge prs){
+        genJoc.setP(prs);
     }
 
     public static void setActivity(Activity act){
@@ -146,4 +158,46 @@ public  class ViewMapaHandler{
     }
 
 
+    /*******************************************************************************************
+     *  FUNCIONS JOC THREAD
+     ********************************************************************************************/
+//configurem les transicions entre pantalles
+    public static void initFinalPantalla(){
+        joc.initFinalPantalla();
+    }
+//carreguem el mapa
+    public static void generateMapa(){
+        joc.setContext(cnts);
+
+        joc.generateMapa();
+
+
+    }
+//inicia el personatge
+    public static void initPersonatge(int indx) {
+        joc.initPersonatge(indx);
+    }
+//obtenim el personatge utilitzat
+    public static Personatge getPersonatge(){
+       return joc.getPersonatge();
+
+    }
+
+    //reiniciem tots els valors
+    public static void restartValuesMap(){
+        joc.restartValuesMap();
+    }
+
+
+    public static void updateMapa(){
+        joc.updateMapa();
+    }
+
+    public static void drawMapa(Canvas c){
+        joc.pintar(c);
+    }
+
+    public static void clearCanvasObjects(){
+        joc.clearCanvasObjects(1);
+    }
 }

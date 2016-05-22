@@ -45,7 +45,7 @@ public class MenuActivity extends Activity {
         ViewMapaHandler.generateBD();
         ViewMapaHandler.generaJoc();
 
-        startActivity(new Intent(getApplicationContext(), MapActivity.class));
+        startActivity(new Intent(getApplicationContext(), seleccioPersonatgeActivity.class));
         finish();
     }
 
