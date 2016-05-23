@@ -12,6 +12,7 @@ import android.view.SurfaceHolder;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
@@ -31,6 +32,10 @@ public class JocThread extends Thread {
     private boolean mRun = false;
 
     private boolean pause;
+
+    private static final long ourTarget_millisPerFrame = 5; // ~30 FPS
+
+
 
 
     public JocThread(SurfaceHolder sHold, Context cnt, Handler handler) {
@@ -82,8 +87,10 @@ public class JocThread extends Thread {
                 c = mSurfHolder.lockCanvas(null);
                 synchronized (mSurfHolder) {
 
-                    update();
-                    doDraw(c);
+
+
+                        update();
+                        doDraw(c);
 
 
 
@@ -111,6 +118,17 @@ public class JocThread extends Thread {
 
 
     private void update() {
+       /* long startTime = SystemClock.uptimeMillis();
+        long stopTime = SystemClock.uptimeMillis();
+        long howLongItTakesForUsToDoOurWork = stopTime - startTime;
+        long timeToWait = ourTarget_millisPerFrame - howLongItTakesForUsToDoOurWork;
+        if ( timeToWait < 2 )
+            timeToWait = 2;
+        /*try {
+            sleep(timeToWait);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         ViewMapaHandler.updateMapa();
     }
 

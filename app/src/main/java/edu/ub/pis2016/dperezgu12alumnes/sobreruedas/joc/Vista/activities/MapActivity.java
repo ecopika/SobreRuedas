@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 
 import android.support.v4.view.MotionEventCompat;
@@ -38,6 +39,9 @@ public class MapActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        getWindow().getDecorView().getBackground().setDither(true);
+        getWindow().setFormat(PixelFormat.RGBA_8888);
 
         setContentView(R.layout.activity_map);
         MapaView mpVi = (MapaView)findViewById(R.id.MapView);
