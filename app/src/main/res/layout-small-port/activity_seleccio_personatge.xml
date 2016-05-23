@@ -14,7 +14,6 @@
 
 
 
-
     <TextView
         android:layout_width="220dp"
         android:layout_height="100dp"
@@ -110,7 +109,6 @@
                 android:layout_row="1"
                 android:layout_rowSpan="2"
                 android:textSize="14dp"
-                android:text="Nombre: Núria"
                 android:id="@+id/textView2"/>
 
         </GridLayout>

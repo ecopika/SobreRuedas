@@ -16,14 +16,14 @@
 
 
     <TextView
-        android:layout_width="220dp"
-        android:layout_height="100dp"
+        android:layout_width="467dp"
+        android:layout_height="210dp"
         android:gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:textSize="60dp"
-        android:paddingTop="3dp"
-        android:paddingLeft="0dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="40dp"
+        android:textSize="130dp"
+        android:paddingTop="6dp"
+        android:paddingLeft="12dp"
         android:id="@+id/textViewNom"
         android:textIsSelectable="false" />
     <LinearLayout
@@ -36,40 +36,42 @@
         android:layout_alignParentEnd="true">
 
         <Button
-            android:layout_width="96dp"
-            android:layout_height="80dp"
+            android:layout_width="150dp"
+            android:layout_height="134dp"
             android:layout_below="@+id/textView"
             android:id="@+id/buttonL"
             android:background="@drawable/botonnubemorada"
             android:onClick="changePageLeft"
-            android:textSize="20sp"
+            android:textSize="35sp"
             android:textAllCaps="false"
-            android:paddingTop="32dp"
-            android:paddingRight="10dp" />
+            android:paddingTop="50dp"
+            android:paddingRight="10dp"
+            android:layout_marginLeft="80dp" />
 
         <Button
-            android:layout_width="96dp"
-            android:layout_height="80dp"
+            android:layout_width="150dp"
+            android:layout_height="134dp"
             android:id="@+id/buttonPlay"
             android:background="@drawable/blanca"
             android:onClick="bottonPlay"
-            android:textSize="20sp"
+            android:textSize="35sp"
             android:textAllCaps="false"
-            android:paddingTop="32dp"
-            android:paddingRight="5dp"
-            android:layout_marginLeft="20dp" />
+            android:paddingTop="50dp"
+            android:paddingRight="11dp"
+            android:layout_marginLeft="80dp"
+            android:layout_gravity="top" />
 
         <Button
-            android:layout_width="96dp"
-            android:layout_height="80dp"
+            android:layout_width="150dp"
+            android:layout_height="134dp"
             android:id="@+id/buttonR"
             android:background="@drawable/botonnubemorada"
             android:onClick="changePageRight"
-            android:textSize="20sp"
+            android:textSize="35sp"
             android:textAllCaps="false"
-            android:paddingTop="32dp"
+            android:paddingTop="50dp"
             android:paddingRight="5dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="80dp" />
 
     </LinearLayout>
 
@@ -77,40 +79,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/linearLayout"
-            android:layout_marginTop="125dp"
+            android:layout_marginTop="287dp"
             android:columnCount="4"
-            android:rowCount="3">
+            android:rowCount="3"
+            android:layout_marginLeft="10dp">
 
             <TextView
                 android:layout_columnSpan="2"
-                android:layout_width="215dp"
-                android:layout_height="92dp"
-
-                android:textSize="11dp"
-                android:paddingLeft="42dp"
+                android:layout_width="460dp"
+                android:layout_height="192dp"
+                android:textSize="23dp"
+                android:paddingLeft="107dp"
                 android:layout_column="1"
                 android:id="@+id/textView"
-                android:paddingTop="43dp" />
+                android:paddingTop="90dp" />
             <ImageView
-                android:layout_height="260dp"
-                android:layout_width="115dp"
+                android:layout_height="550dp"
+                android:layout_width="235dp"
                 android:layout_columnSpan="1"
                 android:layout_rowSpan="2"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:id="@+id/imageView"
                 android:layout_gravity="top|bottom" />
 
             <TextView
-                android:layout_marginTop="85dp"
-                android:layout_height="207dp"
+                android:layout_marginTop="150dp"
+                android:layout_height="477dp"
                 android:layout_width="match_parent"
                 android:layout_gravity="left"
                 android:layout_column="1"
                 android:layout_columnSpan="3"
                 android:layout_row="1"
                 android:layout_rowSpan="2"
-                android:textSize="14dp"
-                android:text="Nombre: Núria"
+                android:textSize="29dp"
                 android:id="@+id/textView2"/>
 
         </GridLayout>
