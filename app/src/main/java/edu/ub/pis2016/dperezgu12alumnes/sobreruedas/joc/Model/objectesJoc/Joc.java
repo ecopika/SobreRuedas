@@ -2,6 +2,7 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -25,6 +26,7 @@ public class Joc {
     private int amplaPantalla;
     private int alcadaPantalla;
     private Context cnt;
+    private int fps=30;
 
     //variables final pantalla
     //transparencia de la pantalla negra del final de la pantalla
@@ -37,10 +39,13 @@ public class Joc {
     private String frase;
     //imatge final
     private Bitmap finalFons;
+    //puntuació
+    private int puntuacio;
 
     Paint paint = new Paint();
 
-
+//configuracio bitmaps
+    BitmapFactory.Options op = new BitmapFactory.Options();
 
 
     //variables gestio mapes
@@ -127,8 +132,11 @@ public class Joc {
         finalJoc = false;
         primeraVegadaThread=true;
 
+
         initFinalPantalla();
 
+        //inicialitzem la puntuacio
+        puntuacio=0;
     }
 
 
@@ -223,7 +231,7 @@ public class Joc {
     //generem l'array de les parts del mapa i fem l'array d'enters per configurar l'ordre d'aparició
     public void generateMapa(){
         map = ViewMapaHandler.generateMap();
-        for(int i=0;i<map.size();i++){
+        for (int i=0;i<map.size();i++){
             numMapes.add(i);
         }
         Collections.shuffle(numMapes);
@@ -422,6 +430,11 @@ public class Joc {
 
     }
 
+    //FUNCIÓ QUE PINTA LA PUNTUACIÓ
+    private void pintaPuntuacio(){
+
+    }
+
     //FUNCIO PER PINTAR LA PANTALLA NEGRE QUAN S'HA ACAVAT EL NIVELL
     private void pintaNegra(Canvas c){
         if (finalPantalla++< 2) {
@@ -545,6 +558,7 @@ public class Joc {
 
             if (resposta == map.get(mapa).getObstacles().getRespostaCorrecte()){
                 correcte = true;
+                puntuacio+=20;
                 map.get(mapa).setFons(map.get(mapa).getFons2());
                 index = map.get(mapa).getObjects().size()+3;
                 if (!loadImage) {
@@ -555,6 +569,7 @@ public class Joc {
                     loadImage = true;
                 }
             }else{
+                puntuacio-=30;
                 prs.setNumVides(prs.getNumVides() - 1);
                 index = map.get(mapa).getObjects().size()+2;
                 if(prs.getNumVides()<2){
