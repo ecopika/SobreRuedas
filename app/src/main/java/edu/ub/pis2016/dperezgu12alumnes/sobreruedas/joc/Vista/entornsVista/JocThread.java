@@ -1,23 +1,12 @@
 package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.entornsVista;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.view.SurfaceHolder;
 
-import java.util.ArrayList;
-import java.util.Collections;
 
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Mapa;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc.Personatge;
-import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Vista.activities.MapActivity;
 
 /**
@@ -32,25 +21,16 @@ public class JocThread extends Thread {
 
     private boolean pause;
 
+    private static final long ourTarget_millisPerFrame = 5; // ~30 FPS
+
+
+
 
     public JocThread(SurfaceHolder sHold, Context cnt, Handler handler) {
         mSurfHolder = sHold;
         this.cnt = cnt;
         ViewMapaHandler.setActivity((MapActivity) this.cnt);
         ViewMapaHandler.setContext(cnt);
-
-
-
-
-
-
-        //de moment no utilitzem, però s'utilitzarà
-        /*//CANVI DE COLOR I TAMANY DE LA VARIABLE DE CONTAR EL TEMPS
-        paint.setColor(Color.BLACK);
-        paint.setTextSize(59);
-        //AGAFA EL TEMPS ACTUAL
-        starttime = System.currentTimeMillis();
-        **/
 
 
         ViewMapaHandler.generateMapa();
@@ -82,8 +62,10 @@ public class JocThread extends Thread {
                 c = mSurfHolder.lockCanvas(null);
                 synchronized (mSurfHolder) {
 
-                    update();
-                    doDraw(c);
+
+
+                        update();
+                        doDraw(c);
 
 
 

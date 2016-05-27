@@ -13,6 +13,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import java.io.File;
+
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewHandlerMenu;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
@@ -33,8 +35,11 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.activity_menu);
 
 
+        ViewHandlerMenu.setContext(this);
 
         mn.loadPreferences();
+        //CanvasUtils.esborrarBaseDades(this);
+        Log.i("dificultat",String.valueOf(ViewHandlerMenu.dificultat));
     }
 
 

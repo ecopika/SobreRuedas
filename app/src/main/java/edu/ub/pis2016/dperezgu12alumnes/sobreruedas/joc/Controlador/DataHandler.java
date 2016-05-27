@@ -117,6 +117,42 @@ public class DataHandler  {
 
     }
 
+    public void guardarPuntuacio(String dificultat,int puntuacio, String nom){
+        String[][] pts = getPuntuacio();
+        String insereixSQL="";
+        boolean actualitza = false;
+        for(int i = 0;i<pts.length;i++){
+                if(pts[i][0].equals(nom) && pts[i][1].equals(dificultat) && Integer.parseInt(pts[i][2])<puntuacio){
+                    insereixSQL = "UPDATE perfil SET PUNTUACIO ="+String.valueOf(puntuacio)+"WHERE NOMPERSONATGE="+nom+"AND DIFICULTAT="+dificultat+";";
+                    actualitza=!actualitza;
+                }
+        }
+        if(!actualitza) {
+            insereixSQL = "INSERT INTO perfil (NOMPERSONATGE,DIFICULTAT,PUNTUACIO) VALUES(" + nom + "," + dificultat + "," + String.valueOf(puntuacio) + ");";
+        }
+        db.execSQL(insereixSQL);
+
+    }
+
+    public String[][] getPuntuacio(){
+        String[][] pts = new String[50][50];
+        Cursor c = db.rawQuery("SELECT * FROM perfil",null);
+        int i=0;
+        if(c.moveToFirst()){
+            do{
+                String[] values=new String[50];
+                for(int x = 1;x<4;x++){
+                    values[x-1] = c.getString(x);
+                }
+                pts[i]=values;
+                i++;
+            }while(c.moveToFirst());
+        }
+        return pts;
+    }
+
+
+
 
 
     public ArrayList<Personatge> getPersonatges(){

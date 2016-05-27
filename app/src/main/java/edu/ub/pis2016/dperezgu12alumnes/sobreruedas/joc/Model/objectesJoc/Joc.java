@@ -2,16 +2,20 @@ package edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.objectesJoc;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.SystemClock;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.R;
+import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewHandlerMenu;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewMapaHandler;
 import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Model.utilitats.CanvasUtils;
 
@@ -24,6 +28,7 @@ public class Joc {
     private int amplaPantalla;
     private int alcadaPantalla;
     private Context cnt;
+    private int fps=30;
 
     //variables final pantalla
     //transparencia de la pantalla negra del final de la pantalla
@@ -36,10 +41,13 @@ public class Joc {
     private String frase;
     //imatge final
     private Bitmap finalFons;
+    //puntuació
+    private int puntuacio;
+    //pantalla negre
+    private Paint paint;
 
-    Paint paint = new Paint();
-
-
+//configuracio bitmaps
+    BitmapFactory.Options op = new BitmapFactory.Options();
 
 
     //variables gestio mapes
@@ -55,6 +63,10 @@ public class Joc {
     //bitmaps que apareixen quan fem un touch
     private Bitmap creu;
     private Bitmap tic;
+    //paint per al temps del joc
+    private Paint pTemps;
+    //paint de la puntuacio
+    private Paint pPuntuacio;
 
 
 
@@ -89,6 +101,18 @@ public class Joc {
     private int index = 0;
     //CONTROLA SI HA PASSAT EL TEMPS PER PODER FER UN ALTRE TOUCH
     private boolean clickat;
+    //controla si s'ha de pintar el personatge als finals de les pantalles
+    private boolean prsVisio;
+    //controla que el final de la pantalla es faci correctament
+    private int finalPantalla;
+    //variables per controlar el temps segons la dificultat
+    private long tempsInici;
+    private long tempsActual;
+    private int maxTemps;
+    private boolean mostraTemps;
+
+    //control del mostreig de preguntes
+    private boolean mostraPreguntes;
 
 
 
@@ -110,6 +134,8 @@ public class Joc {
 
 
 
+
+
     public Joc(){
         this.amplaPantalla = CanvasUtils.getWidthScreen();
         this.alcadaPantalla = CanvasUtils.getHeightScreen();
@@ -121,8 +147,11 @@ public class Joc {
         finalJoc = false;
         primeraVegadaThread=true;
 
+
         initFinalPantalla();
 
+        //inicialitzem la puntuacio
+        puntuacio=0;
     }
 
 
@@ -217,7 +246,7 @@ public class Joc {
     //generem l'array de les parts del mapa i fem l'array d'enters per configurar l'ordre d'aparició
     public void generateMapa(){
         map = ViewMapaHandler.generateMap();
-        for(int i=0;i<map.size();i++){
+        for (int i=0;i<map.size();i++){
             numMapes.add(i);
         }
         Collections.shuffle(numMapes);
@@ -314,33 +343,56 @@ public class Joc {
             fons.add(CanvasUtils.escalaImatge(prs.getVides().get(0), alcadaPantalla, amplaPantalla));
 
         }
+    }
 
-
+    //funcio que carrega el numero de vides en funcio de la dificultat
+    private void carregaVides(){
+        if (ViewHandlerMenu.difs.get("facil")<ViewHandlerMenu.dificultat) {
+            prs.setNumVides(1);
+        }else{
+            prs.setNumVides(2);
+        }
     }
 
     //funció per reiniciar els valors de tots els objectes del mapa
     public void restartValuesMap(){
         clearCanvasObjects(0);
-
+        paint = new Paint();
+        pPuntuacio = new Paint();
+        pTemps = new Paint();
+        mostraPreguntes=false;
         if (primeraVegadaThread) {
             auxiliarNumMapes = cloneArray(numMapes);
             primeraVegadaThread = false;
-            prs.setNumVides(2);
-
+            carregaVides();
         } else {
             if (prs.getNumVides() == 0) {
                 numMapes = cloneArray(auxiliarNumMapes);
-                prs.setNumVides(2);
-
+                carregaVides();
             }
         }
         if(numMapes.size()==0){
             finalJoc=true;
+            String difi="";
+            for(Map.Entry<String,Integer> e : ViewHandlerMenu.difs.entrySet()) {
+                if(e.getValue()==ViewHandlerMenu.dificultat){
+                    difi = e.getKey();
+                }
+            }
+            ViewMapaHandler.guardarPuntuacio(difi,puntuacio,prs.getNom());
         }
         if (numMapes.size() > 0) {
 
             mapa = numMapes.remove(0);
         }
+
+        if (ViewHandlerMenu.dificultat == ViewHandlerMenu.difs.get("dificil")){
+            maxTemps = 10;
+        }else if(ViewHandlerMenu.dificultat == ViewHandlerMenu.difs.get("moltDificil")){
+            maxTemps = 5;
+        }
+        mostraTemps = false;
+
 
         if(!finalJoc) {
             fons = new ArrayList<Bitmap>();
@@ -359,9 +411,13 @@ public class Joc {
 
         }
         pantallaNegra = false;
+        prsVisio = true;
+        mostraPreguntes=false;
+        finalPantalla = 0;
 
     }
 
+    //carreguem els tics
     private void loadTics(){
         //CARREGUEM LES IMATGES DEL TIC I LA CREU
         recycle(creu);
@@ -374,7 +430,7 @@ public class Joc {
 
     /*******************************************************************************************
      * FUNCIONS DE RETORN I CARREGA
-     ********************************************************************************************/
+     *******************************************************************************************/
 //retornem el personatge emprat
     public Personatge getPersonatge(){
         return prs;
@@ -390,7 +446,7 @@ public class Joc {
 
     /*******************************************************************************************
      *  DRAW
-     ***********************************************************************************/
+     ******************************************************************************************/
     public void pintar(Canvas c) {
         if (!finalJoc) {
             if (!pantallaNegra) {
@@ -409,12 +465,28 @@ public class Joc {
     //funció que mostra la pantalla final del joc
     private void mostraFinal(Canvas c){
         finalFons = ((BitmapDrawable)cnt.getResources().getDrawable(R.drawable.pantallafinal)).getBitmap();
-        c.drawBitmap(CanvasUtils.escalaImatge(finalFons, alcadaPantalla,amplaPantalla),0,0,null);
+        c.drawBitmap(CanvasUtils.escalaImatge(finalFons, alcadaPantalla, amplaPantalla), 0, 0, null);
 
+    }
+
+    //FUNCIÓ QUE PINTA LA PUNTUACIÓ
+    private void pintaPuntuacio(Canvas c){
+        pPuntuacio.setTextSize(amplaPantalla*0.2f);
+        pPuntuacio.setColor(Color.BLACK);
+        if(puntuacio>0) {
+            c.drawText(String.valueOf(puntuacio), amplaPantalla * 0.4f, alcadaPantalla * 0.9f, pPuntuacio);
+        }
+        else{
+            c.drawText("0", amplaPantalla * 0.4f, alcadaPantalla * 0.9f, pPuntuacio);
+
+        }
     }
 
     //FUNCIO PER PINTAR LA PANTALLA NEGRE QUAN S'HA ACAVAT EL NIVELL
     private void pintaNegra(Canvas c){
+        if (finalPantalla++< 2) {
+            drawMapa(c);
+        }
 
         if (alfa < 100) alfa++;
         paint.setAlpha(alfa);
@@ -432,11 +504,12 @@ public class Joc {
 
 
     public void drawMapa(Canvas c){
-        //MAPA
 
+        //MAPA
         c.drawBitmap(fons.get(0), map.get(mapa).getX(), map.get(mapa).getY(), null);
 
-        if (mapa == 1 && accMetro<0 && metroEnPantalla){
+
+        if (mapa == 1 && accMetro<0 && metroEnPantalla && prsVisio){
             pintarObstaclePersonatge(c);
         }
 
@@ -458,16 +531,16 @@ public class Joc {
         }
         //vides
         c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4), 0, 0, null);
-
-        if (!metroEnPantalla) {
+        if (!metroEnPantalla && prsVisio) {
             pintarObstaclePersonatge(c);
+            comprovarTouchMapa();
         }
 
 
         //MIREM SI EL CLIC ESTA DINS DE LES POSSIBLES SOLUCIONS
-        comprovarTouchMapa();
 
         comptaTempsTic(2, c);
+        pintaPuntuacio(c);
     }
 
 
@@ -485,6 +558,7 @@ public class Joc {
                 ViewMapaHandler.setClic(true);
                 if (correcte){
                     recycle(fons.get(map.get(mapa).getObjects().size()+5));
+                    mostraPreguntes=false;
                 }
             }
 
@@ -494,6 +568,7 @@ public class Joc {
     //PINTA TIC O CREU
     public void pintaTic(int index,int x,int y,Canvas c){
         c.drawBitmap(fons.get(index), x, y, null);
+        mostraTemps = false;
 
     }
 
@@ -501,6 +576,8 @@ public class Joc {
     //FUNCIO PER COMPROVAR EL TOUCH
     private void comprovarTouchMapa(){
         resposta = -1;
+
+
 
         if (ViewMapaHandler.getX() > map.get(mapa).getObstacles().getX11() && ViewMapaHandler.getX() < map.get(mapa).getObstacles().getX12() && ViewMapaHandler.getY() > map.get(mapa).getObstacles().getY1() && ViewMapaHandler.getY() < map.get(mapa).getObstacles().getY2()){
             resposta = 1;
@@ -532,6 +609,7 @@ public class Joc {
 
             if (resposta == map.get(mapa).getObstacles().getRespostaCorrecte()){
                 correcte = true;
+                puntuacio+=20;
                 map.get(mapa).setFons(map.get(mapa).getFons2());
                 index = map.get(mapa).getObjects().size()+3;
                 if (!loadImage) {
@@ -542,6 +620,7 @@ public class Joc {
                     loadImage = true;
                 }
             }else{
+                puntuacio-=30;
                 prs.setNumVides(prs.getNumVides() - 1);
                 index = map.get(mapa).getObjects().size()+2;
                 if(prs.getNumVides()<2){
@@ -556,7 +635,7 @@ public class Joc {
     private void carregaUnaVida(){
         if (!loadImage) {
             recycle(fons.get(map.get(mapa).getObjects().size() + 4));
-            fons.set(map.get(mapa).getObjects().size()+4, CanvasUtils.escalaImatge(prs.getVides().get(0), alcadaPantalla, amplaPantalla));
+            fons.set(map.get(mapa).getObjects().size() + 4, CanvasUtils.escalaImatge(prs.getVides().get(0), alcadaPantalla, amplaPantalla));
             loadImage = true;
         }
     }
@@ -585,17 +664,36 @@ public class Joc {
             c.scale(1/escalatgeXGif, 1/escalatgeYGif);
 
 
-        } else {//si el personatge no és mou
+        } else if(mostraPreguntes) {//si el personatge no és mou
             if (!primeraVegadaEntra) {
                 ViewMapaHandler.setClic(true);
                 carregaRespostes(c);
+                tempsInici = System.currentTimeMillis();
+                pTemps.setColor(Color.BLACK);
+                pTemps.setTextSize(amplaPantalla * 0.2f);
+                mostraTemps=true;
             }
             primeraVegadaEntra = true;
+            tempsActual = System.currentTimeMillis();
+
+            if (mostraTemps) {
+                if (ViewHandlerMenu.dificultat > ViewHandlerMenu.difs.get("moderat")) {
+                    int t = maxTemps - (int) ((tempsActual - tempsInici) / 1000);
+                    c.drawText(String.valueOf(t), amplaPantalla*0.1f, alcadaPantalla*0.9f, pTemps);
+                    if (t < 4) {
+                        pTemps.setColor(Color.RED);
+                    }
+                    if(t==0){
+                        prs.setNumVides(0);
+                    }
+                }
+            }
+
 
             c.drawBitmap(fons.get(1), prs.getX(), prs.getY() + 5, null);
 
 
-            c.drawBitmap(fons.get(map.get(mapa).getObjects().size()+5), 0, 0, null);
+            c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 5), 0, 0, null);
         }
     }
 
@@ -619,7 +717,7 @@ public class Joc {
 
     /*******************************************************************************************
      *  UPDATES
-     *+****************************************************************************************/
+     *****************************************************************************************/
 
     public void updateMapa(){
         loadImage=false;
@@ -665,11 +763,14 @@ public class Joc {
         //if (x > amplaPantalla - map.getAmplada() + (prs.getAmplada() / 2)) {
         if (map.get(0).getX()> map.get(0).getAmplada()*-0.5){
             endevant();
+        }
 
-
+        if(!correcte && !moviment){
+            mostraPreguntes=true;
         }
 
         if (correcte) {
+
 
             if (map.get(0).getX() > map.get(0).getAmplada() * -0.55) {
                 endevant();
@@ -689,7 +790,7 @@ public class Joc {
                 if (prs.getGifX()-prs.getAmplada()*3 > amplaPantalla) {
 
                     pantallaNegra = true;
-
+                    prsVisio=false;
 
                 }
             }
@@ -699,69 +800,93 @@ public class Joc {
 
     private void updateMapa2() {
 
-        if(!correcte) {
-            if (map.get(1).getObjects().get(2).getX() > amplaPantalla) {
-                recycle(fons.get(4));
-                metroEnPantalla = false;
-            }
 
-            if (metroEnPantalla) {
-                moviment = true;
-                if (!metroAturat) {
-                    arribaMetro();
-                    if (accMetro < 0) {
-                        personatgeSurtMetro();
-                    }
-                } else {
-                    metroAturada();
+        if(!correcte && !moviment){
+            mostraPreguntes=true;
+        }
+
+            if (!correcte) {
+                if (map.get(1).getObjects().get(2).getX() > amplaPantalla) {
+                    recycle(fons.get(4));
+                    metroEnPantalla = false;
                 }
 
-            } else if (map.get(1).getX() > map.get(1).getAmplada() * -0.5) {
-                endevant();
+                if (metroEnPantalla) {
+                    moviment = true;
+                    if (!metroAturat) {
+                        arribaMetro();
+                        if (accMetro < 0) {
+                            personatgeSurtMetro();
+                        }
+                    } else {
+                        metroAturada();
+                    }
 
+                } else if (map.get(1).getX() > map.get(1).getAmplada() * -0.5) {
+                    endevant();
+
+                } else {
+                    moviment = false;
+
+                }
             } else {
-                moviment = false;
+                //UN COP HAS TRIAT LA RESPOSTA CORRECTE EL MAPA AVANÇA FINS A:
+                if (map.get(1).getX() > map.get(1).getAmplada() * -0.59f) {
+                    endevant();
+                } else {
+                    moviment = true;
+                    prs.setGifX(prs.getGifX() + prs.getVelX());
 
+                    prs.setCoords(prs.getCoords() + prs.getVelX());
+
+                    if (!prsVisio) pantallaNegra = true;
+
+                    if (prs.getCoords() > map.get(1).getAmplada() * 0.99f) {
+                        prsVisio = false;
+                    }
+
+                }
             }
-        }else{
-            if(map.get(1).getX()>map.get(1).getAmplada()*-0.65f){
-
-                endevant();
-
-
-            }
-            else{
-                pantallaNegra=true;
-
-
-            }
-        }
     }
 
 
-    private void updateMapa3(){
+    private void updateMapa3() {
         moviment = false;
 
         //if (x > amplaPantalla - map.getAmplada() + (prs.getAmplada() / 2)) {
-        if (map.get(2).getX()> map.get(2).getAmplada()*-0.5){
+        if (map.get(2).getX() > map.get(2).getAmplada() * -0.52) {
             endevant();
             map.get(2).getObjects().get(0).setX(map.get(2).getObjects().get(0).getX() - map.get(2).getObjects().get(0).getVelX());
 
 
         }
 
+
+        if(!correcte && !moviment){
+            mostraPreguntes=true;
+        }
+
         if (correcte) {
 
-            if (map.get(2).getX() > map.get(2).getAmplada() * -0.55) {
+            if (map.get(2).getX() > map.get(2).getAmplada() * -0.58) {
                 endevant();
 
             } else {
-                pantallaNegra = true;
+
+                moviment = true;
+                prs.setGifX(prs.getGifX() + prs.getVelX());
+
+                prs.setCoords(prs.getCoords() + prs.getVelX());
+
+                if (!prsVisio) pantallaNegra = true;
+
+                if (prs.getCoords() > map.get(2).getAmplada() * 0.9f) {
+                    prsVisio = false;
+
+
+                }
             }
-
-
         }
-
     }
 
     private void endevant(){

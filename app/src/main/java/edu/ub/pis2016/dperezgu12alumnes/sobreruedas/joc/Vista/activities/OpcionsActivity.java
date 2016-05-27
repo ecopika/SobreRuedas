@@ -19,13 +19,13 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewHandlerM
 
 
 public class OpcionsActivity extends Activity {
-    private final String PREFS_NAME = "SobreRuedasPref";
-    private final String  KEY_DIFICULTAT = "Dificultat";
+
+
     private final Integer  FACIL = R.id.radioButtonFacil;
     private final Integer  MODERADO = R.id.radioButtonModerat;
     private final Integer  DIFICIL = R.id.radioButtonDificil;
     private final Integer  MUYDIFICIL = R.id.radioButtonMoltDificil;
-    private final String KEY_SO = "So";
+
     private SharedPreferences settings;
 
 
@@ -46,8 +46,8 @@ public class OpcionsActivity extends Activity {
         RadioGroup nivell_rg = (RadioGroup) findViewById(R.id.radioGroup);
         settings = ViewHandlerMenu.getSettings();
         if (settings != null){
-            so_chk.setChecked(settings.getBoolean(KEY_SO, false));
-            Integer rb =  settings.getInt(KEY_DIFICULTAT, -1);
+            so_chk.setChecked(settings.getBoolean(ViewHandlerMenu.KEY_SO, false));
+            Integer rb =  settings.getInt(ViewHandlerMenu.KEY_DIFICULTAT, -1);
 
             if (rb != -1) {
                 RadioButton nivell_rb = (RadioButton) findViewById(rb);
@@ -63,14 +63,11 @@ public class OpcionsActivity extends Activity {
         CheckBox so_chk = (CheckBox) findViewById(R.id.cbDesactivarSo);
         RadioGroup nivell_rg = (RadioGroup) findViewById(R.id.radioGroup);
 
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(KEY_SO, so_chk.isChecked());
-        editor.putInt(KEY_DIFICULTAT, nivell_rg.getCheckedRadioButtonId());
+
+        ViewHandlerMenu.guardarPreferencies(so_chk.isChecked(), nivell_rg.getCheckedRadioButtonId());
 
         ViewHandlerMenu.setSettings(settings);
         // Commit the edits!
-        editor.commit();
         Intent in = new Intent(this,MenuActivity.class);
         startActivity(in);
         finish();

@@ -110,8 +110,9 @@ public abstract class Personatge {
 
     public void loadImage(){
         //int resourceId = cnt.getResources().getIdentifier(nomImatge, "drawable", cnt.getPackageName());
-
-        this.img = BitmapFactory.decodeResource(cnt.getResources(), R.drawable.nuriafotograma);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        this.img = BitmapFactory.decodeResource(cnt.getResources(), R.drawable.nuriafotograma,options);
     }
 
     public void loadGif(){

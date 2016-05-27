@@ -63,7 +63,8 @@ public class CanvasUtils {
     public static Bitmap loadBitmapFromString(Context cnt, String name){
         Resources res = cnt.getResources();
         final int resId = res.getIdentifier(name, "drawable", cnt.getPackageName());
-        return BitmapFactory.decodeResource(cnt.getResources(), resId);
+
+        return BitmapFactory.decodeResource(cnt.getResources(), resId,null);
     }
 
     public static float calcularFactorEscalatge (Bitmap img){

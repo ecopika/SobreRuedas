@@ -110,7 +110,6 @@
                 android:layout_row="1"
                 android:layout_rowSpan="2"
                 android:textSize="14dp"
-                android:text="Nombre: Núria"
                 android:id="@+id/textView2"/>
 
         </GridLayout>

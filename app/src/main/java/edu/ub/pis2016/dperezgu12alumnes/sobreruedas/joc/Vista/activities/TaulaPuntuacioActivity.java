@@ -16,10 +16,11 @@ import edu.ub.pis2016.dperezgu12alumnes.sobreruedas.joc.Controlador.ViewHandlerM
 public class TaulaPuntuacioActivity extends Activity {
 
     //contingut de les taules (provisional)
-    static final String[] elements = new String[] {"Dani", "300", "Jesus", "200", "xavi", "150", "Andreu", "100", "Hola", "50"};
+    /*static final String[] elements = new String[] {"Dani", "300", "Jesus", "200", "xavi", "150", "Andreu", "100", "Hola", "50"};
     static final String[] elements2 = new String[] {"Dani", "700", "Jesus", "400", "xavi", "350", "Andreu", "300", "Hola", "200"};
     static final String[] elements3 = new String[] {"Dani", "350", "Jesus", "280", "xavi", "190", "Andreu", "170", "Hola", "40"};
     static final String[] elements4 = new String[] {"Dani", "1000", "Jesus", "500", "xavi", "450", "Andreu", "200", "Hola", "70"};
+    */
     private ViewHandlerMenu ctrlM;
 
     @Override
@@ -47,10 +48,10 @@ public class TaulaPuntuacioActivity extends Activity {
 
         //Omplim les taules
 
-        llistaFacil=ctrlM.omplirTaules(llistaFacil,this,elements);
-        llistaMitja=ctrlM.omplirTaules(llistaMitja,this,elements2);
-        llistaDificil=ctrlM.omplirTaules(llistaDificil,this,elements3);
-        llistaMoltDificil=ctrlM.omplirTaules(llistaMoltDificil,this,elements4);
+        llistaFacil=ctrlM.omplirTaules(llistaFacil,this,ViewHandlerMenu.omplirLlista("facil"));
+        llistaMitja=ctrlM.omplirTaules(llistaMitja,this,ViewHandlerMenu.omplirLlista("moderat"));
+        llistaDificil=ctrlM.omplirTaules(llistaDificil,this,ViewHandlerMenu.omplirLlista("dificil"));
+        llistaMoltDificil=ctrlM.omplirTaules(llistaMoltDificil,this,ViewHandlerMenu.omplirLlista("moltDificil"));
 
 
         //tab1

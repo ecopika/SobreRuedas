@@ -77,7 +77,7 @@ public class SeleccioFragment extends Fragment{
         
         if(args.getInt("noJugar")==0){
             btnJugar.setText("Editar Perfil");
-            btnJugar.setTextSize(19.3f);
+            btnJugar.setTextSize(30.3f);
 
         }
         return rootView;

@@ -71,7 +71,13 @@ public  class ViewMapaHandler{
 
     }
 
+    public static void guardarPuntuacio(String dificultat,int puntuacio,String nom){
+        ctrlBD.guardarPuntuacio(dificultat,puntuacio,nom);
+    }
 
+    public static String[][] getPuntuacio(){
+        return ctrlBD.getPuntuacio();
+    }
 
     public static Context getContext(){
         return cnts;
