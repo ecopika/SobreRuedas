@@ -51,8 +51,10 @@ public class SeleccioFragment extends Fragment{
         nom.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         nom.setTextColor(Color.WHITE);
 
-        TextView text = (TextView) rootView.findViewById(R.id.textView) ;
-        text.setText(pers.get(0).getFrase());
+        TextView text = (TextView) rootView.findViewById(R.id.textView);
+        String frase = pers.get(0).getFrase();
+        String s1 = frase.substring(0,22);
+        text.setText(s1+"\n"+"\t\t\t\t"+frase.substring(23));
         text.setRotation(-19);
         text.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/calibri.ttf"));
         text.setTextColor(Color.WHITE);
@@ -77,7 +79,7 @@ public class SeleccioFragment extends Fragment{
         
         if(args.getInt("noJugar")==0){
             btnJugar.setText("Editar Perfil");
-            btnJugar.setTextSize(30.3f);
+            //btnJugar.setTextSize(19.3f);
 
         }
         return rootView;

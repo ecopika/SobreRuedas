@@ -85,16 +85,16 @@
 
 
     <Button
-        android:layout_width="240dp"
-        android:layout_height="180dp"
+        android:layout_width="270dp"
+        android:layout_height="210dp"
         android:id="@+id/btnOpcionsGuardar"
         android:onClick="guardarPreferencies"
         android:background="@drawable/botonnubemorada"
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:textAllCaps="false"
-        android:textSize="40sp"
-        android:paddingTop="50dp"
+        android:textSize="45sp"
+        android:paddingTop="55dp"
         android:paddingRight="10dp"
         android:layout_below="@+id/radioGroup"
         android:layout_centerHorizontal="true" />
