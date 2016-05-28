@@ -12,18 +12,16 @@
     android:background="@drawable/fonspersonatge"
     android:keepScreenOn="true">
 
-
-
-
     <TextView
-        android:layout_width="220dp"
-        android:layout_height="100dp"
+        android:layout_width="340dp"
+        android:layout_height="169dp"
         android:gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:textSize="60dp"
-        android:paddingTop="3dp"
-        android:paddingLeft="0dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="27dp"
+        android:text="Núria"
+        android:textSize="101dp"
+        android:paddingTop="6dp"
+        android:paddingLeft="15dp"
         android:id="@+id/textViewNom"
         android:textIsSelectable="false" />
     <LinearLayout
@@ -36,40 +34,41 @@
         android:layout_alignParentEnd="true">
 
         <Button
-            android:layout_width="96dp"
-            android:layout_height="80dp"
+            android:layout_width="122dp"
+            android:layout_height="106dp"
             android:layout_below="@+id/textView"
             android:id="@+id/buttonL"
             android:background="@drawable/botonnubemorada"
             android:onClick="changePageLeft"
-            android:textSize="20sp"
+            android:textSize="28sp"
             android:textAllCaps="false"
-            android:paddingTop="32dp"
-            android:paddingRight="10dp" />
+            android:paddingTop="42dp"
+            android:layout_marginLeft="41dp" />
 
         <Button
-            android:layout_width="96dp"
-            android:layout_height="80dp"
+            android:layout_width="122dp"
+            android:layout_height="106dp"
             android:id="@+id/buttonPlay"
             android:background="@drawable/blanca"
             android:onClick="bottonPlay"
-            android:textSize="20sp"
+            android:textSize="28sp"
             android:textAllCaps="false"
-            android:paddingTop="32dp"
+            android:paddingTop="42dp"
             android:paddingRight="5dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="60dp" />
 
         <Button
-            android:layout_width="96dp"
-            android:layout_height="80dp"
+            android:layout_width="122dp"
+            android:layout_height="106dp"
             android:id="@+id/buttonR"
             android:background="@drawable/botonnubemorada"
             android:onClick="changePageRight"
-            android:textSize="20sp"
+            android:textSize="28sp"
             android:textAllCaps="false"
-            android:paddingTop="32dp"
+            android:paddingTop="42dp"
             android:paddingRight="5dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="60dp"
+            android:layout_gravity="top" />
 
     </LinearLayout>
 
@@ -77,43 +76,43 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/linearLayout"
-            android:layout_marginTop="125dp"
+            android:layout_marginTop="220dp"
+            android:layout_marginLeft="5dp"
             android:columnCount="4"
             android:rowCount="3">
 
             <TextView
                 android:layout_columnSpan="2"
-                android:layout_width="215dp"
-                android:layout_height="92dp"
-
-                android:textSize="11dp"
-                android:paddingLeft="42dp"
+                android:layout_width="340dp"
+                android:layout_height="155dp"
+                android:textSize="20dp"
+                android:text="¡No hay nada imposible\n\t\t\tpara mi!"
+                android:paddingLeft="72dp"
                 android:layout_column="1"
                 android:id="@+id/textView"
-                android:paddingTop="43dp" />
+                android:paddingTop="70dp" />
             <ImageView
-                android:layout_height="260dp"
-                android:layout_width="115dp"
+                android:layout_height="400dp"
+                android:layout_width="195dp"
                 android:layout_columnSpan="1"
                 android:layout_rowSpan="2"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:id="@+id/imageView"
                 android:layout_gravity="top|bottom" />
 
             <TextView
-                android:layout_marginTop="85dp"
-                android:layout_height="207dp"
+                android:layout_marginTop="120dp"
+                android:layout_height="360dp"
                 android:layout_width="match_parent"
                 android:layout_gravity="left"
+                android:text="Nombre: Núria\nEdad: 10 años\nColor favorito: Azul\nAnimal favorito: Pantera\nComida favorita: Lasaña\nHobby: Básquet y senderismo\nÍdolo: Mujer Maravilla\nLe encanta pintar\nAntes de irse a dormir lee cómics de Mortadelo y Filemón\nNo soporta los payasos\nSu sueño es llegar a ser una gran política y cambiar cosas"
                 android:layout_column="1"
                 android:layout_columnSpan="3"
                 android:layout_row="1"
                 android:layout_rowSpan="2"
-                android:textSize="14dp"
+                android:textSize="22sp"
                 android:id="@+id/textView2"/>
 
         </GridLayout>
-
-
 
 </RelativeLayout>
