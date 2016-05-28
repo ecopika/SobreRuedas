@@ -72,6 +72,7 @@ public class JocThread extends Thread {
 
                 }
             } catch (Exception e) {
+                e.printStackTrace();
 
             } finally {
                 if (c != null) {

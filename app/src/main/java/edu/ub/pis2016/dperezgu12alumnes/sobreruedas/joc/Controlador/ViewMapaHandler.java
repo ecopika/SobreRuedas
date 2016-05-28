@@ -67,8 +67,9 @@ public  class ViewMapaHandler{
     }
 
     public static void generateBD(){
-        ctrlBD = new DataHandler(cnts,"DADES",null,1);
-
+        if(ctrlBD==null) {
+            ctrlBD = new DataHandler(cnts, "DADES", null, 1);
+        }
     }
 
     public static void guardarPuntuacio(String dificultat,int puntuacio,String nom){

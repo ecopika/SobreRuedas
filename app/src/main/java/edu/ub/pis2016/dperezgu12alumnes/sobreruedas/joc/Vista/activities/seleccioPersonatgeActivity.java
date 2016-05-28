@@ -41,7 +41,7 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
 
         ViewMapaHandler.setActivity(this);
         ViewMapaHandler.setContext(this);
-        ViewMapaHandler.generateBD();
+       // ViewMapaHandler.generateBD();
         ViewMapaHandler.generaJoc();
         NUM_PAGES = menu.getPersonatges().size();
         adapter.notifyDataSetChanged();

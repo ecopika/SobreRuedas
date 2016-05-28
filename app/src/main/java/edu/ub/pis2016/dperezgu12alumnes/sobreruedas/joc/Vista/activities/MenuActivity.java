@@ -38,6 +38,9 @@ public class MenuActivity extends Activity {
         ViewHandlerMenu.setContext(this);
 
         mn.loadPreferences();
+        ViewMapaHandler.setActivity(this);
+        ViewMapaHandler.setContext(this);
+        ViewMapaHandler.generateBD();
         //CanvasUtils.esborrarBaseDades(this);
         Log.i("dificultat",String.valueOf(ViewHandlerMenu.dificultat));
     }
@@ -51,7 +54,7 @@ public class MenuActivity extends Activity {
         ViewMapaHandler.generaJoc();
 
         startActivity(new Intent(getApplicationContext(), seleccioPersonatgeActivity.class));
-        finish();
+        //finish();
     }
 
     public void seleccioOpcions(View view) {

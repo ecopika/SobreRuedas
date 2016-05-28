@@ -149,17 +149,41 @@ public class ViewHandlerMenu {
             return gv;
     }
 
-    public static String[] omplirLlista(String dificultat){
-        String[] llista = new String[50];
-        String[][] rep = ViewMapaHandler.getPuntuacio();
-        int x=0;
-        for(int i = 0;i<rep.length;i++){
-            if(dificultat.equals(rep[i][1])){
-                llista[x]=rep[i][0];
-                llista[x+1]=rep[i][2];
-                x+=2;
-            }
+    private static String[] omplirLlistaDefecte(){
+        String[] llista = new String[2];
+        llista[0] = "No hi ";
+        llista[1] = "ha dades";
+        return llista;
 
+    }
+
+    public static String[] omplirLlista(String dificultat){
+        String[] llista;
+        String[][] rep = ViewMapaHandler.getPuntuacio();
+        ArrayList<String> nwLlista = new ArrayList<String>();
+        if(rep.length!=0) {
+            for (int i = 0; i < rep.length; i++) {
+                if(rep[i][1]!=null) {
+                    if (dificultat.equals(rep[i][1])) {
+                        nwLlista.add(rep[i][0]);
+                        nwLlista.add(rep[i][2]);
+                    }
+                }
+            }
+        }
+        if(nwLlista.size()==0) {
+            llista = omplirLlistaDefecte();
+        }
+        else {
+           llista=parseArray(nwLlista);
+        }
+        return llista;
+    }
+
+    private static String[] parseArray(ArrayList<String> lli){
+        String[] llista =new String[lli.size()];
+        for(int i =0 ;i<lli.size();i++){
+            llista[i]=lli.get(i);
         }
         return llista;
     }

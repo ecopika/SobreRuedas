@@ -28,7 +28,6 @@ public class Joc {
     private int amplaPantalla;
     private int alcadaPantalla;
     private Context cnt;
-    private int fps=30;
 
     //variables final pantalla
     //transparencia de la pantalla negra del final de la pantalla
@@ -386,6 +385,8 @@ public class Joc {
             mapa = numMapes.remove(0);
         }
 
+
+
         if (ViewHandlerMenu.dificultat == ViewHandlerMenu.difs.get("dificil")){
             maxTemps = 10;
         }else if(ViewHandlerMenu.dificultat == ViewHandlerMenu.difs.get("moltDificil")){
@@ -393,9 +394,9 @@ public class Joc {
         }
         mostraTemps = false;
 
-
+        fons = new ArrayList<Bitmap>();
         if(!finalJoc) {
-            fons = new ArrayList<Bitmap>();
+
             regenerateBitmaps();
             initMapes();
             correcte = false;
@@ -409,6 +410,10 @@ public class Joc {
             alfa = 0;
             alfaText = 0;
 
+        }else{
+            finalFons = ((BitmapDrawable) cnt.getResources().getDrawable(R.drawable.pantallafinal)).getBitmap();
+            fons.add(CanvasUtils.escalaImatge(finalFons,alcadaPantalla , amplaPantalla));
+            recycle(finalFons);
         }
         pantallaNegra = false;
         prsVisio = true;
@@ -464,8 +469,7 @@ public class Joc {
 
     //funció que mostra la pantalla final del joc
     private void mostraFinal(Canvas c){
-        finalFons = ((BitmapDrawable)cnt.getResources().getDrawable(R.drawable.pantallafinal)).getBitmap();
-        c.drawBitmap(CanvasUtils.escalaImatge(finalFons, alcadaPantalla, amplaPantalla), 0, 0, null);
+        c.drawBitmap(fons.get(fons.size()-1), 0, 0, null);
 
     }
 

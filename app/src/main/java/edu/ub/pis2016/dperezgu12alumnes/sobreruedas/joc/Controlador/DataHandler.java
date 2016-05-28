@@ -121,32 +121,48 @@ public class DataHandler  {
         String[][] pts = getPuntuacio();
         String insereixSQL="";
         boolean actualitza = false;
-        for(int i = 0;i<pts.length;i++){
-                if(pts[i][0].equals(nom) && pts[i][1].equals(dificultat) && Integer.parseInt(pts[i][2])<puntuacio){
-                    insereixSQL = "UPDATE perfil SET PUNTUACIO ="+String.valueOf(puntuacio)+"WHERE NOMPERSONATGE="+nom+"AND DIFICULTAT="+dificultat+";";
-                    actualitza=!actualitza;
+        if(pts.length!=0) {
+            for (int i = 0; i < pts.length; i++) {
+                if (pts[i][0].equals(nom) && pts[i][1].equals(dificultat) && Integer.parseInt(pts[i][2]) <= puntuacio) {
+                    insereixSQL = "UPDATE perfil SET PUNTUACIO = \"" + String.valueOf(puntuacio) + "\" WHERE NOMPERSONATGE= \"" + nom + "\" AND DIFICULTAT= \"" + dificultat + "\";";
+                    actualitza = !actualitza;
                 }
+            }
         }
         if(!actualitza) {
-            insereixSQL = "INSERT INTO perfil (NOMPERSONATGE,DIFICULTAT,PUNTUACIO) VALUES(" + nom + "," + dificultat + "," + String.valueOf(puntuacio) + ");";
+            insereixSQL = "INSERT INTO perfil (NOMPERSONATGE,DIFICULTAT,PUNTUACIO) VALUES(\"" + nom + "\",\"" + dificultat + "\",\"" + String.valueOf(puntuacio) + "\");";
         }
         db.execSQL(insereixSQL);
 
     }
 
+    private int getNumReg(String nomTaula){
+        Cursor c = db.rawQuery("SELECT COUNT(*) FROM "+nomTaula,null);
+        int cont=0;
+        if(c.moveToFirst()) {
+            do {
+                cont = c.getInt(0);
+            } while (c.moveToNext());
+        }
+        return cont;
+    }
+
     public String[][] getPuntuacio(){
-        String[][] pts = new String[50][50];
+        int numReg = getNumReg("perfil");
+        String[][] pts = new String[numReg][3];
         Cursor c = db.rawQuery("SELECT * FROM perfil",null);
         int i=0;
         if(c.moveToFirst()){
             do{
-                String[] values=new String[50];
+                String[] values=new String[3];
                 for(int x = 1;x<4;x++){
                     values[x-1] = c.getString(x);
                 }
-                pts[i]=values;
-                i++;
-            }while(c.moveToFirst());
+                if(values[0]!=null) {
+                    pts[i] = values;
+                    i++;
+                }
+            }while(c.moveToNext());
         }
         return pts;
     }

@@ -48,10 +48,10 @@ public class TaulaPuntuacioActivity extends Activity {
 
         //Omplim les taules
 
-        llistaFacil=ctrlM.omplirTaules(llistaFacil,this,ViewHandlerMenu.omplirLlista("facil"));
-        llistaMitja=ctrlM.omplirTaules(llistaMitja,this,ViewHandlerMenu.omplirLlista("moderat"));
-        llistaDificil=ctrlM.omplirTaules(llistaDificil,this,ViewHandlerMenu.omplirLlista("dificil"));
-        llistaMoltDificil=ctrlM.omplirTaules(llistaMoltDificil,this,ViewHandlerMenu.omplirLlista("moltDificil"));
+        ctrlM.omplirTaules(llistaFacil,this,ViewHandlerMenu.omplirLlista("facil"));
+        ctrlM.omplirTaules(llistaMitja,this,ViewHandlerMenu.omplirLlista("moderat"));
+        ctrlM.omplirTaules(llistaDificil,this,ViewHandlerMenu.omplirLlista("dificil"));
+        ctrlM.omplirTaules(llistaMoltDificil,this,ViewHandlerMenu.omplirLlista("moltDificil"));
 
 
         //tab1
