@@ -585,7 +585,7 @@ public class Joc {
         pintaPuntuacio(c);
 
         //vides
-        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4),  amplaPantalla*0.7f,alcadaPantalla*0.85f, null);
+        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4), amplaPantalla * 0.7f, alcadaPantalla * 0.85f, null);
     }
 
 
@@ -938,6 +938,8 @@ public class Joc {
             }
         } else {
             //UN COP HAS TRIAT LA RESPOSTA CORRECTE EL MAPA AVANÇA FINS A:
+            Log.i("X mapa", String.valueOf(map.get(1).getX()));
+            Log.i("ampla mapa", String.valueOf(map.get(1).getAmplada()));
             if (map.get(1).getX() > map.get(1).getAmplada() * -0.59f) {
                 endevant();
             } else {
@@ -998,10 +1000,6 @@ public class Joc {
 
     private void endevant(){
         moviment = true;
-        Log.i("vel mapa",String.valueOf(map.get(mapa).getVelX()));
-        Log.i("vel obj",String.valueOf(map.get(mapa).getObjects().get(0).getVelX()));
-        Log.i("X mapa",String.valueOf(map.get(mapa).getX()));
-        Log.i("X obj",String.valueOf(map.get(mapa).getObjects().get(0).getX()));
         //moviment del mapa
         map.get(mapa).setX( (map.get(mapa).getX() - map.get(mapa).getVelX()));
         //moviment dels objectes
