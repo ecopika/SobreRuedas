@@ -525,7 +525,7 @@ public class Joc {
                 pText.setAlpha(alfaText);
                 String frase1 = frase.substring(0,(frase.length()/2)+1);
                 String frase2 = frase.substring((frase.length()/2)+1,frase.length()-1);
-                pintaText(c, frase1, 5, (alcadaPantalla / 2) - frase.length(),pText);
+                pintaText(c, frase1, 5, (alcadaPantalla / 2) - (frase.length()*2),pText);
                 pintaText(c,frase2, 5, (alcadaPantalla / 2),pText);
                 if(alfaText==100) try {
                     Thread.sleep(2000);
@@ -755,14 +755,14 @@ public class Joc {
                 msg = cnt.getResources().getString(R.string.prRampa2);
                 pintaMissatgeAmbFadeInFadeOut(c,msg,pMsg);
                 msg = cnt.getResources().getString(R.string.prRampa);
-                pintaMissatgeAmbFadeInFadeOut(c, msg,(alcadaPantalla/2)-msg.length(),pMsg);
+                pintaMissatgeAmbFadeInFadeOut(c, msg,(alcadaPantalla/2)-msg.length()*2,pMsg);
 
                 break;
             case 1:
                 pMsg.setTextSize((amplaPantalla / (frase.length() * 0.3f)));
 
                 msg = cnt.getResources().getString(R.string.prMetro2);
-                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)+((msg.length()*4)+msg.length()*1.2f),pMsg);
+                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)+((msg.length()*4)+msg.length()*3f),pMsg);
                 msg = cnt.getResources().getString(R.string.prMetro);
                 pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)+(msg.length()*4),pMsg);
                 break;
@@ -771,11 +771,11 @@ public class Joc {
                 pMsg.setTextSize((amplaPantalla / (frase.length() * 0.35f)));
 
                 msg = cnt.getResources().getString(R.string.prPorta3);
-                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)+msg.length(),pMsg);
+                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)+msg.length()*2,pMsg);
                 msg = cnt.getResources().getString(R.string.prPorta2);
                 pintaMissatgeAmbFadeInFadeOut(c,msg,pMsg);
                 msg = cnt.getResources().getString(R.string.prPorta);
-                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)-msg.length(),pMsg);
+                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)-msg.length()*2,pMsg);
                 break;
         }
 
