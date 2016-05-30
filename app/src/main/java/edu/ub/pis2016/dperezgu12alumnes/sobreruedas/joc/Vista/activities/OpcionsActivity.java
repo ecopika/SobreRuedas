@@ -69,7 +69,9 @@ public class OpcionsActivity extends Activity {
         ViewHandlerMenu.setSettings(settings);
         // Commit the edits!
         Intent in = new Intent(this,MenuActivity.class);
-        //startActivity(in);
+
+        ViewHandlerMenu.loadPreferences();
+
         finish();
     }
 
