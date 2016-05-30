@@ -48,11 +48,11 @@ public class ViewHandlerMenu {
 
     public static void loadPreferences(){
 
-        if (comprarSharedPreferences()){
-            settings = meuContext.getSharedPreferences(PREFS_NAME, 0);
-            dificultat = settings.getInt(KEY_DIFICULTAT,-1);
+        comprarSharedPreferences();
+        settings = meuContext.getSharedPreferences(PREFS_NAME, 0);
+        dificultat = settings.getInt(KEY_DIFICULTAT,-1);
 
-        }
+
 
     }
 
@@ -68,16 +68,10 @@ public class ViewHandlerMenu {
         settings = setting;
     }
 
-    public static boolean comprarSharedPreferences(){
-        File f = new File(
-                "/data/data/edu.ub.pis2016.dperezgu12alumnes.sobreruedas/shared_prefs/SobreRuedasPref.xml");
-        if (f.exists())
-            return true;
-        else{
-
-           //guardarPreferencies(true, );
-
-            return false;
+    public static void comprarSharedPreferences() {
+        File f = new File("/data/data/edu.ub.pis2016.dperezgu12alumnes.sobreruedas/shared_prefs/SobreRuedasPref.xml");
+        if (!f.exists()) {
+            guardarPreferencies(true, 2131558517);
         }
     }
 
