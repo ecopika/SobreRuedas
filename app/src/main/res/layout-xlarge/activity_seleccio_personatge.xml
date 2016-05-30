@@ -51,7 +51,7 @@
             android:id="@+id/buttonPlay"
             android:background="@drawable/blanca"
             android:onClick="bottonPlay"
-            android:textSize="35sp"
+            android:textSize="32sp"
             android:textAllCaps="false"
             android:paddingTop="50dp"
             android:paddingRight="11dp"
@@ -85,11 +85,11 @@
                 android:layout_columnSpan="2"
                 android:layout_width="460dp"
                 android:layout_height="192dp"
-                android:textSize="23dp"
-                android:paddingLeft="107dp"
+                android:textSize="35sp"
+                android:paddingLeft="120dp"
                 android:layout_column="1"
                 android:id="@+id/textView"
-                android:paddingTop="90dp" />
+                android:paddingTop="70dp" />
             <ImageView
                 android:layout_height="550dp"
                 android:layout_width="235dp"
@@ -100,7 +100,7 @@
                 android:layout_gravity="top|bottom" />
 
             <TextView
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="200dp"
                 android:layout_height="477dp"
                 android:layout_width="match_parent"
                 android:layout_gravity="left"
@@ -112,7 +112,5 @@
                 android:id="@+id/textView2"/>
 
         </GridLayout>
-
-
 
 </RelativeLayout>

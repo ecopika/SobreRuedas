@@ -18,7 +18,6 @@
         android:gravity="center_horizontal"
         android:layout_marginLeft="42dp"
         android:layout_marginTop="27dp"
-        android:text="Núria"
         android:textSize="101dp"
         android:paddingTop="6dp"
         android:paddingLeft="15dp"
@@ -51,7 +50,7 @@
             android:id="@+id/buttonPlay"
             android:background="@drawable/blanca"
             android:onClick="bottonPlay"
-            android:textSize="28sp"
+            android:textSize="26sp"
             android:textAllCaps="false"
             android:paddingTop="42dp"
             android:paddingRight="5dp"
@@ -85,12 +84,11 @@
                 android:layout_columnSpan="2"
                 android:layout_width="340dp"
                 android:layout_height="155dp"
-                android:textSize="20dp"
-                android:text="¡No hay nada imposible\n\t\t\tpara mi!"
-                android:paddingLeft="72dp"
+                android:textSize="28sp"
+                android:paddingLeft="84dp"
                 android:layout_column="1"
                 android:id="@+id/textView"
-                android:paddingTop="70dp" />
+                android:paddingTop="60dp" />
             <ImageView
                 android:layout_height="400dp"
                 android:layout_width="195dp"
@@ -101,16 +99,15 @@
                 android:layout_gravity="top|bottom" />
 
             <TextView
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="140dp"
                 android:layout_height="360dp"
                 android:layout_width="match_parent"
                 android:layout_gravity="left"
-                android:text="Nombre: Núria\nEdad: 10 años\nColor favorito: Azul\nAnimal favorito: Pantera\nComida favorita: Lasaña\nHobby: Básquet y senderismo\nÍdolo: Mujer Maravilla\nLe encanta pintar\nAntes de irse a dormir lee cómics de Mortadelo y Filemón\nNo soporta los payasos\nSu sueño es llegar a ser una gran política y cambiar cosas"
                 android:layout_column="1"
                 android:layout_columnSpan="3"
                 android:layout_row="1"
                 android:layout_rowSpan="2"
-                android:textSize="22sp"
+                android:textSize="23sp"
                 android:id="@+id/textView2"/>
 
         </GridLayout>

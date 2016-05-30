@@ -82,11 +82,11 @@
                 android:layout_columnSpan="2"
                 android:layout_width="215dp"
                 android:layout_height="92dp"
-                android:textSize="14sp"
+                android:textSize="17sp"
                 android:paddingLeft="42dp"
                 android:layout_column="1"
                 android:id="@+id/textView"
-                android:paddingTop="50dp" />
+                android:paddingTop="37dp" />
             <ImageView
                 android:layout_height="260dp"
                 android:layout_width="115dp"
@@ -105,7 +105,7 @@
                 android:layout_columnSpan="3"
                 android:layout_row="1"
                 android:layout_rowSpan="2"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:id="@+id/textView2"/>
 
         </GridLayout>

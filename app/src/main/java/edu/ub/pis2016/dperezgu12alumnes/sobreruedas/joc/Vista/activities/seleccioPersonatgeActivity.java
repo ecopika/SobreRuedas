@@ -63,7 +63,6 @@ public class seleccioPersonatgeActivity extends FragmentActivity {
             args.putInt("noJugar",0);
             Intent in = new Intent(this,MenuActivity.class);
             startActivity(in);
-
         }
         else{
             args.putInt("noJugar",1);

@@ -56,7 +56,7 @@ public class SeleccioFragment extends Fragment{
         String s1 = frase.substring(0,22);
         text.setText(s1+"\n"+"\t\t\t\t"+frase.substring(23));
         text.setRotation(-19);
-        text.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/calibri.ttf"));
+        text.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "fonts/BrannbollFS_PERSONAL.ttf"));
         text.setTextColor(Color.WHITE);
 
         TextView text2 = (TextView) rootView.findViewById(R.id.textView2);
