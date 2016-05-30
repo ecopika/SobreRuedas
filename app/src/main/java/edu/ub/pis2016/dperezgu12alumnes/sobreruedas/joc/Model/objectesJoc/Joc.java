@@ -501,7 +501,7 @@ public class Joc {
         pPuntuacio.setTextSize(amplaPantalla * 0.2f);
         pPuntuacio.setColor(Color.BLACK);
         if(puntuacio>0) {
-            c.drawText(String.valueOf(puntuacio), amplaPantalla * 0.4f, alcadaPantalla * 0.9f, pPuntuacio);
+            c.drawText(String.valueOf(puntuacio), amplaPantalla * 0.4f, alcadaPantalla * 0.95f, pPuntuacio);
         }
         else{
             c.drawText("0", amplaPantalla * 0.4f, alcadaPantalla * 0.9f, pPuntuacio);
@@ -570,7 +570,7 @@ public class Joc {
             }
         }
         //vides
-        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4),  amplaPantalla*0.7f,alcadaPantalla*0.8f, null);
+        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4),  amplaPantalla*0.7f,alcadaPantalla*0.85f, null);
         if (!metroEnPantalla && prsVisio) {
             pintarObstaclePersonatge(c);
             comprovarTouchMapa();
