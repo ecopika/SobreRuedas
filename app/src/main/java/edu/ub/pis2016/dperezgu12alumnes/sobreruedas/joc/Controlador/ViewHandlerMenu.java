@@ -47,13 +47,9 @@ public class ViewHandlerMenu {
     }
 
     public static void loadPreferences(){
-
         comprarSharedPreferences();
         settings = meuContext.getSharedPreferences(PREFS_NAME, 0);
         dificultat = settings.getInt(KEY_DIFICULTAT,-1);
-
-
-
     }
 
     public static SharedPreferences getSettings(){
