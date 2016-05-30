@@ -29,6 +29,7 @@ public class Mapa  {
     private ArrayList<ObjecteJoc> obj;
     private String nomImg;
     private String nomImg2;
+    private String txtTrans;
 
 
 
@@ -104,6 +105,14 @@ public class Mapa  {
 
     public ArrayList<ObjecteJoc> getObjects(){
         return this.obj;
+    }
+
+    public void setTextTrans(String txt){
+        this.txtTrans = txt;
+    }
+
+    public String getTextTrans(){
+        return this.txtTrans;
     }
 
 

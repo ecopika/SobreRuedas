@@ -34,6 +34,7 @@ public class Joc {
     private int alfa;
     //transparencia del text
     private int alfaText;
+    private int alfaMissatge;
     //paint per al text del final
     private Paint pText;
     //frase a mostrar com a transició entre pantalles
@@ -45,7 +46,11 @@ public class Joc {
     //pantalla negre
     private Paint paint;
 
-//configuracio bitmaps
+    //configuració dels textos
+    private ArrayList<String> textosTrans;
+    private ArrayList<String> textosResp;
+
+    //configuracio bitmaps
     BitmapFactory.Options op = new BitmapFactory.Options();
 
 
@@ -109,6 +114,8 @@ public class Joc {
     private long tempsActual;
     private int maxTemps;
     private boolean mostraTemps;
+    //CONTROLEM EL FADEIN FADEOUT DEL TEXT
+    private boolean ocultaText;
 
     //control del mostreig de preguntes
     private boolean mostraPreguntes;
@@ -157,10 +164,12 @@ public class Joc {
     /*****************************************************************************************************************
      * FUNCIONS PER INICIALITZAR EL JOC
      *****************************************************************************************************************/
+
+
     //--------INICIALITZEM EL MAPA -----------
 
     private void initMapes(){
-        initObjectesJoc();
+        initVariablesControl();
         initObjMapa();
         if (mapa == 1){
             configMetro();
@@ -172,12 +181,13 @@ public class Joc {
 
     }
 
-    //INICIALITZEM ELS OBJECTES DEL JOC
-    private void initObjectesJoc(){
+    //INICIALITZEM LES VARIABLES DE CONTROL
+    private void initVariablesControl(){
 
         passaTemps = false;
         moviment = false;
         loadImage=false;
+        ocultaText=false;
 
 
 
@@ -233,10 +243,10 @@ public class Joc {
     public void initFinalPantalla(){
         alfa=0;
         alfaText = 0;
-
+        alfaMissatge=0;
+        frase=".";
         pText = new Paint();
-        frase = "Al cap d'una estona..";
-        pText.setTextSize((amplaPantalla / frase.length()) * 2);
+
         pText.setColor(Color.WHITE);
 
 
@@ -249,6 +259,7 @@ public class Joc {
             numMapes.add(i);
         }
         Collections.shuffle(numMapes);
+
     }
 
 
@@ -336,10 +347,10 @@ public class Joc {
         recycle(tic);
         //2 VIDES :8
         if(prs.getNumVides()==2) {
-            fons.add(CanvasUtils.escalaImatge(prs.getVides().get(1), alcadaPantalla, amplaPantalla));
+            fons.add(CanvasUtils.escalaImatge(prs.getVides().get(1), alcadaPantalla*0.117f, amplaPantalla*0.28f));
         }
         else{
-            fons.add(CanvasUtils.escalaImatge(prs.getVides().get(0), alcadaPantalla, amplaPantalla));
+            fons.add(CanvasUtils.escalaImatge(prs.getVides().get(0), alcadaPantalla*0.117f, amplaPantalla*0.28f));
 
         }
     }
@@ -380,10 +391,19 @@ public class Joc {
             }
             ViewMapaHandler.guardarPuntuacio(difi,puntuacio,prs.getNom());
         }
+
         if (numMapes.size() > 0) {
 
             mapa = numMapes.remove(0);
+            if(numMapes.size()>0) {
+                frase = map.get(numMapes.get(0)).getTextTrans();
+            }
+            pText.setTextSize((amplaPantalla / (frase.length()*0.25f)));
+
+
         }
+
+
 
 
 
@@ -459,6 +479,9 @@ public class Joc {
 
 
             } else {
+                pText.setColor(Color.WHITE);
+                pText.setTextSize((amplaPantalla / (frase.length() * 0.25f)));
+
                 pintaNegra(c);
 
             }
@@ -469,13 +492,13 @@ public class Joc {
 
     //funció que mostra la pantalla final del joc
     private void mostraFinal(Canvas c){
-        c.drawBitmap(fons.get(fons.size()-1), 0, 0, null);
+        c.drawBitmap(fons.get(fons.size() - 1), 0, 0, null);
 
     }
 
     //FUNCIÓ QUE PINTA LA PUNTUACIÓ
     private void pintaPuntuacio(Canvas c){
-        pPuntuacio.setTextSize(amplaPantalla*0.2f);
+        pPuntuacio.setTextSize(amplaPantalla * 0.2f);
         pPuntuacio.setColor(Color.BLACK);
         if(puntuacio>0) {
             c.drawText(String.valueOf(puntuacio), amplaPantalla * 0.4f, alcadaPantalla * 0.9f, pPuntuacio);
@@ -500,10 +523,22 @@ public class Joc {
             if (alfa == 100) {
                 if (alfaText < 100) alfaText++;
                 pText.setAlpha(alfaText);
-                c.drawText(frase, 5, alcadaPantalla / 2, pText);
+                String frase1 = frase.substring(0,(frase.length()/2)+1);
+                String frase2 = frase.substring((frase.length()/2)+1,frase.length()-1);
+                pintaText(c, frase1, 5, (alcadaPantalla / 2) - frase.length(),pText);
+                pintaText(c,frase2, 5, (alcadaPantalla / 2),pText);
+                if(alfaText==100) try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
+    }
+
+    private void pintaText(Canvas c, String text, float x,float y, Paint p){
+        c.drawText(text, x, y, p);
     }
 
 
@@ -515,6 +550,7 @@ public class Joc {
 
         if (mapa == 1 && accMetro<0 && metroEnPantalla && prsVisio){
             pintarObstaclePersonatge(c);
+
         }
 
 
@@ -534,7 +570,7 @@ public class Joc {
             }
         }
         //vides
-        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4), 0, 0, null);
+        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4),  amplaPantalla*0.7f,alcadaPantalla*0.8f, null);
         if (!metroEnPantalla && prsVisio) {
             pintarObstaclePersonatge(c);
             comprovarTouchMapa();
@@ -639,7 +675,7 @@ public class Joc {
     private void carregaUnaVida(){
         if (!loadImage) {
             recycle(fons.get(map.get(mapa).getObjects().size() + 4));
-            fons.set(map.get(mapa).getObjects().size() + 4, CanvasUtils.escalaImatge(prs.getVides().get(0), alcadaPantalla, amplaPantalla));
+            fons.set(map.get(mapa).getObjects().size() + 4, CanvasUtils.escalaImatge(prs.getVides().get(0), alcadaPantalla*0.117f, amplaPantalla*0.28f));
             loadImage = true;
         }
     }
@@ -677,6 +713,7 @@ public class Joc {
                 pTemps.setTextSize(amplaPantalla * 0.2f);
                 mostraTemps=true;
             }
+            pintarMissatgesPreguntes(c);
             primeraVegadaEntra = true;
             tempsActual = System.currentTimeMillis();
 
@@ -689,6 +726,7 @@ public class Joc {
                     }
                     if(t==0){
                         prs.setNumVides(0);
+                        puntuacio-=30;
                     }
                 }
             }
@@ -699,6 +737,66 @@ public class Joc {
 
             c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 5), 0, 0, null);
         }
+    }
+
+    public void pintarMissatgesPreguntes(Canvas c){
+        String msg ="";
+        Paint pMsg = new Paint();
+        pMsg.setColor(Color.BLACK);
+        pMsg.setStyle(Paint.Style.STROKE);
+        pMsg.setStrokeJoin(Paint.Join.ROUND);
+        pMsg.setStrokeMiter(10.0f);
+        pMsg.setStrokeWidth(3);
+
+        switch (mapa){
+            case 0:
+                pMsg.setTextSize((amplaPantalla / (frase.length() * 0.4f)));
+
+                msg = cnt.getResources().getString(R.string.prRampa2);
+                pintaMissatgeAmbFadeInFadeOut(c,msg,pMsg);
+                msg = cnt.getResources().getString(R.string.prRampa);
+                pintaMissatgeAmbFadeInFadeOut(c, msg,(alcadaPantalla/2)-msg.length(),pMsg);
+
+                break;
+            case 1:
+                pMsg.setTextSize((amplaPantalla / (frase.length() * 0.3f)));
+
+                msg = cnt.getResources().getString(R.string.prMetro2);
+                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)+((msg.length()*4)+msg.length()*1.2f),pMsg);
+                msg = cnt.getResources().getString(R.string.prMetro);
+                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)+(msg.length()*4),pMsg);
+                break;
+            case 2:
+
+                pMsg.setTextSize((amplaPantalla / (frase.length() * 0.35f)));
+
+                msg = cnt.getResources().getString(R.string.prPorta3);
+                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)+msg.length(),pMsg);
+                msg = cnt.getResources().getString(R.string.prPorta2);
+                pintaMissatgeAmbFadeInFadeOut(c,msg,pMsg);
+                msg = cnt.getResources().getString(R.string.prPorta);
+                pintaMissatgeAmbFadeInFadeOut(c,msg,(alcadaPantalla/2)-msg.length(),pMsg);
+                break;
+        }
+
+    }
+//animacio fade in fadeout al mig de la pantalla
+    private void pintaMissatgeAmbFadeInFadeOut(Canvas c,String txt, Paint p){
+        int t=9999999;
+        if(alfaMissatge<100 && !ocultaText)alfaMissatge++;
+
+        if(correcte && alfaMissatge > 0)alfaMissatge--;
+        p.setAlpha(alfaMissatge);
+        pintaText(c,txt,5,(alcadaPantalla/2),p);
+    }
+//animacio fade in fade out amb la y parametritzada
+    private void pintaMissatgeAmbFadeInFadeOut(Canvas c,String txt,float y, Paint p){
+        int t=9999999;
+        if(alfaMissatge<200 && !ocultaText)alfaMissatge++;
+
+        if(correcte && alfaMissatge > 0)alfaMissatge--;
+        p.setAlpha(alfaMissatge);
+        pintaText(c,txt,5,y,p);
     }
 
     //CARREGA EL BITMAP DE LA RESPOSTA DE LA PART DEL MAPA CORRESPONENT
@@ -809,48 +907,48 @@ public class Joc {
             mostraPreguntes=true;
         }
 
-            if (!correcte) {
-                if (map.get(1).getObjects().get(2).getX() > amplaPantalla) {
-                    recycle(fons.get(4));
-                    metroEnPantalla = false;
-                }
-
-                if (metroEnPantalla) {
-                    moviment = true;
-                    if (!metroAturat) {
-                        arribaMetro();
-                        if (accMetro < 0) {
-                            personatgeSurtMetro();
-                        }
-                    } else {
-                        metroAturada();
-                    }
-
-                } else if (map.get(1).getX() > map.get(1).getAmplada() * -0.5) {
-                    endevant();
-
-                } else {
-                    moviment = false;
-
-                }
-            } else {
-                //UN COP HAS TRIAT LA RESPOSTA CORRECTE EL MAPA AVANÇA FINS A:
-                if (map.get(1).getX() > map.get(1).getAmplada() * -0.59f) {
-                    endevant();
-                } else {
-                    moviment = true;
-                    prs.setGifX(prs.getGifX() + prs.getVelX());
-
-                    prs.setCoords(prs.getCoords() + prs.getVelX());
-
-                    if (!prsVisio) pantallaNegra = true;
-
-                    if (prs.getCoords() > map.get(1).getAmplada() * 0.99f) {
-                        prsVisio = false;
-                    }
-
-                }
+        if (!correcte) {
+            if (map.get(1).getObjects().get(2).getX() > amplaPantalla) {
+                recycle(fons.get(4));
+                metroEnPantalla = false;
             }
+
+            if (metroEnPantalla) {
+                moviment = true;
+                if (!metroAturat) {
+                    arribaMetro();
+                    if (accMetro < 0) {
+                        personatgeSurtMetro();
+                    }
+                } else {
+                    metroAturada();
+                }
+
+            } else if (map.get(1).getX() > map.get(1).getAmplada() * -0.5) {
+                endevant();
+
+            } else {
+                moviment = false;
+
+            }
+        } else {
+            //UN COP HAS TRIAT LA RESPOSTA CORRECTE EL MAPA AVANÇA FINS A:
+            if (map.get(1).getX() > map.get(1).getAmplada() * -0.59f) {
+                endevant();
+            } else {
+                moviment = true;
+                prs.setGifX(prs.getGifX() + prs.getVelX());
+
+                prs.setCoords(prs.getCoords() + prs.getVelX());
+
+                if (!prsVisio) pantallaNegra = true;
+
+                if (prs.getCoords() > map.get(1).getAmplada() * 0.99f) {
+                    prsVisio = false;
+                }
+
+            }
+        }
     }
 
 

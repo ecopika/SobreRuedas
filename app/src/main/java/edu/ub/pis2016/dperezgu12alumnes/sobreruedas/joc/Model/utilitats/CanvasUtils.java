@@ -76,6 +76,7 @@ public class CanvasUtils {
     public static void esborrarBaseDades(Context cnt){
         cnt.deleteDatabase("DADES");
         cnt.deleteDatabase("DADES-journal");
+
     }
 
 

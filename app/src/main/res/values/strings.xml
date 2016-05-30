@@ -17,5 +17,16 @@
     <string name="molt_dificil">MUY DIFÍCIL</string>
     <string name="button1">BUTTON1</string>
 
+
+    <!-- Strings de les preguntes -->
+    <string name="prMetro">La Núria no pot pujar per</string>
+    <string name="prMetro2">les escales, necessita...</string>
+    <string name="prRampa">La Núria es troba amb unes escales</string>
+    <string name="prRampa2">que no pot baixar, l\'ideal seria...</string>
+    <string name="prPorta">Al intentar entrar a la botiga la</string>
+    <string name="prPorta2">Núria es troba que la porta es</string>
+    <string name="prPorta3">massa petita, la solució seria...</string>
+
+
     <string name="title_activity_map">MapActivity</string>
 </resources>

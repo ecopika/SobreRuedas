@@ -47,6 +47,7 @@ public class DataHandler  {
                 m.setId(c.getInt(0));
                 m.setNomImg(c.getString(1));
                 m.setNomImg2(c.getString(2));
+                m.setTextTrans(c.getString(3));
                 Obstacles o = getObstacle(m.getId());
                 m.setObstacles(o);
                 m.loadFons1();
@@ -54,6 +55,7 @@ public class DataHandler  {
                 mps.add(m);
             }while (c.moveToNext());
         }
+        c.close();
         return mps;
     }
 
@@ -71,6 +73,7 @@ public class DataHandler  {
                 obj.add(p);
             }while(c.moveToNext());
         }
+        c.close();
         return obj;
     }
 
@@ -85,6 +88,7 @@ public class DataHandler  {
                 facts.add(c.getFloat(1));
             }while(c.moveToNext());
         }
+        c.close();
         return facts;
     }
 //obtenim els obstacles de cada mapa a partir del seu id
@@ -112,7 +116,7 @@ public class DataHandler  {
 
             }while(c.moveToNext());
         }
-
+        c.close();
         return o;
 
     }
