@@ -548,6 +548,7 @@ public class Joc {
         c.drawBitmap(fons.get(0), map.get(mapa).getX(), map.get(mapa).getY(), null);
 
 
+
         if (mapa == 1 && accMetro<0 && metroEnPantalla && prsVisio){
             pintarObstaclePersonatge(c);
 
@@ -569,8 +570,9 @@ public class Joc {
 
             }
         }
-        //vides
-        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4),  amplaPantalla*0.7f,alcadaPantalla*0.85f, null);
+
+
+
         if (!metroEnPantalla && prsVisio) {
             pintarObstaclePersonatge(c);
             comprovarTouchMapa();
@@ -581,6 +583,9 @@ public class Joc {
 
         comptaTempsTic(2, c);
         pintaPuntuacio(c);
+
+        //vides
+        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4),  amplaPantalla*0.7f,alcadaPantalla*0.85f, null);
     }
 
 
