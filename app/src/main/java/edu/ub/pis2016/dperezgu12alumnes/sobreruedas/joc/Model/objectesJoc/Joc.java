@@ -389,6 +389,9 @@ public class Joc {
                     difi = e.getKey();
                 }
             }
+            if(puntuacio<0){
+                puntuacio=0;
+            }
             ViewMapaHandler.guardarPuntuacio(difi,puntuacio,prs.getNom());
         }
 
@@ -504,7 +507,7 @@ public class Joc {
             c.drawText(String.valueOf(puntuacio), amplaPantalla * 0.4f, alcadaPantalla * 0.95f, pPuntuacio);
         }
         else{
-            c.drawText("0", amplaPantalla * 0.4f, alcadaPantalla * 0.9f, pPuntuacio);
+            c.drawText("0", amplaPantalla * 0.4f, alcadaPantalla * 0.95f, pPuntuacio);
 
         }
     }
@@ -939,8 +942,7 @@ public class Joc {
             }
         } else {
             //UN COP HAS TRIAT LA RESPOSTA CORRECTE EL MAPA AVANÇA FINS A:
-            Log.i("X mapa", String.valueOf(map.get(1).getX()));
-            Log.i("ampla mapa", String.valueOf(map.get(1).getAmplada()));
+
             if (map.get(1).getX() > map.get(1).getAmplada() * -0.59f) {
                 endevant();
             } else {
@@ -1031,15 +1033,10 @@ public class Joc {
 
     //FUNCIO PER MOURE L'EIX Y DEL PERSONATGE MENTRE ESTA SORTINT EL METRO
     private void personatgeSurtMetro(){
-        float yPersonatge = 0f;
-        if (alcadaPantalla>1000){
-            yPersonatge = 0.5f;
-        }else{
-            yPersonatge = 0.75f;
-        }
-        Log.i("yPersonatge",String.valueOf(yPersonatge));
-        Log.i("yGif",String.valueOf(prs.getGifY()));
-        if ((prs.getGifY()+(prs.getAlcada()*0.5f))>alcadaPantalla*yPersonatge){
+        float yPersonatge = 0.5f;
+
+
+        if ((prs.getGifY()+(prs.getAlcada()*0.35f))>alcadaPantalla*yPersonatge){
             prs.setGifY(prs.getGifY() - prs.getVelY()*2);
             prs.setY(prs.getGifY()*escalatgeYGif);
         }
