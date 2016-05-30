@@ -403,6 +403,8 @@ public class Joc {
 
         }
 
+        mapa = 2;
+
 
 
 
@@ -725,7 +727,7 @@ public class Joc {
             if (mostraTemps) {
                 if (ViewHandlerMenu.dificultat > ViewHandlerMenu.difs.get("moderat")) {
                     int t = maxTemps - (int) ((tempsActual - tempsInici) / 1000);
-                    c.drawText(String.valueOf(t), amplaPantalla*0.1f, alcadaPantalla*0.9f, pTemps);
+                    c.drawText(String.valueOf(t), amplaPantalla*0.1f, alcadaPantalla*0.95f, pTemps);
                     if (t < 4) {
                         pTemps.setColor(Color.RED);
                     }
@@ -950,7 +952,7 @@ public class Joc {
 
                 if (!prsVisio) pantallaNegra = true;
 
-                if (prs.getCoords() > map.get(1).getAmplada() * 0.99f) {
+                if (prs.getCoords() > map.get(1).getAmplada() * 0.85f) {
                     prsVisio = false;
                 }
 
@@ -989,7 +991,7 @@ public class Joc {
 
                 if (!prsVisio) pantallaNegra = true;
 
-                if (prs.getCoords() > map.get(2).getAmplada() * 0.9f) {
+                if (prs.getCoords() > map.get(2).getAmplada() * 0.8f) {
                     prsVisio = false;
 
 
