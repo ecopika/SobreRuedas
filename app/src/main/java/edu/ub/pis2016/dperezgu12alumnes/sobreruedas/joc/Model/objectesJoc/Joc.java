@@ -403,7 +403,7 @@ public class Joc {
 
         }
 
-
+        mapa = 1;
 
 
 
@@ -585,7 +585,7 @@ public class Joc {
         pintaPuntuacio(c);
 
         //vides
-        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4),  amplaPantalla*0.7f,alcadaPantalla*0.85f, null);
+        c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 4), amplaPantalla * 0.7f, alcadaPantalla * 0.85f, null);
     }
 
 
@@ -718,7 +718,7 @@ public class Joc {
                 pTemps.setTextSize(amplaPantalla * 0.2f);
                 mostraTemps=true;
             }
-            pintarMissatgesPreguntes(c);
+
             primeraVegadaEntra = true;
             tempsActual = System.currentTimeMillis();
 
@@ -741,6 +741,7 @@ public class Joc {
 
 
             c.drawBitmap(fons.get(map.get(mapa).getObjects().size() + 5), 0, 0, null);
+            pintarMissatgesPreguntes(c);
         }
     }
 
@@ -1038,7 +1039,9 @@ public class Joc {
         }else{
             yPersonatge = 0.75f;
         }
-        if (prs.getGifY()>alcadaPantalla*yPersonatge){
+        Log.i("yPersonatge",String.valueOf(yPersonatge));
+        Log.i("yGif",String.valueOf(prs.getGifY()));
+        if ((prs.getGifY()+(prs.getAlcada()*0.5f))>alcadaPantalla*yPersonatge){
             prs.setGifY(prs.getGifY() - prs.getVelY()*2);
             prs.setY(prs.getGifY()*escalatgeYGif);
         }
