@@ -19,7 +19,7 @@ public class Mapa  {
 
     private float alcada;
     private float amplada;
-    private int x;
+    private float x;
     private int y;
     private Bitmap fons;
     private Bitmap fons2;
@@ -135,11 +135,11 @@ public class Mapa  {
         this.amplada = amplada;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
